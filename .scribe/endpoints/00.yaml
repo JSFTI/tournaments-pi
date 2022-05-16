@@ -1,0 +1,334 @@
+name: 'Tournament Management'
+description: |-
+
+  APIS for managing tournaments
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: tournaments
+    metadata:
+      title: 'Get tournaments'
+      description: 'Tournament list is ordered by creation time.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters:
+      page:
+        name: page
+        description: 'Defaults to ```1```. Values less than 1 will default to 1.'
+        required: false
+        example: 1
+        type: integer
+        custom: []
+      name:
+        name: name
+        description: 'Search for tournament that contains ```name``` keyword.'
+        required: false
+        example: null
+        type: string
+        custom: []
+      limit:
+        name: limit
+        description: 'Defaults to ```10```. Values less than 1 will default to 1.'
+        required: false
+        example: 10
+        type: integer
+        custom: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "count": 100,
+            "total_pages": 10,
+            "page": 1,
+            "next_page": "/tournaments?page=2",
+            "prev_page": null,
+            "results": [
+              {
+                "id": 1,
+                "name": "Tournament 1",
+                "description": "The mind is willing, but the body is spongy and bruised",
+                "created_at": "1970-01-01 00:00:00",
+                "updated_at": "1970-01-01 00:00:00",
+                "_url": "/tournaments/1"
+              }
+            ]
+          }
+        headers: []
+        description: '200, Success'
+      -
+        status: 404
+        content: |-
+          {
+            "message": "Not Found"
+          }
+        headers: []
+        description: '404, Not Found'
+    responseFields:
+      count:
+        name: count
+        description: ''
+        type: integer
+      total_pages:
+        name: total_pages
+        description: ''
+        type: integer
+      next_page:
+        name: next_page
+        description: 'Returns ```null``` if last page is reached.'
+        type: string
+      prev_page:
+        name: prev_page
+        description: 'Returns ```null``` if it is the first page.'
+        type: string
+      results:
+        name: results
+        description: 'List of tournaments'
+        type: 'object[]'
+      results.id:
+        name: results.id
+        description: 'Tournament ID.'
+        type: integer
+      results.name:
+        name: results.name
+        description: 'Tournament name.'
+        type: string
+      results.description:
+        name: results.description
+        description: 'Tournament description.'
+        type: string
+      results.created_at:
+        name: results.created_at
+        description: 'Tournament creation timestamp.'
+        type: string
+      results.updated_at:
+        name: results.updated_at
+        description: 'Last update timestamp.'
+        type: string
+  -
+    httpMethods:
+      - POST
+    uri: tournaments
+    metadata:
+      title: 'Create a tournament'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Name of the tournament. Must be less than or equal to 100 characters. Must not be greater than 100 characters.'
+        required: true
+        example: 'Tournament Awesome'
+        type: string
+        custom: []
+      description:
+        name: description
+        description: 'Short description of the tournament. Must be less than or equal to 500 characters. Note: WYSIWYG tags and markdowns are considered too. Must not be greater than 500 characters.'
+        required: false
+        example: 'Lorem ipsum dolor sit...'
+        type: string
+        custom: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+            "id": 1,
+            "name": "Tournament 1",
+            "description": "The mind is willing, but the body is spongy and bruised",
+            "created_at": "1970-01-01 00:00:00",
+            "updated_at": "1970-01-01 00:00:00",
+            "_url": "/tournaments/1"
+          }
+        headers: []
+        description: '201, Created'
+      -
+        status: 422
+        content: |-
+          {
+            "message": "Please give a name to the tournament (and 1 more error)",
+            "errors": {
+                "name": [
+                    "Please give a name to the tournament"
+                ],
+                "description": [
+                    "Description must be under 500 characters"
+                ]
+            }
+          }
+        headers: []
+        description: '422, Invalid Request Body'
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'tournaments/{id}'
+    metadata:
+      title: 'Get a tournament'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the tournament.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "id": 1,
+            "name": "Tournament 1",
+            "description": "The mind is willing, but the body is spongy and bruised",
+            "created_at": "1970-01-01 00:00:00",
+            "updated_at": "1970-01-01 00:00:00",
+            "_url": "/tournaments/1"
+          }
+        headers: []
+        description: '200, Success'
+      -
+        status: 404
+        content: |-
+          {
+            "message": "Not Found"
+          }
+        headers: []
+        description: '404, Not Found'
+    responseFields:
+      id:
+        name: id
+        description: 'Tournament ID.'
+        type: integer
+      name:
+        name: name
+        description: 'Tournament name.'
+        type: string
+      description:
+        name: description
+        description: 'Tournament description.'
+        type: string
+      created_at:
+        name: created_at
+        description: 'Tournament creation timestamp.'
+        type: string
+      updated_at:
+        name: updated_at
+        description: 'Last update timestamp.'
+        type: string
+  -
+    httpMethods:
+      - PUT
+    uri: 'tournaments/{id}'
+    metadata:
+      title: 'Replace a tournament'
+      description: '<aside class="info">API will consider missing body parameters as undefined. Excessive body parameters will be ignored.</aside>'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the tournament.'
+        required: true
+        example: 19
+        type: integer
+        custom: []
+    queryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Name of the tournament. Must be less than or equal to 100 characters. Must not be greater than 100 characters.'
+        required: true
+        example: 'Tournament Awesome'
+        type: string
+        custom: []
+      description:
+        name: description
+        description: 'Short description of the tournament. Must be less than or equal to 500 characters. Note: WYSIWYG tags and markdowns are considered too. Must not be greater than 500 characters.'
+        required: false
+        example: 'Lorem ipsum dolor sit...'
+        type: string
+        custom: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "id": 1,
+            "name": "Tournament 1",
+            "description": "The mind is willing, but the body is spongy and bruised",
+            "created_at": "1970-01-01 00:00:00",
+            "updated_at": "1970-01-01 00:00:00",
+            "_url": "/tournaments/1"
+          }
+        headers: []
+        description: '200, Success'
+      -
+        status: 422
+        content: |-
+          {
+            "message": "Please give a name to the tournament (and 1 more error)",
+            "errors": {
+                "name": [
+                    "Please give a name to the tournament"
+                ],
+                "description": [
+                    "Description must be under 500 characters"
+                ]
+            }
+          }
+        headers: []
+        description: '422, Invalid Request Body'
+    responseFields: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'tournaments/{id}'
+    metadata:
+      title: 'Delete a tournament'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the tournament.'
+        required: true
+        example: 14
+        type: integer
+        custom: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"status": "Tournament deleted"}'
+        headers: []
+        description: '200, Success'
+    responseFields: []

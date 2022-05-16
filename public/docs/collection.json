@@ -1,0 +1,276 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost"
+        }
+    ],
+    "info": {
+        "name": "Tournaments API",
+        "_postman_id": "008e6013-35c5-4364-bf2d-f35b4da26616",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Tournament Management",
+            "description": "\nAPIS for managing tournaments",
+            "item": [
+                {
+                    "name": "Get tournaments",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments",
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "Defaults to ```1```. Values less than 1 will default to 1.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "name",
+                                    "value": "",
+                                    "description": "Search for tournament that contains ```name``` keyword.",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10",
+                                    "description": "Defaults to ```10```. Values less than 1 will default to 1.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/tournaments?page=1&name=&limit=10"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Tournament list is ordered by creation time.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"count\": 100,\n  \"total_pages\": 10,\n  \"page\": 1,\n  \"next_page\": \"\/tournaments?page=2\",\n  \"prev_page\": null,\n  \"results\": [\n    {\n      \"id\": 1,\n      \"name\": \"Tournament 1\",\n      \"description\": \"The mind is willing, but the body is spongy and bruised\",\n      \"created_at\": \"1970-01-01 00:00:00\",\n      \"updated_at\": \"1970-01-01 00:00:00\",\n      \"_url\": \"\/tournaments\/1\"\n    }\n  ]\n}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Not Found\"\n}",
+                            "name": "Not Found"
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a tournament",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Tournament Awesome\",\"description\":\"Lorem ipsum dolor sit...\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Tournament 1\",\n  \"description\": \"The mind is willing, but the body is spongy and bruised\",\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\",\n  \"_url\": \"\/tournaments\/1\"\n}",
+                            "name": "Created"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Please give a name to the tournament (and 1 more error)\",\n  \"errors\": {\n      \"name\": [\n          \"Please give a name to the tournament\"\n      ],\n      \"description\": [\n          \"Description must be under 500 characters\"\n      ]\n  }\n}",
+                            "name": "Invalid Request Body"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get a tournament",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "1",
+                                    "description": "The ID of the tournament."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Tournament 1\",\n  \"description\": \"The mind is willing, but the body is spongy and bruised\",\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\",\n  \"_url\": \"\/tournaments\/1\"\n}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Not Found\"\n}",
+                            "name": "Not Found"
+                        }
+                    ]
+                },
+                {
+                    "name": "Replace a tournament",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "19",
+                                    "description": "The ID of the tournament."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Tournament Awesome\",\"description\":\"Lorem ipsum dolor sit...\"}"
+                        },
+                        "description": "<aside class=\"info\">API will consider missing body parameters as undefined. Excessive body parameters will be ignored.<\/aside>",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Tournament 1\",\n  \"description\": \"The mind is willing, but the body is spongy and bruised\",\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\",\n  \"_url\": \"\/tournaments\/1\"\n}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Please give a name to the tournament (and 1 more error)\",\n  \"errors\": {\n      \"name\": [\n          \"Please give a name to the tournament\"\n      ],\n      \"description\": [\n          \"Description must be under 500 characters\"\n      ]\n  }\n}",
+                            "name": "Invalid Request Body"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete a tournament",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "14",
+                                    "description": "The ID of the tournament."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"status\": \"Tournament deleted\"}",
+                            "name": "Success"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}

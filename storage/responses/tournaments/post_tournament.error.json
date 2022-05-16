@@ -1,0 +1,11 @@
+{
+  "message": "Please give a name to the tournament (and 1 more error)",
+  "errors": {
+      "name": [
+          "Please give a name to the tournament"
+      ],
+      "description": [
+          "Description must be under 500 characters"
+      ]
+  }
+}

@@ -1,0 +1,436 @@
+openapi: 3.0.3
+info:
+  title: 'Tournaments API'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /tournaments:
+    get:
+      summary: 'Get tournaments'
+      description: 'Tournament list is ordered by creation time.'
+      parameters:
+        -
+          in: query
+          name: page
+          description: 'Defaults to ```1```. Values less than 1 will default to 1.'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Defaults to ```1```. Values less than 1 will default to 1.'
+            example: 1
+        -
+          in: query
+          name: name
+          description: 'Search for tournament that contains ```name``` keyword.'
+          example: null
+          required: false
+          schema:
+            type: string
+            description: 'Search for tournament that contains ```name``` keyword.'
+            example: null
+        -
+          in: query
+          name: limit
+          description: 'Defaults to ```10```. Values less than 1 will default to 1.'
+          example: 10
+          required: false
+          schema:
+            type: integer
+            description: 'Defaults to ```10```. Values less than 1 will default to 1.'
+            example: 10
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  count: 100
+                  total_pages: 10
+                  page: 1
+                  next_page: '/tournaments?page=2'
+                  prev_page: null
+                  results:
+                    -
+                      id: 1
+                      name: 'Tournament 1'
+                      description: 'The mind is willing, but the body is spongy and bruised'
+                      created_at: '1970-01-01 00:00:00'
+                      updated_at: '1970-01-01 00:00:00'
+                      _url: /tournaments/1
+                properties:
+                  count:
+                    type: integer
+                    example: 100
+                    description: ''
+                  total_pages:
+                    type: integer
+                    example: 10
+                    description: ''
+                  page:
+                    type: integer
+                    example: 1
+                  next_page:
+                    type: string
+                    example: '/tournaments?page=2'
+                    description: 'Returns ```null``` if last page is reached.'
+                  prev_page:
+                    type: string
+                    example: null
+                    description: 'Returns ```null``` if it is the first page.'
+                  results:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: 'Tournament 1'
+                        description: 'The mind is willing, but the body is spongy and bruised'
+                        created_at: '1970-01-01 00:00:00'
+                        updated_at: '1970-01-01 00:00:00'
+                        _url: /tournaments/1
+                    description: 'List of tournaments'
+                    items:
+                      type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Not Found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Not Found'
+      tags:
+        - 'Tournament Management'
+      security: []
+    post:
+      summary: 'Create a tournament'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Tournament 1'
+                  description: 'The mind is willing, but the body is spongy and bruised'
+                  created_at: '1970-01-01 00:00:00'
+                  updated_at: '1970-01-01 00:00:00'
+                  _url: /tournaments/1
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'Tournament 1'
+                  description:
+                    type: string
+                    example: 'The mind is willing, but the body is spongy and bruised'
+                  created_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                  updated_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                  _url:
+                    type: string
+                    example: /tournaments/1
+        422:
+          description: 'Invalid Request Body'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Please give a name to the tournament (and 1 more error)'
+                  errors:
+                    name:
+                      - 'Please give a name to the tournament'
+                    description:
+                      - 'Description must be under 500 characters'
+                properties:
+                  message:
+                    type: string
+                    example: 'Please give a name to the tournament (and 1 more error)'
+                  errors:
+                    type: object
+                    example:
+                      name:
+                        - 'Please give a name to the tournament'
+                      description:
+                        - 'Description must be under 500 characters'
+      tags:
+        - 'Tournament Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the tournament. Must be less than or equal to 100 characters. Must not be greater than 100 characters.'
+                  example: 'Tournament Awesome'
+                description:
+                  type: string
+                  description: 'Short description of the tournament. Must be less than or equal to 500 characters. Note: WYSIWYG tags and markdowns are considered too. Must not be greater than 500 characters.'
+                  example: 'Lorem ipsum dolor sit...'
+              required:
+                - name
+      security: []
+  '/tournaments/{id}':
+    get:
+      summary: 'Get a tournament'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Tournament 1'
+                  description: 'The mind is willing, but the body is spongy and bruised'
+                  created_at: '1970-01-01 00:00:00'
+                  updated_at: '1970-01-01 00:00:00'
+                  _url: /tournaments/1
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                    description: 'Tournament ID.'
+                  name:
+                    type: string
+                    example: 'Tournament 1'
+                    description: 'Tournament name.'
+                  description:
+                    type: string
+                    example: 'The mind is willing, but the body is spongy and bruised'
+                    description: 'Tournament description.'
+                  created_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                    description: 'Tournament creation timestamp.'
+                  updated_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                    description: 'Last update timestamp.'
+                  _url:
+                    type: string
+                    example: /tournaments/1
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Not Found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Not Found'
+      tags:
+        - 'Tournament Management'
+      security: []
+    put:
+      summary: 'Replace a tournament'
+      description: '<aside class="info">API will consider missing body parameters as undefined. Excessive body parameters will be ignored.</aside>'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Tournament 1'
+                  description: 'The mind is willing, but the body is spongy and bruised'
+                  created_at: '1970-01-01 00:00:00'
+                  updated_at: '1970-01-01 00:00:00'
+                  _url: /tournaments/1
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'Tournament 1'
+                  description:
+                    type: string
+                    example: 'The mind is willing, but the body is spongy and bruised'
+                  created_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                  updated_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                  _url:
+                    type: string
+                    example: /tournaments/1
+        422:
+          description: 'Invalid Request Body'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Please give a name to the tournament (and 1 more error)'
+                  errors:
+                    name:
+                      - 'Please give a name to the tournament'
+                    description:
+                      - 'Description must be under 500 characters'
+                properties:
+                  message:
+                    type: string
+                    example: 'Please give a name to the tournament (and 1 more error)'
+                  errors:
+                    type: object
+                    example:
+                      name:
+                        - 'Please give a name to the tournament'
+                      description:
+                        - 'Description must be under 500 characters'
+      tags:
+        - 'Tournament Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the tournament. Must be less than or equal to 100 characters. Must not be greater than 100 characters.'
+                  example: 'Tournament Awesome'
+                description:
+                  type: string
+                  description: 'Short description of the tournament. Must be less than or equal to 500 characters. Note: WYSIWYG tags and markdowns are considered too. Must not be greater than 500 characters.'
+                  example: 'Lorem ipsum dolor sit...'
+              required:
+                - name
+      security: []
+    delete:
+      summary: 'Delete a tournament'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: 'Tournament deleted'
+                properties:
+                  status:
+                    type: string
+                    example: 'Tournament deleted'
+      tags:
+        - 'Tournament Management'
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the tournament.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: 'Tournament Management'
+    description: "\nAPIS for managing tournaments"

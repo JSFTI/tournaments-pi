@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TournamentRequest;
 use App\Models\Tournament;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\Validator;
 
 /**
  * @group Tournament Management
@@ -18,7 +16,7 @@ class TournamentController extends Controller
     /**
      * Get tournaments
      * 
-     * Tournament list is ordered by creation time.
+     * Tournament list is ordered in descending order by creation time.
      * 
      * @queryParam page int  Defaults to ```1```. Values less than 1 will default to 1. Example: 1
      * @queryParam name string Search for tournament that contains ```name``` keyword. No-example
@@ -33,13 +31,14 @@ class TournamentController extends Controller
      * @responseField results.id integer Tournament ID.
      * @responseField results.name string Tournament name.
      * @responseField results.description string Tournament description.
+     * @responseField results._url string URL to tournament resource.
      * @responseField results.created_at string Tournament creation timestamp.
      * @responseField results.updated_at string Last update timestamp.
      * 
      * @responseFile 200 scenario="Success" responses/tournaments/get_tournaments.json
      * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
      */
-    public function __invoke(Request $request){
+    public function index(Request $request){
         $page = 1;
         if($request->page && $request->page >= 1){
             $page = $request->page;
@@ -76,6 +75,7 @@ class TournamentController extends Controller
      * @responseField id integer Tournament ID.
      * @responseField name string Tournament name.
      * @responseField description string Tournament description.
+     * @responseField _url string URL to tournament resource.
      * @responseField created_at string Tournament creation timestamp.
      * @responseField updated_at string Last update timestamp.
      * 
@@ -86,7 +86,7 @@ class TournamentController extends Controller
         $tournament = Tournament::find($id);
 
         if(!$tournament){
-            return response()->json(['status' => 'Not Found'], 404);
+            return response()->json(['message' => 'Tournament not found'], 404);
         }
 
         return response()->json($tournament);
@@ -112,16 +112,15 @@ class TournamentController extends Controller
     /**
      * Replace a tournament
      * 
-     * <aside class="info">API will consider missing body parameters as undefined. Excessive body parameters will be ignored.</aside>
-     * 
      * @responseFile 200 scenario="Success" responses/tournaments/get_tournament.json
+     * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
      * @responseFile 422 scenario="Invalid Request Body" responses/tournaments/post_tournament.error.json
      */
-    public function update(TournamentRequest $request, int $id){
+    public function replace(TournamentRequest $request, int $id){
         $tournament = Tournament::find($id);
         
         if(!$tournament){
-            return response()->json(['status' => 'Not Found'], 404);
+            return response()->json(['message' => 'Tournament not found'], 404);
         }
 
         $tournament->name = $request->name;
@@ -135,16 +134,17 @@ class TournamentController extends Controller
     /**
      * Delete a tournament
      * 
-     * @response 200 scenario="Success" {"status": "Tournament deleted"}
+     * @response 200 scenario="Success" {"message": "Tournament deleted"}
+     * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
      */
     public function destroy(int $id){
         $tournament = Tournament::find($id);
         
         if(!$tournament){
-            return response()->json(['status' => 'Not Found'], 404);
+            return response()->json(['message' => 'Tournament not found'], 404);
         }
 
         $tournament->delete();
-        return response()->json(['status' => 'Tournament deleted'], 200);
+        return response()->json(['message' => 'Tournament deleted'], 200);
     }
 }

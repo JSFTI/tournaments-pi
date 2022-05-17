@@ -7,10 +7,217 @@ servers:
   -
     url: 'http://localhost'
 paths:
+  '/players/{id}':
+    get:
+      summary: 'Get a player'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: Adi
+                  _url: /players/1
+                  tournament_url: /tournaments/1
+                  created_at: '1970-01-01 00:00:00'
+                  updated_at: '1970-01-01 00:00:00'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                    description: 'Tournament ID.'
+                  name:
+                    type: string
+                    example: Adi
+                    description: 'Tournament name.'
+                  _url:
+                    type: string
+                    example: /players/1
+                    description: 'URL to player resource.'
+                  tournament_url:
+                    type: string
+                    example: /tournaments/1
+                    description: 'URL to a tournament which the player belongs to.'
+                  created_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                    description: 'Tournament creation timestamp.'
+                  updated_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                    description: 'Last update timestamp.'
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
+      tags:
+        - 'Player Management'
+      security: []
+    put:
+      summary: 'Update a player'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: Adi
+                  _url: /players/1
+                  tournament_url: /tournaments/1
+                  created_at: '1970-01-01 00:00:00'
+                  updated_at: '1970-01-01 00:00:00'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Adi
+                  _url:
+                    type: string
+                    example: /players/1
+                  tournament_url:
+                    type: string
+                    example: /tournaments/1
+                  created_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                  updated_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
+        422:
+          description: 'Invalid Request Body'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Please give a name to the tournament (and 1 more error)'
+                  errors:
+                    name:
+                      - 'Please give a name to the tournament'
+                    description:
+                      - 'Description must be under 500 characters'
+                properties:
+                  message:
+                    type: string
+                    example: 'Please give a name to the tournament (and 1 more error)'
+                  errors:
+                    type: object
+                    example:
+                      name:
+                        - 'Please give a name to the tournament'
+                      description:
+                        - 'Description must be under 500 characters'
+      tags:
+        - 'Player Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the player. Must be less than or equal to 100 characters. Must not be greater than 100 characters.'
+                  example: Adi
+              required:
+                - name
+      security: []
+    delete:
+      summary: 'Delete a player'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Player Management'
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the player.'
+        example: 17
+        required: true
+        schema:
+          type: integer
   /tournaments:
     get:
       summary: 'Get tournaments'
-      description: 'Tournament list is ordered by creation time.'
+      description: 'Tournament list is ordered in descending order by creation time.'
       parameters:
         -
           in: query
@@ -117,11 +324,11 @@ paths:
               schema:
                 type: object
                 example:
-                  message: 'Not Found'
+                  message: 'Reason of error'
                 properties:
                   message:
                     type: string
-                    example: 'Not Found'
+                    example: 'Reason of error'
       tags:
         - 'Tournament Management'
       security: []
@@ -277,6 +484,7 @@ paths:
                   _url:
                     type: string
                     example: /tournaments/1
+                    description: 'URL to tournament resource.'
         404:
           description: 'Not Found'
           content:
@@ -284,17 +492,17 @@ paths:
               schema:
                 type: object
                 example:
-                  message: 'Not Found'
+                  message: 'Reason of error'
                 properties:
                   message:
                     type: string
-                    example: 'Not Found'
+                    example: 'Reason of error'
       tags:
         - 'Tournament Management'
       security: []
     put:
       summary: 'Replace a tournament'
-      description: '<aside class="info">API will consider missing body parameters as undefined. Excessive body parameters will be ignored.</aside>'
+      description: ''
       parameters:
         -
           in: header
@@ -343,6 +551,18 @@ paths:
                   _url:
                     type: string
                     example: /tournaments/1
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
         422:
           description: 'Invalid Request Body'
           content:
@@ -413,11 +633,23 @@ paths:
               schema:
                 type: object
                 example:
-                  status: 'Tournament deleted'
+                  message: 'Tournament deleted'
                 properties:
-                  status:
+                  message:
                     type: string
                     example: 'Tournament deleted'
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
       tags:
         - 'Tournament Management'
       security: []
@@ -426,11 +658,244 @@ paths:
         in: path
         name: id
         description: 'The ID of the tournament.'
-        example: 1
+        example: 10
+        required: true
+        schema:
+          type: integer
+  '/tournaments/{tournament}/players':
+    get:
+      summary: 'Get players of a tournament'
+      description: 'Players list is ordered in descending order by creation time.'
+      parameters:
+        -
+          in: query
+          name: page
+          description: 'Defaults to ```1```. Values less than 1 will default to 1.'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Defaults to ```1```. Values less than 1 will default to 1.'
+            example: 1
+        -
+          in: query
+          name: name
+          description: 'Search for player that contains ```name``` keyword.'
+          example: null
+          required: false
+          schema:
+            type: string
+            description: 'Search for player that contains ```name``` keyword.'
+            example: null
+        -
+          in: query
+          name: limit
+          description: 'Defaults to ```10```. Values less than 1 will default to 1.'
+          example: 10
+          required: false
+          schema:
+            type: integer
+            description: 'Defaults to ```10```. Values less than 1 will default to 1.'
+            example: 10
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  count: 100
+                  total_pages: 10
+                  page: 1
+                  next_page: '/tournaments/1/players?page=2'
+                  prev_page: null
+                  results:
+                    -
+                      id: 1
+                      name: Adi
+                      _url: /players/1
+                      tournament_url: /tournaments/1
+                      created_at: '1970-01-01 00:00:00'
+                      updated_at: '1970-01-01 00:00:00'
+                properties:
+                  count:
+                    type: integer
+                    example: 100
+                    description: ''
+                  total_pages:
+                    type: integer
+                    example: 10
+                    description: ''
+                  page:
+                    type: integer
+                    example: 1
+                  next_page:
+                    type: string
+                    example: '/tournaments/1/players?page=2'
+                    description: 'Returns ```null``` if last page is reached.'
+                  prev_page:
+                    type: string
+                    example: null
+                    description: 'Returns ```null``` if it is the first page.'
+                  results:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: Adi
+                        _url: /players/1
+                        tournament_url: /tournaments/1
+                        created_at: '1970-01-01 00:00:00'
+                        updated_at: '1970-01-01 00:00:00'
+                    description: 'List of players in tournament.'
+                    items:
+                      type: object
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
+      tags:
+        - 'Tournament Management'
+      security: []
+    post:
+      summary: 'Create a player in a tournament'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: Adi
+                  _url: /players/1
+                  tournament_url: /tournaments/1
+                  created_at: '1970-01-01 00:00:00'
+                  updated_at: '1970-01-01 00:00:00'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Adi
+                  _url:
+                    type: string
+                    example: /players/1
+                  tournament_url:
+                    type: string
+                    example: /tournaments/1
+                  created_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                  updated_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
+        422:
+          description: 'Invalid Request Body'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Please give a name to the tournament (and 1 more error)'
+                  errors:
+                    name:
+                      - 'Please give a name to the tournament'
+                    description:
+                      - 'Description must be under 500 characters'
+                properties:
+                  message:
+                    type: string
+                    example: 'Please give a name to the tournament (and 1 more error)'
+                  errors:
+                    type: object
+                    example:
+                      name:
+                        - 'Please give a name to the tournament'
+                      description:
+                        - 'Description must be under 500 characters'
+      tags:
+        - 'Tournament Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the player. Must be less than or equal to 100 characters. Must not be greater than 100 characters.'
+                  example: Adi
+              required:
+                - name
+      security: []
+    parameters:
+      -
+        in: path
+        name: tournament
+        description: ''
+        example: 16
         required: true
         schema:
           type: integer
 tags:
+  -
+    name: 'Player Management'
+    description: "\nAPIS for managing players"
   -
     name: 'Tournament Management'
     description: "\nAPIS for managing tournaments"

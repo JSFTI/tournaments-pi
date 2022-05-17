@@ -1,0 +1,17 @@
+{
+  "count": 100,
+  "total_pages": 10,
+  "page": 1,
+  "next_page": "/tournaments/1/players?page=2",
+  "prev_page": null,
+  "results": [
+    {
+      "id": 1,
+      "name": "Adi",
+      "_url": "/players/1",
+      "tournament_url": "/tournaments/1",
+      "created_at": "1970-01-01 00:00:00",
+      "updated_at": "1970-01-01 00:00:00"
+    }
+  ]
+}

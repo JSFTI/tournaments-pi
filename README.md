@@ -27,3 +27,4 @@ Notable technologies used in this project to ease development:
 1. [Laravel](https://laravel.com/)
 2. [MariaDB](https://mariadb.org/)
 3. [Scribe](https://scribe.knuckles.wtf/)
+4. [Vitesse-Lite Vue](https://github.com/antfu/vitesse-lite) _(Still under consideration)_

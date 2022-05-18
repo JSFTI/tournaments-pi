@@ -31,6 +31,7 @@ class TournamentController extends Controller
      * @responseField results.id integer Tournament ID.
      * @responseField results.name string Tournament name.
      * @responseField results.description string Tournament description.
+     * @responseField results.started boolean Tournament started.
      * @responseField results._url string URL to tournament resource.
      * @responseField results.created_at string Tournament creation timestamp.
      * @responseField results.updated_at string Last update timestamp.
@@ -75,6 +76,7 @@ class TournamentController extends Controller
      * @responseField id integer Tournament ID.
      * @responseField name string Tournament name.
      * @responseField description string Tournament description.
+     * @responseField started boolean Tournament started.
      * @responseField _url string URL to tournament resource.
      * @responseField created_at string Tournament creation timestamp.
      * @responseField updated_at string Last update timestamp.

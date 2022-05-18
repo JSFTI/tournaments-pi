@@ -3,6 +3,7 @@
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\TournamentController;
 use App\Http\Controllers\Tournament\PlayerController as TournamentPlayerController;
+use App\Http\Controllers\Tournament\BracketController as TournamentBracketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,11 @@ Route::group(['prefix' => 'tournaments', 'controller' => TournamentController::c
 
     Route::group(['prefix' => '{tournament}/players', 'controller' => TournamentPlayerController::class], function(){
         Route::get('/', 'index')->name('tournaments.players');
+        Route::post('/', 'create');
+    });
+
+    Route::group(['prefix' => '{tournament}/brackets', 'controller' => TournamentBracketController::class], function(){
+        Route::get('/', 'index')->name('tournaments.brackets');
         Route::post('/', 'create');
     });
 });

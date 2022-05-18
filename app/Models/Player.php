@@ -11,6 +11,10 @@ class Player extends Model
 
     protected $appends = ['_url', 'tournament_url'];
 
+    public function tournament(){
+        return $this->belongsTo(Tournament::class);
+    }
+
     public function getUrlAttribute(){
         if($this->id){
             return route('player', ['id' => $this->id], false);

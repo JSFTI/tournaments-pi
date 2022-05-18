@@ -1,0 +1,31 @@
+{
+  "brackets": [
+    {
+      "match": 1,
+      "player": null,
+      "prev_match": {
+        "left": {
+          "match": null,
+          "player": {
+            "name": "Adi",
+            "_url": "/players/1",
+            "tournament_url": "/tournaments/2"
+          },
+          "_url": "/tournaments/2/brackets/1"
+        },
+        "right": {
+          "match": null,
+          "player": {
+            "name": "Budi",
+            "_url": "/players/2",
+            "tournament_url": "/tournaments/2"
+          },
+          "_url": "/tournaments/2/brackets/2"
+        }
+      },
+      "_url": "/tournaments/2/brackets/3"
+    }
+  ],
+  "_url": "/tournaments/2/brackets",
+  "tournament_url": "/tournaments/2"
+}

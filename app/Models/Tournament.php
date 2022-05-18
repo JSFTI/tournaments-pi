@@ -11,6 +11,10 @@ class Tournament extends Model
     protected $fillable = ['name', 'description'];
     protected $appends = ['_url'];
 
+    public function players(){
+        $this->hasMany(Player::class);
+    }
+
     public function getUrlAttribute(){
         if($this->id && $this->id !== null){
             return route('tournament', ['id' => $this->id], false);

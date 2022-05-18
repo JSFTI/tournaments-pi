@@ -16,11 +16,11 @@ use Illuminate\Http\Request;
 class PlayerController extends Controller
 {
     /**
-     * Replace player
+     * Upsert Player in Bracket
      * 
-     * Replace current player with player from another bracket.
+     * Insert a player to a bracket or replace a player in a bracket.
      * 
-     * <aside class="info">Players from both bracket will be swapped</aside>
+     * <aside class="info">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.</aside>
      * 
      * @bodyParam player_id int Target player.
      */
@@ -31,18 +31,23 @@ class PlayerController extends Controller
             return response()->json(['message' => 'Bracket not found'], 404);
         }
 
-        if($bracket->children->count() > 0){
-            return response()->json(['message' => 'Only the first brackets are switchable'], 403);
+        if($bracket->match !== null){
+            return response()->json(['message' => 'Only the first brackets are upsert-able'], 403);
         }
 
         $targetBracket = Bracket::where('player_id', $request->player_id)->first();
 
-        $targetBracket->player_id = $bracket->player_id;
-        $targetBracket->save();
+        if($bracket->player_id){
+            $targetBracket->player_id = $bracket->player_id;
+            $targetBracket->save();
+        } else if(!$bracket->player_id && $targetBracket->player_id) {
+            $targetBracket->player_id = null;
+            $targetBracket->save();
+        }
 
         $bracket->player_id = $request->player_id;
         $bracket->save();
 
-        return response()->json(['message' => 'Switched players from both brackets'], 200);
+        return response()->json(['message' => 'Player upserted'], 200);
     }
 }

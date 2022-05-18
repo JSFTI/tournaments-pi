@@ -19,6 +19,14 @@ class BracketPlayerRequest extends FormRequest
     //     return false;
     // }
 
+    public function bodyParameters(){
+        return [
+            'player_id' => [
+                'description' => 'Target player.',
+            ]
+        ];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -28,7 +36,7 @@ class BracketPlayerRequest extends FormRequest
     {
         return [
             'player_id' => ['required', Rule::exists('players', 'id')->where(function($q){
-                $bracket = Bracket::select('tournament_id')->where('player_id', request('player_id'))->first();
+                $bracket = Bracket::select('tournament_id')->where('id', request()->bracket)->first();
                 return $q->where('tournament_id', $bracket->tournament_id);
             })]
         ];
@@ -37,8 +45,8 @@ class BracketPlayerRequest extends FormRequest
     public function messages()
     {
         return [
-            'player_id.required' => 'Target player ID is required',
-            'player.exists' => 'Target plater ID is not found in tournament brackets'
+            'player_id.required' => 'Player ID is required',
+            'player_id.exists' => 'Player is not part of this tournament'
         ];
     }
 }

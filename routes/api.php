@@ -5,6 +5,7 @@ use App\Http\Controllers\TournamentController;
 use App\Http\Controllers\Tournament\PlayerController as TournamentPlayerController;
 use App\Http\Controllers\Tournament\BracketController as TournamentBracketController;
 use App\Http\Controllers\Bracket\PlayerController as BracketPlayerController;
+use App\Http\Controllers\BracketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,25 +25,37 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group(['prefix' => 'tournaments', 'controller' => TournamentController::class], function(){
+    /* GET      /tournaments */
     Route::get('/', 'index')->name('tournaments');
+    /* GET /tournaments/{id} */
     Route::get('/{id}', 'show')->name('tournament');
+    /* POST     /tournaments */
     Route::post('/', 'create');
+    /* PUT      /tournaments/{id} */
     Route::put('/{id}', 'replace');
+    /* DELETE   /tournaments/{id} */
     Route::delete('/{id}', 'destroy');
 
     Route::group(['prefix' => '{tournament}/players', 'controller' => TournamentPlayerController::class], function(){
+        /* GET      /tournaments/{tournament}/players */
         Route::get('/', 'index')->name('tournaments.players');
+        /* POST     /tournaments/{tournament}/players */
         Route::post('/', 'create');
     });
 
     Route::group(['prefix' => '{tournament}/brackets', 'controller' => TournamentBracketController::class], function(){
+        /* GET      /tournaments/{tournament}/brackets */
         Route::get('/', 'index')->name('tournaments.brackets');
+        /* PUT      /tournaments/{tournament}/brackets */
         Route::put('/', 'create');
     });
 });
 
-Route::group(['prefix' => 'brackets/{bracket}/player', 'controller' => BracketPlayerController::class], function(){
-    Route::put('/', 'edit');
+Route::group(['prefix' => 'brackets', 'controller' => BracketController::class], function(){
+    Route::group(['prefix' => '{bracket}/player', 'controller' => BracketPlayerController::class], function(){
+        /* PUT      /brackets/{bracket}/player */
+        Route::put('/', 'edit');
+    });
 });
 
 Route::group(['prefix' => 'players'], function(){

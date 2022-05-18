@@ -161,6 +161,7 @@ class BracketController extends Controller
      * <aside class="info">No body parameters are required for this end-point. Any body parameters will be ignored</aside>
      * 
      * @queryParam dataStructure enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.
+     * @queryParam empty boolean Defaults to "true". If ```empty``` is specified, players will not be added automatically. Refer to **Upsert Player in Bracket**.
      * 
      * @responseField brackets object[] Array of bracket objects.
      * @responseField brackets.round int Consider Number of round the bracket is in.
@@ -189,8 +190,8 @@ class BracketController extends Controller
             return response()->noContent();
         }
 
-        $players = $tournament->players->map(function($x){
-            return $x->id;
+        $players = $tournament->players->map(function($x) use ($request){
+            return $request->empty ? null : $x->id;
         })->toArray();
         shuffle($players);
 
@@ -209,7 +210,7 @@ class BracketController extends Controller
 
         Bracket::generate($tournament_id, $players);
 
-        $brackets = Bracket::where('tournament_id', $tournament_id)->withDepth()
+        $brackets = Bracket::where('tournament_id', $tournament_id)->with('player')->withDepth()
             ->get();
 
         $maxRound = $brackets->max((function($x){ return $x->depth; }));
@@ -218,7 +219,7 @@ class BracketController extends Controller
             'brackets' => self::generateStructure($dataStructure, $brackets),
             '_url' => route('tournaments.brackets', ['tournament' => $tournament_id], false),
             'tournament_url' => route('tournament', ['id' => $tournament_id], false),
-            'added_players' => $tournament->players,
+            'added_players' => $request->empty ? [] : $tournament->players,
             'total_players' => $tournament->players->count(),
             'total_rounds' => $maxRound
         ];

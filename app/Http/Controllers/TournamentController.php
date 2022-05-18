@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TournamentRequest;
+use App\Http\Requests\WinnerRequest;
+use App\Models\Bracket;
 use App\Models\Tournament;
 use Illuminate\Http\Request;
 
@@ -148,5 +150,24 @@ class TournamentController extends Controller
 
         $tournament->delete();
         return response()->json(['message' => 'Tournament deleted'], 200);
+    }
+
+    /**
+     * Start Tournament
+     */
+    public function start(int $tournament_id){
+        $tournament = Tournament::find($tournament_id);
+        if(!$tournament){
+            return response()->json(['message' => 'Tournament not found'], 404);
+        }
+
+        if($tournament->started){
+            return response()->json(['message' => 'Tournament already started'], 400);
+        }
+
+        $tournament->started = true;
+        $tournament->save();
+
+        return response()->json(['message' => 'Tournament started'], 200);
     }
 }

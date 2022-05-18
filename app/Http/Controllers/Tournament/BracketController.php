@@ -188,6 +188,10 @@ class BracketController extends Controller
         if($tournament->players->count() === 0){
             return response()->noContent();
         }
+        
+        if($tournament->started){
+            return response()->json(['message' => 'Tournament has started'], 400);
+        }
 
         $players = $tournament->players->map(function($x) use ($request){
             return $request->empty ? null : $x->id;

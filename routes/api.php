@@ -5,6 +5,7 @@ use App\Http\Controllers\TournamentController;
 use App\Http\Controllers\Tournament\PlayerController as TournamentPlayerController;
 use App\Http\Controllers\Tournament\BracketController as TournamentBracketController;
 use App\Http\Controllers\Bracket\PlayerController as BracketPlayerController;
+use App\Http\Controllers\Tournament\MatchController as TournamentMatchController;
 use App\Http\Controllers\BracketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,16 +26,13 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group(['prefix' => 'tournaments', 'controller' => TournamentController::class], function(){
-    /* GET      /tournaments */
     Route::get('/', 'index')->name('tournaments');
-    /* GET /tournaments/{tournament} */
     Route::get('/{tournament}', 'show')->name('tournament');
-    /* POST     /tournaments */
     Route::post('/', 'create');
-    /* PUT      /tournaments/{tournament} */
     Route::put('/{tournament}', 'replace');
-    /* DELETE   /tournaments/{tournament} */
     Route::delete('/{tournament}', 'destroy');
+
+    Route::post('/{tournament}/started', 'start');
 
     Route::group(['prefix' => '{tournament}/players', 'controller' => TournamentPlayerController::class], function(){
         /* GET      /tournaments/{tournament}/players */
@@ -50,12 +48,14 @@ Route::group(['prefix' => 'tournaments', 'controller' => TournamentController::c
         Route::put('/', 'create');
     });
 
-    Route::post('/{tournament}/match');
+    Route::group(['prefix' => '{tournament}/matches', 'controller' => TournamentMatchController::class], function(){
+        Route::get('{match_num}', 'show');
+        Route::post('{match_num}/winner', 'createWinner');
+    });
 });
 
 Route::group(['prefix' => 'brackets', 'controller' => BracketController::class], function(){
     Route::group(['prefix' => '{bracket}/player', 'controller' => BracketPlayerController::class], function(){
-        /* PUT      /brackets/{bracket}/player */
         Route::put('/', 'edit');
     });
 });

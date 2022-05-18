@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BracketPlayerRequest;
 use App\Models\Bracket;
 use App\Models\Player;
+use App\Models\Tournament;
 use Illuminate\Http\Request;
 
 /**
@@ -18,7 +19,7 @@ class PlayerController extends Controller
     /**
      * Upsert Player in Bracket
      * 
-     * Insert a player to a bracket or replace a player in a bracket.
+     * Insert a player to a bracket or replace a player in a bracket. Upsert can only be done if tournament has not started yet.
      * 
      * <aside class="info">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.</aside>
      * 
@@ -32,7 +33,13 @@ class PlayerController extends Controller
         }
 
         if($bracket->match !== null){
-            return response()->json(['message' => 'Only the first brackets are upsert-able'], 403);
+            return response()->json(['message' => 'Only the first brackets are upsert-able'], 400);
+        }
+
+        $tournament = Tournament::find($bracket->tournament_id);
+
+        if($tournament->started){
+            return response()->json(['message' => 'Tournament has started'], 400);
         }
 
         $targetBracket = Bracket::where('player_id', $request->player_id)->first();

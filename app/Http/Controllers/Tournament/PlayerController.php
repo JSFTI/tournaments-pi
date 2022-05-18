@@ -87,6 +87,10 @@ class PlayerController extends Controller
             return response()->json(['message' => 'Tournament not found'], 404);
         }
 
+        if($tournament->started){
+            return response()->json(['message' => 'Tournament has started'], 400);
+        }
+
         $player = new Player();
 
         $player->name = $request->name;

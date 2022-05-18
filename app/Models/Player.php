@@ -21,14 +21,14 @@ class Player extends Model
 
     public function getUrlAttribute(){
         if($this->id){
-            return route('player', ['id' => $this->id], false);
+            return route('player', ['player' => $this->id], false);
         }
         return null;
     }
 
     public function getTournamentUrlAttribute(){
         if($this->tournament_id){
-            return route('tournament', ['id' => $this->tournament_id], false);
+            return route('tournament', ['tournament' => $this->tournament_id], false);
         }
         return null;   
     }

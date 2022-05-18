@@ -21,7 +21,7 @@ class Tournament extends Model
 
     public function getUrlAttribute(){
         if($this->id && $this->id !== null){
-            return route('tournament', ['id' => $this->id], false);
+            return route('tournament', ['tournament' => $this->id], false);
         }
         return null;
     }

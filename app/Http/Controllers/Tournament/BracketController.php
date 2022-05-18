@@ -28,14 +28,14 @@ class BracketController extends Controller
         unset($tree['_rgt']);
 
         $tree['next_match_id'] = $tree['parent_id'];
-        $tree['round'] = $maxRound - $tree['depth'];
-        if($tree['round'] === 0){
-            $tree['round'] = null;
-        }
+        // $tree['round'] = $maxRound - $tree['depth'];
+        // if($tree['round'] === 0){
+            // $tree['round'] = null;
+        // }
         unset($tree['depth']);
 
         unset($tree['parent_id']);
-        info(count($tree['children']));
+
         if(!$tree['children'] && count($tree['children']) === 0){
             $tree['prev_match'] = null;
             unset($tree['children']);
@@ -75,7 +75,7 @@ class BracketController extends Controller
                         'tournament_id' => $x->tournament_id,
                         'created_at' => $x->created_at,
                         'updated_at' => $x->updated_at,
-                        'round' => $round - 1 === 0 ? null : $round - 1
+                        // 'round' => $round - 1 === 0 ? null : $round - 1
                     ]; 
                 });
 
@@ -94,7 +94,7 @@ class BracketController extends Controller
                     'tournament_id' => $x->tournament_id,
                     'created_at' => $x->created_at,
                     'updated_at' => $x->updated_at,
-                    'round' => $round,
+                    // 'round' => $round,
                     'prev_match' => $prev_match
                 ];
             });
@@ -142,7 +142,7 @@ class BracketController extends Controller
         return response()->json([
             'brackets' => self::generateStructure($dataStructure, $brackets),
             '_url' => route('tournaments.brackets', ['tournament' => $tournament_id], false),
-            'tournament_url' => route('tournament', ['id' => $tournament_id], false),
+            'tournament_url' => route('tournament', ['tournament' => $tournament_id], false),
             'added_players' => $players,
             'remaining_players' => $remainingPlayers,
             'total_players' => $tournament->players->count(),
@@ -164,7 +164,6 @@ class BracketController extends Controller
      * @queryParam empty boolean Defaults to "true". If ```empty``` is specified, players will not be added automatically. Refer to **Upsert Player in Bracket**.
      * 
      * @responseField brackets object[] Array of bracket objects.
-     * @responseField brackets.round int Consider Number of round the bracket is in.
      * @responseField brackets.match int If a bracket has previous match, it will be filled by match number,
      * @responseField brackets.player object Player in this bracket. If **null**, it means that the bracket has no player yet.
      * @responseField brackets._url string URL to bracket.

@@ -27,14 +27,14 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'tournaments', 'controller' => TournamentController::class], function(){
     /* GET      /tournaments */
     Route::get('/', 'index')->name('tournaments');
-    /* GET /tournaments/{id} */
-    Route::get('/{id}', 'show')->name('tournament');
+    /* GET /tournaments/{tournament} */
+    Route::get('/{tournament}', 'show')->name('tournament');
     /* POST     /tournaments */
     Route::post('/', 'create');
-    /* PUT      /tournaments/{id} */
-    Route::put('/{id}', 'replace');
-    /* DELETE   /tournaments/{id} */
-    Route::delete('/{id}', 'destroy');
+    /* PUT      /tournaments/{tournament} */
+    Route::put('/{tournament}', 'replace');
+    /* DELETE   /tournaments/{tournament} */
+    Route::delete('/{tournament}', 'destroy');
 
     Route::group(['prefix' => '{tournament}/players', 'controller' => TournamentPlayerController::class], function(){
         /* GET      /tournaments/{tournament}/players */
@@ -49,6 +49,8 @@ Route::group(['prefix' => 'tournaments', 'controller' => TournamentController::c
         /* PUT      /tournaments/{tournament}/brackets */
         Route::put('/', 'create');
     });
+
+    Route::post('/{tournament}/match');
 });
 
 Route::group(['prefix' => 'brackets', 'controller' => BracketController::class], function(){
@@ -59,9 +61,9 @@ Route::group(['prefix' => 'brackets', 'controller' => BracketController::class],
 });
 
 Route::group(['prefix' => 'players'], function(){
-    Route::get('/{id}', [PlayerController::class, 'show'])->name('player');
-    Route::put('/{id}', [PlayerController::class, 'replace']);
-    Route::delete('/{id}', [PlayerController::class, 'destroy']);
+    Route::get('/{player}', [PlayerController::class, 'show'])->name('player');
+    Route::put('/{player}', [PlayerController::class, 'replace']);
+    Route::delete('/{player}', [PlayerController::class, 'destroy']);
 });
 
 Route::any('{any}', function(){

@@ -12,7 +12,11 @@ class Tournament extends Model
     protected $appends = ['_url'];
 
     public function players(){
-        $this->hasMany(Player::class);
+        return $this->hasMany(Player::class);
+    }
+
+    public function brackets(){
+        return $this->hasMany(Bracket::class);
     }
 
     public function getUrlAttribute(){

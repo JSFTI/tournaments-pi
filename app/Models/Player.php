@@ -15,6 +15,10 @@ class Player extends Model
         return $this->belongsTo(Tournament::class);
     }
 
+    public function brackets(){
+        return $this->hasMany(Bracket::class);
+    }
+
     public function getUrlAttribute(){
         if($this->id){
             return route('player', ['id' => $this->id], false);

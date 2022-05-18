@@ -13,6 +13,14 @@ class Bracket extends Model
     use NodeTrait;
     protected $fillable = ['match', 'player_id', 'tournament_id'];
 
+    public function tournament(){
+        return $this->belongsTo(Tournament::class);
+    }
+
+    public function player(){
+        return $this->belongsTo(Player::class);
+    }
+
     static private function buildToRoot(int $tournament_id, array $leaves, int $match){
         $remainderRounds = log(count($leaves), 2) - 1;
 

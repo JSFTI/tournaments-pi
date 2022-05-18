@@ -7,12 +7,11 @@ use App\Models\Bracket;
 use App\Models\Player;
 use App\Models\Tournament;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 /**
  * @group Manage Brackets
  * 
- * API end-poitns to manage tournament brackets.
+ * API end-points to manage tournament brackets.
  */
 class BracketController extends Controller
 {
@@ -52,16 +51,54 @@ class BracketController extends Controller
         self::restructureTreeBracketValues($tree['prev_match']['right'], $maxRound);
     }
 
-    /**
-     * Restructure flat tree bracket to fit documentation.
-     * 
-     * @param array $trees Bracket list to be restructured, passed by reference.
-     * @param int $maxRound Maximum ammount of rounds for the bracket tree.
-     * 
-     * @return void
-     */
-    static private function restructureListBracketValues(array &$flatTree, int $maxRound){
+    static private function generateStructure($dataStructure, $brackets){
+        $maxRound = $brackets->max((function($x){ return $x->depth; }));
 
+        if($dataStructure === 'tree'){
+            $tree = $brackets->toTree()->toArray()[0];
+            self::restructureTreeBracketValues($tree, $maxRound);
+
+            return $tree;
+        } else {
+            $flatTree = $brackets->toFlatTree();
+
+            return $flatTree->map(function($x) use ($maxRound){
+                $prev_match = null;
+                $round = $maxRound - $x->depth === 0 ? null : $maxRound - $x->depth;
+                
+                $children = $x->children->map(function($x) use ($round){
+                    return [
+                        'id' => $x->id,
+                        'match' => $x->match,
+                        'player_id' => $x->player_id,
+                        'player' => $x->player,
+                        'tournament_id' => $x->tournament_id,
+                        'created_at' => $x->created_at,
+                        'updated_at' => $x->updated_at,
+                        'round' => $round - 1 === 0 ? null : $round - 1
+                    ]; 
+                });
+
+                if($children && count($children) > 0){
+                    $prev_match = [
+                        'left' => $children[0],
+                        'right' => $children[1]
+                    ];
+                }
+
+                return [
+                    'id' => $x->id,
+                    'match' => $x->match,
+                    'player_id' => $x->player_id,
+                    'player' => $x->player,
+                    'tournament_id' => $x->tournament_id,
+                    'created_at' => $x->created_at,
+                    'updated_at' => $x->updated_at,
+                    'round' => $round,
+                    'prev_match' => $prev_match
+                ];
+            });
+        }
     }
 
     /**
@@ -76,10 +113,20 @@ class BracketController extends Controller
      * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
      */
     public function index(Request $request, int $tournament_id){
-        $tournament = Tournament::find($tournament_id);
+        $tournament = Tournament::with('players')->where('id', $tournament_id)->first();
         if(!$tournament){
             return response()->json(['message' => 'Tournament not found'], 404);
         }
+
+        $players = Player::where('tournament_id', $tournament_id)
+            ->has('brackets')->get();
+
+        if($players->count() === 0){
+            return response()->noContent();
+        }
+
+        $remainingPlayers = Player::where('tournament_id', $tournament_id)
+            ->doesntHave('brackets')->get();
 
         $dataStructure = 'tree';
 
@@ -87,67 +134,29 @@ class BracketController extends Controller
             $dataStructure = 'list';
         }
         
-        $brackets = Bracket::where('tournament_id', $tournament_id)->withDepth()
+        $brackets = Bracket::where('tournament_id', $tournament_id)->with('player')->withDepth()
             ->get();
 
         $maxRound = $brackets->max((function($x){ return $x->depth; }));
 
-        $returnJson = [
-            'brackets' => null,
+        return response()->json([
+            'brackets' => self::generateStructure($dataStructure, $brackets),
             '_url' => route('tournaments.brackets', ['tournament' => $tournament_id], false),
             'tournament_url' => route('tournament', ['id' => $tournament_id], false),
+            'added_players' => $players,
+            'remaining_players' => $remainingPlayers,
+            'total_players' => $tournament->players->count(),
             'total_rounds' => $maxRound
-        ];
-
-        if($dataStructure === 'tree'){
-            $tree = $brackets->toTree()->toArray()[0];
-            self::restructureTreeBracketValues($tree, $maxRound);
-            $returnJson['brackets'] = $tree;
-        } else {
-            $flatTree = $brackets->toFlatTree();
-            $returnJson['brackets'] = $flatTree->map(function($x) use ($maxRound){
-                $prev_match = null;
-                $round = $maxRound - $x->depth === 0 ? null : $maxRound - $x->depth;
-                
-                $children = $x->children->map(function($x) use ($round){
-                    return [
-                        'id' => $x->id,
-                        'match' => $x->match,
-                        'player_id' => $x->player_id,
-                        'tournament_id' => $x->tournament_id,
-                        'created_at' => $x->created_at,
-                        'updated_at' => $x->updated_at,
-                        'round' => $round - 1 === 0 ? null : $round - 1
-                    ]; 
-                });
-
-                if($children && count($children) > 0){
-                    $prev_match = [
-                        'left' => $children,
-                        'right' => $children
-                    ];
-                }
-
-                return [
-                    'id' => $x->id,
-                    'match' => $x->match,
-                    'player_id' => $x->player_id,
-                    'tournament_id' => $x->tournament_id,
-                    'created_at' => $x->created_at,
-                    'updated_at' => $x->updated_at,
-                    'round' => $round,
-                    'prev_match' => $prev_match
-                ];
-            });
-        }
-
-        return response()->json($returnJson);
+        ]);
     }
 
     /**
-     * Create new brackets
+     * Create new brackets or replace old brackets.
      * 
      * Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.
+     * This endpoint can be called again to randomly insert recently added players into the brackets.
+     * 
+     * <aside class="danger">Calling this endpoint replaces previously generated bracket.</aside>
      * 
      * <aside class="info">No body parameters are required for this end-point. Any body parameters will be ignored</aside>
      * 
@@ -164,15 +173,26 @@ class BracketController extends Controller
      * @responseField _url string URL to bracket list of the tournament.
      * @responseField tournament_url string URL to the tournament.
      * 
-     * @responseFile 201 status="Created" responses/brackets/get_brackets_list.json
+     * @responseFile 200 status="Success (Brackets replaced)" responses/brackets/get_brackets_list.json
+     * @responseFile 201 status="Created (Brackets created)" responses/brackets/get_brackets_list.json
      * @response 204 status="No Content (No players in tournament)"
      * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
      */
     public function create(Request $request, int $tournament_id){
-        $tournament = Tournament::find($tournament_id);
+        $tournament = Tournament::with('players')->where('id', $tournament_id)->first();
+
         if(!$tournament){
             return response()->json(['message' => 'Tournament not found'], 404);
         }
+
+        if($tournament->players->count() === 0){
+            return response()->noContent();
+        }
+
+        $players = $tournament->players->map(function($x){
+            return $x->id;
+        })->toArray();
+        shuffle($players);
 
         $dataStructure = 'tree';
 
@@ -180,23 +200,29 @@ class BracketController extends Controller
             $dataStructure = 'list';
         }
 
-        $players = Player::select('id')->where('tournament_id', $tournament_id)->get()->map(function($x){
-            return $x->id;
-        })->toArray();
-
-        if(count($players) === 0){
-            return response()->noContent();
+        $code = 201;
+        $oldBracket = $tournament->brackets;
+        if($oldBracket){
+            $code = 200;
+            Bracket::where('tournament_id', $tournament_id)->delete();
         }
 
-        shuffle($players);
         Bracket::generate($tournament_id, $players);
 
+        $brackets = Bracket::where('tournament_id', $tournament_id)->withDepth()
+            ->get();
+
+        $maxRound = $brackets->max((function($x){ return $x->depth; }));
+
         $returnJson = [
-            'brackets' => null,
+            'brackets' => self::generateStructure($dataStructure, $brackets),
             '_url' => route('tournaments.brackets', ['tournament' => $tournament_id], false),
-            'tournament_url' => route('tournament', ['id' => $tournament_id], false)
+            'tournament_url' => route('tournament', ['id' => $tournament_id], false),
+            'added_players' => $tournament->players,
+            'total_players' => $tournament->players->count(),
+            'total_rounds' => $maxRound
         ];
 
-        return response()->json($returnJson);
+        return response()->json($returnJson, $code);
     }
 }

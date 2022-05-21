@@ -1,0 +1,447 @@
+{
+	"info": {
+		"_postman_id": "decf90e7-ed7f-4f50-a2cc-a0c2e66122c6",
+		"name": "Tugas Besar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tournaments",
+			"item": [
+				{
+					"name": "Brackets",
+					"item": [
+						{
+							"name": "Bracket",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/tournaments/2/brackets?empty=0",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tournaments",
+										"2",
+										"brackets"
+									],
+									"query": [
+										{
+											"key": "empty",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Brackets",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/tournaments/2/brackets?dataStructure=tree",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tournaments",
+										"2",
+										"brackets"
+									],
+									"query": [
+										{
+											"key": "dataStructure",
+											"value": "tree"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Matches",
+					"item": [
+						{
+							"name": "Match",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/tournaments/2/matches/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tournaments",
+										"2",
+										"matches",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Declare Winner",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"player_id\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/tournaments/2/matches/1/winner",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tournaments",
+										"2",
+										"matches",
+										"1",
+										"winner"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Players",
+					"item": [
+						{
+							"name": "Tournament Players",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/tournaments/2/players",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tournaments",
+										"2",
+										"players"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tournament Player",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Maybe Death Is Cure\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/tournaments/2/players",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"tournaments",
+										"2",
+										"players"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tournaments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tournaments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tournaments"
+							]
+						},
+						"description": "Hello"
+					},
+					"response": []
+				},
+				{
+					"name": "Tournament",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tournaments/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tournaments",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tournaments",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": null,\n    \"description\": \" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in sem libero. Vestibulum a ultricies libero. Praesent eget quam eu elit ultrices suscipit. Nullam fermentum euismod turpis quis ultrices. Quisque ornare faucibus eros nec congue. Phasellus sed porta ipsum. Cras ut interdum libero. Etiam velit libero, feugiat eget rutrum eu, sollicitudin vehicula ex. Integer malesuada, ex sed elementum varius, odio dui blandit urna, non hendrerit turpis tortor et justo. Etiam velit libero, feugiat eget rutrum eu, sollicitudin vehicula ex. Integer malesuada, ex sed elementum varius, odio dui blandit urna, non hendrerit turpis tortor et justo. Etiam velit libero, feugiat eget rutrum eu, sollicitudin vehicula ex. Integer malesuada, ex sed elementum varius, odio dui blandit urna, non hendrerit turpis tortor et justo. Etiam velit libero, feugiat eget rutrum eu, sollicitudin vehicula ex. Integer malesuada, ex sed elementum varius, odio dui blandit urna, non hendrerit turpis tortor et justo. Etiam velit libero, feugiat eget rutrum eu, sollicitudin vehicula ex. Integer malesuada, ex sed elementum varius, odio dui blandit urna, non hendrerit turpis tortor et justo.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tournaments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tournaments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tournament",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Hello World\",\n    \"description\": \" Lorem ipsum dolor sit amet.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tournaments/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tournaments",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tournament",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tournaments/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tournaments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Start",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tournaments/2/started",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tournaments",
+								"2",
+								"started"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Players",
+			"item": [
+				{
+					"name": "Player",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/players/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"players",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Player",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Why Are We Still Here? Just To Suffer.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/players/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"players",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bracket",
+			"item": [
+				{
+					"name": "Player",
+					"item": [
+						{
+							"name": "Switch Player",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"player_id\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/brackets/75/player",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"brackets",
+										"75",
+										"player"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "b003bfbe-c707-46ae-b145-79df10fb3901",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

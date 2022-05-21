@@ -28,7 +28,7 @@ return new class extends Migration
         });
 
         Schema::table('tournaments', function(Blueprint $table){
-            $table->boolean('started');
+            $table->boolean('started')->default(false);
         });
     }
 

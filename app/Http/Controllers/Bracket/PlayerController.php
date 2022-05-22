@@ -44,7 +44,7 @@ class PlayerController extends Controller
 
         $targetBracket = Bracket::where('player_id', $request->player_id)->first();
 
-        if($bracket->player_id){
+        if($bracket->player_id && $targetBracket?->player_id){
             $targetBracket->player_id = $bracket->player_id;
             $targetBracket->save();
         } else if(!$bracket->player_id && $targetBracket?->player_id) {

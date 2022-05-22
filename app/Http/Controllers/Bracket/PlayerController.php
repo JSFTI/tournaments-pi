@@ -47,7 +47,7 @@ class PlayerController extends Controller
         if($bracket->player_id){
             $targetBracket->player_id = $bracket->player_id;
             $targetBracket->save();
-        } else if(!$bracket->player_id && $targetBracket->player_id) {
+        } else if(!$bracket->player_id && $targetBracket?->player_id) {
             $targetBracket->player_id = null;
             $targetBracket->save();
         }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlayerRequest;
+use App\Models\Bracket;
 use App\Models\Player;
 use Illuminate\Http\Request;
 
@@ -69,7 +70,11 @@ class PlayerController extends Controller
             return response()->json(['message' => 'Player not found'], 404);
         }
 
-        $player->destroy();
+        Bracket::where('player_id', $id)->update([
+            'player_id' => null
+        ]);        
+
+        $player->delete();
 
         return response()->json(['status' => 'Success']);
     }

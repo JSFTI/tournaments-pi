@@ -25,7 +25,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Authentication failed'], 401);
         }
         return response()->json(['message' => 'Login Successful'])
-            ->withCookie(cookie('token', $token, 24 * 60, null, 'localhost', false, true));
+            ->withCookie(cookie('token', $token, 24 * 60, null, null, false, true));
     }
     
     /**
@@ -45,6 +45,6 @@ class AuthController extends Controller
         $token = auth()->login($user);
 
         return response()->json(['message' => 'Registration successful'], 200)
-            ->withCookie(cookie('token', $token, 24 * 60));
+            ->withCookie(cookie('token', $token, 24 * 60, null, null, false, true));
     }
 }

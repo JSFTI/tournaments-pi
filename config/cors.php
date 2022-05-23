@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3333', 'https://tournaments-pi.herokuapp.com/'],
+    'allowed_origins' => ['http://localhost:3333', 'https://tournaments-pi.herokuapp.com'],
 
     'allowed_origins_patterns' => [],
 

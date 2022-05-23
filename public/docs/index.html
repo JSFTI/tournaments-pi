@@ -78,28 +78,47 @@
                     <a href="#manage-brackets">Manage Brackets</a>
                 </li>
                                     <ul id="tocify-subheader-manage-brackets" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="manage-brackets-POSTtournaments--tournament--brackets">
-                        <a href="#manage-brackets-POSTtournaments--tournament--brackets">Create new brackets</a>
+                                                    <li class="tocify-item level-2" data-unique="manage-brackets-GETtournaments--tournament--brackets">
+                        <a href="#manage-brackets-GETtournaments--tournament--brackets">Get brackets</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="manage-brackets-PUTtournaments--tournament--brackets">
+                        <a href="#manage-brackets-PUTtournaments--tournament--brackets">Create new brackets or replace old brackets.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="manage-brackets-PUTbrackets--bracket--player">
+                        <a href="#manage-brackets-PUTbrackets--bracket--player">Upsert Player in Bracket</a>
                     </li>
                                                     </ul>
                             </ul>
                     <ul id="tocify-header-3" class="tocify-header">
-                <li class="tocify-item level-1" data-unique="player-management">
-                    <a href="#player-management">Player Management</a>
+                <li class="tocify-item level-1" data-unique="match-management">
+                    <a href="#match-management">Match Management</a>
                 </li>
-                                    <ul id="tocify-subheader-player-management" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="player-management-GETplayers--id-">
-                        <a href="#player-management-GETplayers--id-">Get a player</a>
+                                    <ul id="tocify-subheader-match-management" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="match-management-GETtournaments--tournament--matches--match_num-">
+                        <a href="#match-management-GETtournaments--tournament--matches--match_num-">Get Match by Match Number</a>
                     </li>
-                                    <li class="tocify-item level-2" data-unique="player-management-PUTplayers--id-">
-                        <a href="#player-management-PUTplayers--id-">Update a player</a>
-                    </li>
-                                    <li class="tocify-item level-2" data-unique="player-management-DELETEplayers--id-">
-                        <a href="#player-management-DELETEplayers--id-">Delete a player</a>
+                                    <li class="tocify-item level-2" data-unique="match-management-PUTtournaments--tournament--matches--match_num--winner">
+                        <a href="#match-management-PUTtournaments--tournament--matches--match_num--winner">Declare Match Winner</a>
                     </li>
                                                     </ul>
                             </ul>
                     <ul id="tocify-header-4" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="player-management">
+                    <a href="#player-management">Player Management</a>
+                </li>
+                                    <ul id="tocify-subheader-player-management" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="player-management-GETplayers--player-">
+                        <a href="#player-management-GETplayers--player-">Get a player</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="player-management-PUTplayers--player-">
+                        <a href="#player-management-PUTplayers--player-">Update a player</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="player-management-DELETEplayers--player-">
+                        <a href="#player-management-DELETEplayers--player-">Delete a player</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-5" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="tournament-management">
                     <a href="#tournament-management">Tournament Management</a>
                 </li>
@@ -110,20 +129,23 @@
                                     <li class="tocify-item level-2" data-unique="tournament-management-POSTtournaments">
                         <a href="#tournament-management-POSTtournaments">Create a tournament</a>
                     </li>
-                                    <li class="tocify-item level-2" data-unique="tournament-management-GETtournaments--id-">
-                        <a href="#tournament-management-GETtournaments--id-">Get a tournament</a>
-                    </li>
-                                    <li class="tocify-item level-2" data-unique="tournament-management-PUTtournaments--id-">
-                        <a href="#tournament-management-PUTtournaments--id-">Replace a tournament</a>
-                    </li>
-                                    <li class="tocify-item level-2" data-unique="tournament-management-DELETEtournaments--id-">
-                        <a href="#tournament-management-DELETEtournaments--id-">Delete a tournament</a>
-                    </li>
                                     <li class="tocify-item level-2" data-unique="tournament-management-GETtournaments--tournament--players">
                         <a href="#tournament-management-GETtournaments--tournament--players">Get players of a tournament</a>
                     </li>
                                     <li class="tocify-item level-2" data-unique="tournament-management-POSTtournaments--tournament--players">
                         <a href="#tournament-management-POSTtournaments--tournament--players">Create a player in a tournament</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="tournament-management-GETtournaments--tournament-">
+                        <a href="#tournament-management-GETtournaments--tournament-">Get a tournament</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="tournament-management-PUTtournaments--tournament-">
+                        <a href="#tournament-management-PUTtournaments--tournament-">Replace a tournament</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="tournament-management-DELETEtournaments--tournament-">
+                        <a href="#tournament-management-DELETEtournaments--tournament-">Delete a tournament</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="tournament-management-PUTtournaments--tournament--start">
+                        <a href="#tournament-management-PUTtournaments--tournament--start">Start Tournament</a>
                     </li>
                                                     </ul>
                             </ul>
@@ -137,7 +159,7 @@
                             <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
                     </ul>
         <ul class="toc-footer" id="last-updated">
-        <li>Last updated: May 17 2022</li>
+        <li>Last updated: May 23 2022</li>
     </ul>
 </div>
 
@@ -158,33 +180,33 @@ You can switch the language used with the tabs at the top right (or from the nav
 
         <h1 id="manage-brackets">Manage Brackets</h1>
 
-    <p>API end-poitns to manage tournament brackets.</p>
+    <p>API end-points to manage tournament brackets.</p>
 
-            <h2 id="manage-brackets-POSTtournaments--tournament--brackets">Create new brackets</h2>
+            <h2 id="manage-brackets-GETtournaments--tournament--brackets">Get brackets</h2>
 
 <p>
 </p>
 
-<p>Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.</p>
 
-<span id="example-requests-POSTtournaments--tournament--brackets">
+
+<span id="example-requests-GETtournaments--tournament--brackets">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
-    <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/tournaments/5/brackets?enum(tree,list)=doloribus" \
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost:8000/tournaments/15/brackets?dataStructure=facere" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/tournaments/5/brackets"
+    "http://localhost:8000/tournaments/15/brackets"
 );
 
 const params = {
-    "enum(tree,list)": "doloribus",
+    "dataStructure": "facere",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -195,22 +217,22 @@ const headers = {
 };
 
 fetch(url, {
-    method: "POST",
+    method: "GET",
     headers,
 }).then(response =&gt; response.json());</code></pre></div>
 
 
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$response = $client-&gt;post(
-    'http://localhost:8000/tournaments/5/brackets',
+$response = $client-&gt;get(
+    'http://localhost:8000/tournaments/15/brackets',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
             'Accept' =&gt; 'application/json',
         ],
         'query' =&gt; [
-            'enum(tree,list)'=&gt; 'doloribus',
+            'dataStructure'=&gt; 'facere',
         ],
     ]
 );
@@ -222,21 +244,28 @@ print_r(json_decode((string) $body));</code></pre></div>
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost:8000/tournaments/5/brackets'
+url = 'http://localhost:8000/tournaments/15/brackets'
 params = {
-  'enum(tree,list)': 'doloribus',
+  'dataStructure': 'facere',
 }
 headers = {
   'Content-Type': 'application/json',
   'Accept': 'application/json'
 }
 
-response = requests.request('POST', url, headers=headers, params=params)
+response = requests.request('GET', url, headers=headers, params=params)
 response.json()</code></pre></div>
 
 </span>
 
-<span id="example-responses-POSTtournaments--tournament--brackets">
+<span id="example-responses-GETtournaments--tournament--brackets">
+            <blockquote>
+            <p>Example response (No Content (No bracket in tournament)):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json"></code>
+ </pre>
             <blockquote>
             <p>Example response (Created):</p>
         </blockquote>
@@ -246,30 +275,10 @@ response.json()</code></pre></div>
     &quot;brackets&quot;: [
         {
             &quot;match&quot;: 1,
-            &quot;player&quot;: {
-                &quot;name&quot;: &quot;Adi&quot;,
-                &quot;_url&quot;: &quot;/players/1&quot;,
-                &quot;tournament_url&quot;: &quot;/tournaments/2&quot;
-            },
-            &quot;prev_match&quot;: null,
-            &quot;_url&quot;: &quot;/tournaments/2/brackets/1&quot;
-        },
-        {
-            &quot;match&quot;: 2,
-            &quot;player&quot;: {
-                &quot;name&quot;: &quot;Budi&quot;,
-                &quot;_url&quot;: &quot;/players/2&quot;,
-                &quot;tournament_url&quot;: &quot;/tournaments/2&quot;
-            },
-            &quot;prev_match&quot;: null,
-            &quot;_url&quot;: &quot;/tournaments/2/brackets/2&quot;
-        },
-        {
-            &quot;match&quot;: 3,
             &quot;player&quot;: null,
             &quot;prev_match&quot;: {
                 &quot;left&quot;: {
-                    &quot;match&quot;: 1,
+                    &quot;match&quot;: null,
                     &quot;player&quot;: {
                         &quot;name&quot;: &quot;Adi&quot;,
                         &quot;_url&quot;: &quot;/players/1&quot;,
@@ -278,7 +287,7 @@ response.json()</code></pre></div>
                     &quot;_url&quot;: &quot;/tournaments/2/brackets/1&quot;
                 },
                 &quot;right&quot;: {
-                    &quot;match&quot;: 2,
+                    &quot;match&quot;: null,
                     &quot;player&quot;: {
                         &quot;name&quot;: &quot;Budi&quot;,
                         &quot;_url&quot;: &quot;/players/2&quot;,
@@ -294,44 +303,72 @@ response.json()</code></pre></div>
     &quot;tournament_url&quot;: &quot;/tournaments/2&quot;
 }</code>
  </pre>
+            <blockquote>
+            <p>Example response (404, Not Found):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Reason of error&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 58
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Tournament not found&quot;
+}</code>
+ </pre>
     </span>
-<span id="execution-results-POSTtournaments--tournament--brackets" hidden>
+<span id="execution-results-GETtournaments--tournament--brackets" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-POSTtournaments--tournament--brackets"></span>:
+                id="execution-response-status-GETtournaments--tournament--brackets"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTtournaments--tournament--brackets"></code></pre>
+    <pre class="json"><code id="execution-response-content-GETtournaments--tournament--brackets"></code></pre>
 </span>
-<span id="execution-error-POSTtournaments--tournament--brackets" hidden>
+<span id="execution-error-GETtournaments--tournament--brackets" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTtournaments--tournament--brackets"></code></pre>
+    <pre><code id="execution-error-message-GETtournaments--tournament--brackets"></code></pre>
 </span>
-<form id="form-POSTtournaments--tournament--brackets" data-method="POST"
+<form id="form-GETtournaments--tournament--brackets" data-method="GET"
       data-path="tournaments/{tournament}/brackets"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTtournaments--tournament--brackets', this);">
+      onsubmit="event.preventDefault(); executeTryOut('GETtournaments--tournament--brackets', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTtournaments--tournament--brackets"
-                    onclick="tryItOut('POSTtournaments--tournament--brackets');">Try it out ⚡
+                    id="btn-tryout-GETtournaments--tournament--brackets"
+                    onclick="tryItOut('GETtournaments--tournament--brackets');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTtournaments--tournament--brackets"
-                    onclick="cancelTryOut('POSTtournaments--tournament--brackets');" hidden>Cancel 🛑
+                    id="btn-canceltryout-GETtournaments--tournament--brackets"
+                    onclick="cancelTryOut('GETtournaments--tournament--brackets');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTtournaments--tournament--brackets" hidden>Send Request 💥
+                    id="btn-executetryout-GETtournaments--tournament--brackets" hidden>Send Request 💥
             </button>
             </h3>
             <p>
-            <small class="badge badge-black">POST</small>
+            <small class="badge badge-green">GET</small>
             <b><code>tournaments/{tournament}/brackets</code></b>
         </p>
                     <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
@@ -339,22 +376,22 @@ response.json()</code></pre></div>
                 <b><code>tournament</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
                 <input type="number"
                name="tournament"
-               data-endpoint="POSTtournaments--tournament--brackets"
-               value="5"
+               data-endpoint="GETtournaments--tournament--brackets"
+               value="15"
                data-component="url" hidden>
     <br>
 
             </p>
                         <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
                     <p>
-                <b><code>enum(tree,list)</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <b><code>dataStructure</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
                 <input type="text"
-               name="enum(tree,list)"
-               data-endpoint="POSTtournaments--tournament--brackets"
-               value="doloribus"
+               name="dataStructure"
+               data-endpoint="GETtournaments--tournament--brackets"
+               value="facere"
                data-component="query" hidden>
     <br>
-<p>Defaults to &quot;tree&quot;. Returns created brackets in tree or list.<br/>For <strong>trees</strong>, brackets will be structured recursively in a <strong><code>binary tree</code></strong>, under the <code>prev_match</code> attribute with the last match acting as root.<br/>For <strong>lists</strong>, brackets will be structured in an <strong><code>array</code></strong>.</p>
+<p>enum(tree,list) Defaults to &quot;list&quot;. Returns created brackets in tree or list.<br/>For <strong>trees</strong>, brackets will be structured recursively in a <strong><code>binary tree</code></strong>, under the <code>prev_match</code> attribute with the last match as root.<br/>For <strong>lists</strong>, brackets will be structured in an <strong><code>array</code></strong>.</p>
             </p>
                 </form>
 
@@ -366,34 +403,399 @@ response.json()</code></pre></div>
 <p>Array of bracket objects.</p>
         </p>
             <p>
-            <b><code>brackets.match</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+            <b><code>bracket.id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
 <br>
-<p>Consider this the identifier of a bracket in a tournament.</p>
+<p>Id of match bracket.</p>
         </p>
             <p>
-            <b><code>brackets.player</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+            <b><code>bracket.created_at</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>Date bracket created.</p>
+        </p>
+            <p>
+            <b><code>bracket.updated_at</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>Date bracket created.</p>
+        </p>
+            <p>
+            <b><code>bracket.match</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<br>
+<p>If a bracket has previous match, it will be filled by match number,</p>
+        </p>
+            <p>
+            <b><code>bracket.player</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
 <br>
 <p>Player in this bracket. If <strong>null</strong>, it means that the bracket has no player yet.</p>
         </p>
             <p>
-            <b><code>brackets._url</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+            <b><code>bracket._url</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
 <br>
 <p>URL to bracket.</p>
         </p>
             <p>
-            <b><code>brackets.prev_match</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+            <b><code>bracket.prev_match</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
 <br>
 <p>Previous match. Seperated to left and right side. If <strong>null</strong>, it means that the bracket has no previous match.</p>
         </p>
             <p>
-            <b><code>brackets.prev_match.left</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+            <b><code>bracket.prev_match.left</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
 <br>
 <p>Prevous match on the left side.</p>
         </p>
             <p>
-            <b><code>brackets.prev_match.right</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+            <b><code>bracket.prev_match.right</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
 <br>
 <p>Prevous match on the right side.</p>
+        </p>
+            <p>
+            <b><code>added_players</code></b>&nbsp;&nbsp;<small>object[]</small>  &nbsp;
+<br>
+<p>Array of added players.</p>
+        </p>
+            <p>
+            <b><code>remaining_players</code></b>&nbsp;&nbsp;<small>object[]</small>  &nbsp;
+<br>
+<p>Array of added players.</p>
+        </p>
+            <p>
+            <b><code>total_players</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<br>
+<p>Number of players in tournament.</p>
+        </p>
+            <p>
+            <b><code>total_rounds</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<br>
+<p>Number of rounds in tournament.</p>
+        </p>
+                <h2 id="manage-brackets-PUTtournaments--tournament--brackets">Create new brackets or replace old brackets.</h2>
+
+<p>
+</p>
+
+<p>Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.
+This endpoint can be called again to randomly insert recently added players into the brackets.</p>
+<aside class="danger">Calling this endpoint replaces previously generated bracket.</aside>
+<aside class="info">No body parameters are required for this end-point. Any body parameters will be ignored</aside>
+
+<span id="example-requests-PUTtournaments--tournament--brackets">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost:8000/tournaments/11/brackets?dataStructure=ut&amp;empty=1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/tournaments/11/brackets"
+);
+
+const params = {
+    "dataStructure": "ut",
+    "empty": "1",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put(
+    'http://localhost:8000/tournaments/11/brackets',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'query' =&gt; [
+            'dataStructure'=&gt; 'ut',
+            'empty'=&gt; '1',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://localhost:8000/tournaments/11/brackets'
+params = {
+  'dataStructure': 'ut',
+  'empty': '1',
+}
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('PUT', url, headers=headers, params=params)
+response.json()</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTtournaments--tournament--brackets">
+            <blockquote>
+            <p>Example response (No Content (No players in tournament)):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json"></code>
+ </pre>
+            <blockquote>
+            <p>Example response (Success (Brackets replaced)):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;brackets&quot;: [
+        {
+            &quot;match&quot;: 1,
+            &quot;player&quot;: null,
+            &quot;prev_match&quot;: {
+                &quot;left&quot;: {
+                    &quot;match&quot;: null,
+                    &quot;player&quot;: {
+                        &quot;name&quot;: &quot;Adi&quot;,
+                        &quot;_url&quot;: &quot;/players/1&quot;,
+                        &quot;tournament_url&quot;: &quot;/tournaments/2&quot;
+                    },
+                    &quot;_url&quot;: &quot;/tournaments/2/brackets/1&quot;
+                },
+                &quot;right&quot;: {
+                    &quot;match&quot;: null,
+                    &quot;player&quot;: {
+                        &quot;name&quot;: &quot;Budi&quot;,
+                        &quot;_url&quot;: &quot;/players/2&quot;,
+                        &quot;tournament_url&quot;: &quot;/tournaments/2&quot;
+                    },
+                    &quot;_url&quot;: &quot;/tournaments/2/brackets/2&quot;
+                }
+            },
+            &quot;_url&quot;: &quot;/tournaments/2/brackets/3&quot;
+        }
+    ],
+    &quot;_url&quot;: &quot;/tournaments/2/brackets&quot;,
+    &quot;tournament_url&quot;: &quot;/tournaments/2&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (Created (Brackets created)):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;brackets&quot;: [
+        {
+            &quot;match&quot;: 1,
+            &quot;player&quot;: null,
+            &quot;prev_match&quot;: {
+                &quot;left&quot;: {
+                    &quot;match&quot;: null,
+                    &quot;player&quot;: {
+                        &quot;name&quot;: &quot;Adi&quot;,
+                        &quot;_url&quot;: &quot;/players/1&quot;,
+                        &quot;tournament_url&quot;: &quot;/tournaments/2&quot;
+                    },
+                    &quot;_url&quot;: &quot;/tournaments/2/brackets/1&quot;
+                },
+                &quot;right&quot;: {
+                    &quot;match&quot;: null,
+                    &quot;player&quot;: {
+                        &quot;name&quot;: &quot;Budi&quot;,
+                        &quot;_url&quot;: &quot;/players/2&quot;,
+                        &quot;tournament_url&quot;: &quot;/tournaments/2&quot;
+                    },
+                    &quot;_url&quot;: &quot;/tournaments/2/brackets/2&quot;
+                }
+            },
+            &quot;_url&quot;: &quot;/tournaments/2/brackets/3&quot;
+        }
+    ],
+    &quot;_url&quot;: &quot;/tournaments/2/brackets&quot;,
+    &quot;tournament_url&quot;: &quot;/tournaments/2&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not Found):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Reason of error&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTtournaments--tournament--brackets" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTtournaments--tournament--brackets"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTtournaments--tournament--brackets"></code></pre>
+</span>
+<span id="execution-error-PUTtournaments--tournament--brackets" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTtournaments--tournament--brackets"></code></pre>
+</span>
+<form id="form-PUTtournaments--tournament--brackets" data-method="PUT"
+      data-path="tournaments/{tournament}/brackets"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTtournaments--tournament--brackets', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTtournaments--tournament--brackets"
+                    onclick="tryItOut('PUTtournaments--tournament--brackets');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTtournaments--tournament--brackets"
+                    onclick="cancelTryOut('PUTtournaments--tournament--brackets');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTtournaments--tournament--brackets" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>tournaments/{tournament}/brackets</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>tournament</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="tournament"
+               data-endpoint="PUTtournaments--tournament--brackets"
+               value="11"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                    <p>
+                <b><code>dataStructure</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="dataStructure"
+               data-endpoint="PUTtournaments--tournament--brackets"
+               value="ut"
+               data-component="query" hidden>
+    <br>
+<p>enum(tree,list) Defaults to &quot;list&quot;. Returns created brackets in tree or list.<br/>For <strong>trees</strong>, brackets will be structured recursively in a <strong><code>binary tree</code></strong>, under the <code>prev_match</code> attribute with the last match as root.<br/>For <strong>lists</strong>, brackets will be structured in an <strong><code>array</code></strong>.</p>
+            </p>
+                    <p>
+                <b><code>empty</code></b>&nbsp;&nbsp;<small>boolean</small>     <i>optional</i> &nbsp;
+                <label data-endpoint="PUTtournaments--tournament--brackets" hidden>
+            <input type="radio" name="empty"
+                   value="1"
+                   data-endpoint="PUTtournaments--tournament--brackets"
+                   data-component="query"
+            >
+            <code>true</code>
+        </label>
+        <label data-endpoint="PUTtournaments--tournament--brackets" hidden>
+            <input type="radio" name="empty"
+                   value="0"
+                   data-endpoint="PUTtournaments--tournament--brackets"
+                   data-component="query"
+            >
+            <code>false</code>
+        </label>
+    <br>
+<p>Defaults to &quot;true&quot;. If <code>empty</code> is specified, players will not be added automatically. Refer to <strong>Upsert Player in Bracket</strong>.</p>
+            </p>
+                </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+            <p>
+            <b><code>brackets</code></b>&nbsp;&nbsp;<small>object[]</small>  &nbsp;
+<br>
+<p>Array of bracket objects.</p>
+        </p>
+            <p>
+            <b><code>bracket.id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<br>
+<p>Id of match bracket.</p>
+        </p>
+            <p>
+            <b><code>bracket.created_at</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>Date bracket created.</p>
+        </p>
+            <p>
+            <b><code>bracket.updated_at</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>Date bracket created.</p>
+        </p>
+            <p>
+            <b><code>bracket.match</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<br>
+<p>If a bracket has previous match, it will be filled by match number,</p>
+        </p>
+            <p>
+            <b><code>bracket.player</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+<p>Player in this bracket. If <strong>null</strong>, it means that the bracket has no player yet.</p>
+        </p>
+            <p>
+            <b><code>bracket._url</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>URL to bracket.</p>
+        </p>
+            <p>
+            <b><code>bracket.prev_match</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+<p>Previous match. Seperated to left and right side. If <strong>null</strong>, it means that the bracket has no previous match.</p>
+        </p>
+            <p>
+            <b><code>bracket.prev_match.left</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+<p>Prevous match on the left side.</p>
+        </p>
+            <p>
+            <b><code>bracket.prev_match.right</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+<p>Prevous match on the right side.</p>
+        </p>
+            <p>
+            <b><code>added_players</code></b>&nbsp;&nbsp;<small>object[]</small>  &nbsp;
+<br>
+<p>Array of added players.</p>
+        </p>
+            <p>
+            <b><code>remaining_players</code></b>&nbsp;&nbsp;<small>object[]</small>  &nbsp;
+<br>
+<p>Array of added players.</p>
+        </p>
+            <p>
+            <b><code>total_players</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<br>
+<p>Number of players in tournament.</p>
+        </p>
+            <p>
+            <b><code>total_rounds</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<br>
+<p>Number of rounds in tournament.</p>
         </p>
             <p>
             <b><code>_url</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
@@ -405,31 +807,176 @@ response.json()</code></pre></div>
 <br>
 <p>URL to the tournament.</p>
         </p>
-            <h1 id="player-management">Player Management</h1>
+                <h2 id="manage-brackets-PUTbrackets--bracket--player">Upsert Player in Bracket</h2>
 
-    <p>APIS for managing players</p>
+<p>
+</p>
 
-            <h2 id="player-management-GETplayers--id-">Get a player</h2>
+<p>Insert a player to a bracket or replace a player in a bracket. Upsert can only be done if tournament has not started yet.</p>
+<aside class="info">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.</aside>
+
+<span id="example-requests-PUTbrackets--bracket--player">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost:8000/brackets/6/player" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"player_id\": 16
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/brackets/6/player"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "player_id": 16
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put(
+    'http://localhost:8000/brackets/6/player',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'player_id' =&gt; 16,
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://localhost:8000/brackets/6/player'
+payload = {
+    "player_id": 16
+}
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('PUT', url, headers=headers, json=payload)
+response.json()</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTbrackets--bracket--player">
+</span>
+<span id="execution-results-PUTbrackets--bracket--player" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTbrackets--bracket--player"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTbrackets--bracket--player"></code></pre>
+</span>
+<span id="execution-error-PUTbrackets--bracket--player" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTbrackets--bracket--player"></code></pre>
+</span>
+<form id="form-PUTbrackets--bracket--player" data-method="PUT"
+      data-path="brackets/{bracket}/player"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTbrackets--bracket--player', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTbrackets--bracket--player"
+                    onclick="tryItOut('PUTbrackets--bracket--player');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTbrackets--bracket--player"
+                    onclick="cancelTryOut('PUTbrackets--bracket--player');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTbrackets--bracket--player" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>brackets/{bracket}/player</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>bracket</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="bracket"
+               data-endpoint="PUTbrackets--bracket--player"
+               value="6"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>player_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="player_id"
+               data-endpoint="PUTbrackets--bracket--player"
+               value="16"
+               data-component="body" hidden>
+    <br>
+<p>Target player.</p>
+        </p>
+        </form>
+
+        <h1 id="match-management">Match Management</h1>
+
+    <p>APIS for managing tournament matches.</p>
+
+            <h2 id="match-management-GETtournaments--tournament--matches--match_num-">Get Match by Match Number</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-GETplayers--id-">
+<span id="example-requests-GETtournaments--tournament--matches--match_num-">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/players/10" \
+    --get "http://localhost:8000/tournaments/5/matches/12" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/players/10"
+    "http://localhost:8000/tournaments/5/matches/12"
 );
 
 const headers = {
@@ -446,7 +993,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;get(
-    'http://localhost:8000/players/10',
+    'http://localhost:8000/tournaments/5/matches/12',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
@@ -462,7 +1009,7 @@ print_r(json_decode((string) $body));</code></pre></div>
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost:8000/players/10'
+url = 'http://localhost:8000/tournaments/5/matches/12'
 headers = {
   'Content-Type': 'application/json',
   'Accept': 'application/json'
@@ -473,7 +1020,444 @@ response.json()</code></pre></div>
 
 </span>
 
-<span id="example-responses-GETplayers--id-">
+<span id="example-responses-GETtournaments--tournament--matches--match_num-">
+            <blockquote>
+            <p>Example response (200, Success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;id&quot;: 398,
+    &quot;match&quot;: 1,
+    &quot;player_id&quot;: 15,
+    &quot;tournament_id&quot;: 5,
+    &quot;created_at&quot;: &quot;2022-05-23T06:52:37.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-05-23T06:53:20.000000Z&quot;,
+    &quot;prev_match&quot;: {
+        &quot;left&quot;: {
+            &quot;id&quot;: 399,
+            &quot;match&quot;: null,
+            &quot;player_id&quot;: 14,
+            &quot;tournament_id&quot;: 5,
+            &quot;created_at&quot;: &quot;2022-05-23T06:52:37.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-05-23T06:52:37.000000Z&quot;,
+            &quot;player&quot;: {
+                &quot;id&quot;: 14,
+                &quot;name&quot;: &quot;JSON&quot;,
+                &quot;tournament_id&quot;: 5,
+                &quot;created_at&quot;: &quot;2022-05-23T06:51:46.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-05-23T06:51:46.000000Z&quot;,
+                &quot;_url&quot;: &quot;/players/14&quot;,
+                &quot;tournament_url&quot;: &quot;/tournaments/5&quot;
+            }
+        },
+        &quot;right&quot;: {
+            &quot;id&quot;: 400,
+            &quot;match&quot;: null,
+            &quot;player_id&quot;: 15,
+            &quot;tournament_id&quot;: 5,
+            &quot;created_at&quot;: &quot;2022-05-23T06:52:37.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-05-23T06:52:37.000000Z&quot;,
+            &quot;player&quot;: {
+                &quot;id&quot;: 15,
+                &quot;name&quot;: &quot;XML&quot;,
+                &quot;tournament_id&quot;: 5,
+                &quot;created_at&quot;: &quot;2022-05-23T06:51:49.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-05-23T06:51:49.000000Z&quot;,
+                &quot;_url&quot;: &quot;/players/15&quot;,
+                &quot;tournament_url&quot;: &quot;/tournaments/5&quot;
+            }
+        }
+    },
+    &quot;player&quot;: {
+        &quot;id&quot;: 15,
+        &quot;name&quot;: &quot;XML&quot;,
+        &quot;tournament_id&quot;: 5,
+        &quot;created_at&quot;: &quot;2022-05-23T06:51:49.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-05-23T06:51:49.000000Z&quot;,
+        &quot;_url&quot;: &quot;/players/15&quot;,
+        &quot;tournament_url&quot;: &quot;/tournaments/5&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not Found):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Reason of error&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETtournaments--tournament--matches--match_num-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETtournaments--tournament--matches--match_num-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETtournaments--tournament--matches--match_num-"></code></pre>
+</span>
+<span id="execution-error-GETtournaments--tournament--matches--match_num-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETtournaments--tournament--matches--match_num-"></code></pre>
+</span>
+<form id="form-GETtournaments--tournament--matches--match_num-" data-method="GET"
+      data-path="tournaments/{tournament}/matches/{match_num}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETtournaments--tournament--matches--match_num-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETtournaments--tournament--matches--match_num-"
+                    onclick="tryItOut('GETtournaments--tournament--matches--match_num-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETtournaments--tournament--matches--match_num-"
+                    onclick="cancelTryOut('GETtournaments--tournament--matches--match_num-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETtournaments--tournament--matches--match_num-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>tournaments/{tournament}/matches/{match_num}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>tournament</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="tournament"
+               data-endpoint="GETtournaments--tournament--matches--match_num-"
+               value="5"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                    <p>
+                <b><code>match_num</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="match_num"
+               data-endpoint="GETtournaments--tournament--matches--match_num-"
+               value="12"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                    </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+            <p>
+            <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<br>
+<p>Id of match bracket.</p>
+        </p>
+            <p>
+            <b><code>created_at</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>Date bracket created.</p>
+        </p>
+            <p>
+            <b><code>updated_at</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>Date bracket created.</p>
+        </p>
+            <p>
+            <b><code>match</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<br>
+<p>If a bracket has previous match, it will be filled by match number,</p>
+        </p>
+            <p>
+            <b><code>player</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+<p>Player in this bracket. If <strong>null</strong>, it means that the bracket has no player yet.</p>
+        </p>
+            <p>
+            <b><code>_url</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>URL to bracket.</p>
+        </p>
+            <p>
+            <b><code>prev_match</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+<p>Previous match. Seperated to left and right side. If <strong>null</strong>, it means that the bracket has no previous match.</p>
+        </p>
+            <p>
+            <b><code>prev_match.left</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+<p>Prevous match on the left side.</p>
+        </p>
+            <p>
+            <b><code>prev_match.right</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+<p>Prevous match on the right side.</p>
+        </p>
+                <h2 id="match-management-PUTtournaments--tournament--matches--match_num--winner">Declare Match Winner</h2>
+
+<p>
+</p>
+
+<p>Assigns a winner to a match</p>
+
+<span id="example-requests-PUTtournaments--tournament--matches--match_num--winner">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost:8000/tournaments/16/matches/6/winner" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"player_id\": \"quia\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/tournaments/16/matches/6/winner"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "player_id": "quia"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put(
+    'http://localhost:8000/tournaments/16/matches/6/winner',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'player_id' =&gt; 'quia',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://localhost:8000/tournaments/16/matches/6/winner'
+payload = {
+    "player_id": "quia"
+}
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('PUT', url, headers=headers, json=payload)
+response.json()</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTtournaments--tournament--matches--match_num--winner">
+            <blockquote>
+            <p>Example response (200, Success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Winner declared&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400, Tournament has not started):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Tournament has not started&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400, Player not candidate):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Player is not winner candidate&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not Found):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Reason of error&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTtournaments--tournament--matches--match_num--winner" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTtournaments--tournament--matches--match_num--winner"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTtournaments--tournament--matches--match_num--winner"></code></pre>
+</span>
+<span id="execution-error-PUTtournaments--tournament--matches--match_num--winner" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTtournaments--tournament--matches--match_num--winner"></code></pre>
+</span>
+<form id="form-PUTtournaments--tournament--matches--match_num--winner" data-method="PUT"
+      data-path="tournaments/{tournament}/matches/{match_num}/winner"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTtournaments--tournament--matches--match_num--winner', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTtournaments--tournament--matches--match_num--winner"
+                    onclick="tryItOut('PUTtournaments--tournament--matches--match_num--winner');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTtournaments--tournament--matches--match_num--winner"
+                    onclick="cancelTryOut('PUTtournaments--tournament--matches--match_num--winner');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTtournaments--tournament--matches--match_num--winner" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>tournaments/{tournament}/matches/{match_num}/winner</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>tournament</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="tournament"
+               data-endpoint="PUTtournaments--tournament--matches--match_num--winner"
+               value="16"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                    <p>
+                <b><code>match_num</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="match_num"
+               data-endpoint="PUTtournaments--tournament--matches--match_num--winner"
+               value="6"
+               data-component="url" hidden>
+    <br>
+<p>Match number of a tournament.</p>
+            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>player_id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="player_id"
+               data-endpoint="PUTtournaments--tournament--matches--match_num--winner"
+               value="quia"
+               data-component="body" hidden>
+    <br>
+<p>The winner of the match.</p>
+        </p>
+        </form>
+
+        <h1 id="player-management">Player Management</h1>
+
+    <p>APIS for managing players</p>
+
+            <h2 id="player-management-GETplayers--player-">Get a player</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETplayers--player-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost:8000/players/1" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/players/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get(
+    'http://localhost:8000/players/1',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://localhost:8000/players/1'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('GET', url, headers=headers)
+response.json()</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETplayers--player-">
             <blockquote>
             <p>Example response (200, Success):</p>
         </blockquote>
@@ -498,55 +1482,55 @@ response.json()</code></pre></div>
 }</code>
  </pre>
     </span>
-<span id="execution-results-GETplayers--id-" hidden>
+<span id="execution-results-GETplayers--player-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-GETplayers--id-"></span>:
+                id="execution-response-status-GETplayers--player-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-GETplayers--id-"></code></pre>
+    <pre class="json"><code id="execution-response-content-GETplayers--player-"></code></pre>
 </span>
-<span id="execution-error-GETplayers--id-" hidden>
+<span id="execution-error-GETplayers--player-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETplayers--id-"></code></pre>
+    <pre><code id="execution-error-message-GETplayers--player-"></code></pre>
 </span>
-<form id="form-GETplayers--id-" data-method="GET"
-      data-path="players/{id}"
+<form id="form-GETplayers--player-" data-method="GET"
+      data-path="players/{player}"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETplayers--id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('GETplayers--player-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETplayers--id-"
-                    onclick="tryItOut('GETplayers--id-');">Try it out ⚡
+                    id="btn-tryout-GETplayers--player-"
+                    onclick="tryItOut('GETplayers--player-');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETplayers--id-"
-                    onclick="cancelTryOut('GETplayers--id-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-GETplayers--player-"
+                    onclick="cancelTryOut('GETplayers--player-');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETplayers--id-" hidden>Send Request 💥
+                    id="btn-executetryout-GETplayers--player-" hidden>Send Request 💥
             </button>
             </h3>
             <p>
             <small class="badge badge-green">GET</small>
-            <b><code>players/{id}</code></b>
+            <b><code>players/{player}</code></b>
         </p>
                     <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <p>
-                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <b><code>player</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
                 <input type="number"
-               name="id"
-               data-endpoint="GETplayers--id-"
-               value="10"
+               name="player"
+               data-endpoint="GETplayers--player-"
+               value="1"
                data-component="url" hidden>
     <br>
-<p>The ID of the player.</p>
+
             </p>
                     </form>
 
@@ -582,20 +1566,20 @@ response.json()</code></pre></div>
 <br>
 <p>Last update timestamp.</p>
         </p>
-                <h2 id="player-management-PUTplayers--id-">Update a player</h2>
+                <h2 id="player-management-PUTplayers--player-">Update a player</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-PUTplayers--id-">
+<span id="example-requests-PUTplayers--player-">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/players/5" \
+    "http://localhost:8000/players/6" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -606,7 +1590,7 @@ response.json()</code></pre></div>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/players/5"
+    "http://localhost:8000/players/6"
 );
 
 const headers = {
@@ -628,7 +1612,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;put(
-    'http://localhost:8000/players/5',
+    'http://localhost:8000/players/6',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
@@ -647,7 +1631,7 @@ print_r(json_decode((string) $body));</code></pre></div>
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost:8000/players/5'
+url = 'http://localhost:8000/players/6'
 payload = {
     "name": "Adi"
 }
@@ -661,7 +1645,7 @@ response.json()</code></pre></div>
 
 </span>
 
-<span id="example-responses-PUTplayers--id-">
+<span id="example-responses-PUTplayers--player-">
             <blockquote>
             <p>Example response (200, Success):</p>
         </blockquote>
@@ -703,62 +1687,62 @@ response.json()</code></pre></div>
 }</code>
  </pre>
     </span>
-<span id="execution-results-PUTplayers--id-" hidden>
+<span id="execution-results-PUTplayers--player-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-PUTplayers--id-"></span>:
+                id="execution-response-status-PUTplayers--player-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-PUTplayers--id-"></code></pre>
+    <pre class="json"><code id="execution-response-content-PUTplayers--player-"></code></pre>
 </span>
-<span id="execution-error-PUTplayers--id-" hidden>
+<span id="execution-error-PUTplayers--player-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTplayers--id-"></code></pre>
+    <pre><code id="execution-error-message-PUTplayers--player-"></code></pre>
 </span>
-<form id="form-PUTplayers--id-" data-method="PUT"
-      data-path="players/{id}"
+<form id="form-PUTplayers--player-" data-method="PUT"
+      data-path="players/{player}"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('PUTplayers--id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('PUTplayers--player-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PUTplayers--id-"
-                    onclick="tryItOut('PUTplayers--id-');">Try it out ⚡
+                    id="btn-tryout-PUTplayers--player-"
+                    onclick="tryItOut('PUTplayers--player-');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PUTplayers--id-"
-                    onclick="cancelTryOut('PUTplayers--id-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-PUTplayers--player-"
+                    onclick="cancelTryOut('PUTplayers--player-');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PUTplayers--id-" hidden>Send Request 💥
+                    id="btn-executetryout-PUTplayers--player-" hidden>Send Request 💥
             </button>
             </h3>
             <p>
             <small class="badge badge-darkblue">PUT</small>
-            <b><code>players/{id}</code></b>
+            <b><code>players/{player}</code></b>
         </p>
                     <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <p>
-                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <b><code>player</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
                 <input type="number"
-               name="id"
-               data-endpoint="PUTplayers--id-"
-               value="5"
+               name="player"
+               data-endpoint="PUTplayers--player-"
+               value="6"
                data-component="url" hidden>
     <br>
-<p>The ID of the player.</p>
+
             </p>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <p>
             <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
                 <input type="text"
                name="name"
-               data-endpoint="PUTplayers--id-"
+               data-endpoint="PUTplayers--player-"
                value="Adi"
                data-component="body" hidden>
     <br>
@@ -766,14 +1750,14 @@ response.json()</code></pre></div>
         </p>
         </form>
 
-            <h2 id="player-management-DELETEplayers--id-">Delete a player</h2>
+            <h2 id="player-management-DELETEplayers--player-">Delete a player</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-DELETEplayers--id-">
+<span id="example-requests-DELETEplayers--player-">
 <blockquote>Example request:</blockquote>
 
 
@@ -830,7 +1814,7 @@ response.json()</code></pre></div>
 
 </span>
 
-<span id="example-responses-DELETEplayers--id-">
+<span id="example-responses-DELETEplayers--player-">
             <blockquote>
             <p>Example response (200, Success):</p>
         </blockquote>
@@ -850,55 +1834,55 @@ response.json()</code></pre></div>
 }</code>
  </pre>
     </span>
-<span id="execution-results-DELETEplayers--id-" hidden>
+<span id="execution-results-DELETEplayers--player-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-DELETEplayers--id-"></span>:
+                id="execution-response-status-DELETEplayers--player-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-DELETEplayers--id-"></code></pre>
+    <pre class="json"><code id="execution-response-content-DELETEplayers--player-"></code></pre>
 </span>
-<span id="execution-error-DELETEplayers--id-" hidden>
+<span id="execution-error-DELETEplayers--player-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-DELETEplayers--id-"></code></pre>
+    <pre><code id="execution-error-message-DELETEplayers--player-"></code></pre>
 </span>
-<form id="form-DELETEplayers--id-" data-method="DELETE"
-      data-path="players/{id}"
+<form id="form-DELETEplayers--player-" data-method="DELETE"
+      data-path="players/{player}"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('DELETEplayers--id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('DELETEplayers--player-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-DELETEplayers--id-"
-                    onclick="tryItOut('DELETEplayers--id-');">Try it out ⚡
+                    id="btn-tryout-DELETEplayers--player-"
+                    onclick="tryItOut('DELETEplayers--player-');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-DELETEplayers--id-"
-                    onclick="cancelTryOut('DELETEplayers--id-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-DELETEplayers--player-"
+                    onclick="cancelTryOut('DELETEplayers--player-');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-DELETEplayers--id-" hidden>Send Request 💥
+                    id="btn-executetryout-DELETEplayers--player-" hidden>Send Request 💥
             </button>
             </h3>
             <p>
             <small class="badge badge-red">DELETE</small>
-            <b><code>players/{id}</code></b>
+            <b><code>players/{player}</code></b>
         </p>
                     <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <p>
-                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <b><code>player</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
                 <input type="number"
-               name="id"
-               data-endpoint="DELETEplayers--id-"
+               name="player"
+               data-endpoint="DELETEplayers--player-"
                value="10"
                data-component="url" hidden>
     <br>
-<p>The ID of the player.</p>
+
             </p>
                     </form>
 
@@ -1002,6 +1986,7 @@ response.json()</code></pre></div>
             &quot;id&quot;: 1,
             &quot;name&quot;: &quot;Tournament 1&quot;,
             &quot;description&quot;: &quot;The mind is willing, but the body is spongy and bruised&quot;,
+            &quot;started&quot;: false,
             &quot;created_at&quot;: &quot;1970-01-01 00:00:00&quot;,
             &quot;updated_at&quot;: &quot;1970-01-01 00:00:00&quot;,
             &quot;_url&quot;: &quot;/tournaments/1&quot;
@@ -1134,6 +2119,11 @@ response.json()</code></pre></div>
 <p>Tournament description.</p>
         </p>
             <p>
+            <b><code>results.started</code></b>&nbsp;&nbsp;<small>boolean</small>  &nbsp;
+<br>
+<p>Tournament started.</p>
+        </p>
+            <p>
             <b><code>results._url</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
 <br>
 <p>URL to tournament resource.</p>
@@ -1241,6 +2231,7 @@ response.json()</code></pre></div>
     &quot;id&quot;: 1,
     &quot;name&quot;: &quot;Tournament 1&quot;,
     &quot;description&quot;: &quot;The mind is willing, but the body is spongy and bruised&quot;,
+    &quot;started&quot;: false,
     &quot;created_at&quot;: &quot;1970-01-01 00:00:00&quot;,
     &quot;updated_at&quot;: &quot;1970-01-01 00:00:00&quot;,
     &quot;_url&quot;: &quot;/tournaments/1&quot;
@@ -1326,513 +2317,6 @@ response.json()</code></pre></div>
         </p>
         </form>
 
-            <h2 id="tournament-management-GETtournaments--id-">Get a tournament</h2>
-
-<p>
-</p>
-
-
-
-<span id="example-requests-GETtournaments--id-">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/tournaments/3" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/tournaments/3"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-
-<div class="php-example">
-    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$response = $client-&gt;get(
-    'http://localhost:8000/tournaments/3',
-    [
-        'headers' =&gt; [
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
-        ],
-    ]
-);
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre></div>
-
-
-<div class="python-example">
-    <pre><code class="language-python">import requests
-import json
-
-url = 'http://localhost:8000/tournaments/3'
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json'
-}
-
-response = requests.request('GET', url, headers=headers)
-response.json()</code></pre></div>
-
-</span>
-
-<span id="example-responses-GETtournaments--id-">
-            <blockquote>
-            <p>Example response (200, Success):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Tournament 1&quot;,
-    &quot;description&quot;: &quot;The mind is willing, but the body is spongy and bruised&quot;,
-    &quot;created_at&quot;: &quot;1970-01-01 00:00:00&quot;,
-    &quot;updated_at&quot;: &quot;1970-01-01 00:00:00&quot;,
-    &quot;_url&quot;: &quot;/tournaments/1&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (404, Not Found):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json">{
-    &quot;message&quot;: &quot;Reason of error&quot;
-}</code>
- </pre>
-    </span>
-<span id="execution-results-GETtournaments--id-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETtournaments--id-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETtournaments--id-"></code></pre>
-</span>
-<span id="execution-error-GETtournaments--id-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETtournaments--id-"></code></pre>
-</span>
-<form id="form-GETtournaments--id-" data-method="GET"
-      data-path="tournaments/{id}"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETtournaments--id-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETtournaments--id-"
-                    onclick="tryItOut('GETtournaments--id-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETtournaments--id-"
-                    onclick="cancelTryOut('GETtournaments--id-');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETtournaments--id-" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>tournaments/{id}</code></b>
-        </p>
-                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <p>
-                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
-                <input type="number"
-               name="id"
-               data-endpoint="GETtournaments--id-"
-               value="3"
-               data-component="url" hidden>
-    <br>
-<p>The ID of the tournament.</p>
-            </p>
-                    </form>
-
-    <h3>Response</h3>
-    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
-            <p>
-            <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
-<br>
-<p>Tournament ID.</p>
-        </p>
-            <p>
-            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<br>
-<p>Tournament name.</p>
-        </p>
-            <p>
-            <b><code>description</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<br>
-<p>Tournament description.</p>
-        </p>
-            <p>
-            <b><code>_url</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<br>
-<p>URL to tournament resource.</p>
-        </p>
-            <p>
-            <b><code>created_at</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<br>
-<p>Tournament creation timestamp.</p>
-        </p>
-            <p>
-            <b><code>updated_at</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<br>
-<p>Last update timestamp.</p>
-        </p>
-                <h2 id="tournament-management-PUTtournaments--id-">Replace a tournament</h2>
-
-<p>
-</p>
-
-
-
-<span id="example-requests-PUTtournaments--id-">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/tournaments/13" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"name\": \"Tournament Awesome\",
-    \"description\": \"Lorem ipsum dolor sit...\"
-}"
-</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/tournaments/13"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "name": "Tournament Awesome",
-    "description": "Lorem ipsum dolor sit..."
-};
-
-fetch(url, {
-    method: "PUT",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre></div>
-
-
-<div class="php-example">
-    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$response = $client-&gt;put(
-    'http://localhost:8000/tournaments/13',
-    [
-        'headers' =&gt; [
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
-        ],
-        'json' =&gt; [
-            'name' =&gt; 'Tournament Awesome',
-            'description' =&gt; 'Lorem ipsum dolor sit...',
-        ],
-    ]
-);
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre></div>
-
-
-<div class="python-example">
-    <pre><code class="language-python">import requests
-import json
-
-url = 'http://localhost:8000/tournaments/13'
-payload = {
-    "name": "Tournament Awesome",
-    "description": "Lorem ipsum dolor sit..."
-}
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json'
-}
-
-response = requests.request('PUT', url, headers=headers, json=payload)
-response.json()</code></pre></div>
-
-</span>
-
-<span id="example-responses-PUTtournaments--id-">
-            <blockquote>
-            <p>Example response (200, Success):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json">{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Tournament 1&quot;,
-    &quot;description&quot;: &quot;The mind is willing, but the body is spongy and bruised&quot;,
-    &quot;created_at&quot;: &quot;1970-01-01 00:00:00&quot;,
-    &quot;updated_at&quot;: &quot;1970-01-01 00:00:00&quot;,
-    &quot;_url&quot;: &quot;/tournaments/1&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (404, Not Found):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json">{
-    &quot;message&quot;: &quot;Reason of error&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (422, Invalid Request Body):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json">{
-    &quot;message&quot;: &quot;Please give a name to the tournament (and 1 more error)&quot;,
-    &quot;errors&quot;: {
-        &quot;name&quot;: [
-            &quot;Please give a name to the tournament&quot;
-        ],
-        &quot;description&quot;: [
-            &quot;Description must be under 500 characters&quot;
-        ]
-    }
-}</code>
- </pre>
-    </span>
-<span id="execution-results-PUTtournaments--id-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-PUTtournaments--id-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-PUTtournaments--id-"></code></pre>
-</span>
-<span id="execution-error-PUTtournaments--id-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTtournaments--id-"></code></pre>
-</span>
-<form id="form-PUTtournaments--id-" data-method="PUT"
-      data-path="tournaments/{id}"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('PUTtournaments--id-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PUTtournaments--id-"
-                    onclick="tryItOut('PUTtournaments--id-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PUTtournaments--id-"
-                    onclick="cancelTryOut('PUTtournaments--id-');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PUTtournaments--id-" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-darkblue">PUT</small>
-            <b><code>tournaments/{id}</code></b>
-        </p>
-                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <p>
-                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
-                <input type="number"
-               name="id"
-               data-endpoint="PUTtournaments--id-"
-               value="13"
-               data-component="url" hidden>
-    <br>
-<p>The ID of the tournament.</p>
-            </p>
-                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <p>
-            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-                <input type="text"
-               name="name"
-               data-endpoint="PUTtournaments--id-"
-               value="Tournament Awesome"
-               data-component="body" hidden>
-    <br>
-<p>Name of the tournament. Must be less than or equal to 100 characters. Must not be greater than 100 characters.</p>
-        </p>
-                <p>
-            <b><code>description</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-                <input type="text"
-               name="description"
-               data-endpoint="PUTtournaments--id-"
-               value="Lorem ipsum dolor sit..."
-               data-component="body" hidden>
-    <br>
-<p>Short description of the tournament. Must be less than or equal to 500 characters. Note: WYSIWYG tags and markdowns are considered too. Must not be greater than 500 characters.</p>
-        </p>
-        </form>
-
-            <h2 id="tournament-management-DELETEtournaments--id-">Delete a tournament</h2>
-
-<p>
-</p>
-
-
-
-<span id="example-requests-DELETEtournaments--id-">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/tournaments/16" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/tournaments/16"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "DELETE",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-
-<div class="php-example">
-    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$response = $client-&gt;delete(
-    'http://localhost:8000/tournaments/16',
-    [
-        'headers' =&gt; [
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
-        ],
-    ]
-);
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre></div>
-
-
-<div class="python-example">
-    <pre><code class="language-python">import requests
-import json
-
-url = 'http://localhost:8000/tournaments/16'
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json'
-}
-
-response = requests.request('DELETE', url, headers=headers)
-response.json()</code></pre></div>
-
-</span>
-
-<span id="example-responses-DELETEtournaments--id-">
-            <blockquote>
-            <p>Example response (200, Success):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json">{
-    &quot;message&quot;: &quot;Tournament deleted&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (404, Not Found):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json">{
-    &quot;message&quot;: &quot;Reason of error&quot;
-}</code>
- </pre>
-    </span>
-<span id="execution-results-DELETEtournaments--id-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-DELETEtournaments--id-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-DELETEtournaments--id-"></code></pre>
-</span>
-<span id="execution-error-DELETEtournaments--id-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-DELETEtournaments--id-"></code></pre>
-</span>
-<form id="form-DELETEtournaments--id-" data-method="DELETE"
-      data-path="tournaments/{id}"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('DELETEtournaments--id-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-DELETEtournaments--id-"
-                    onclick="tryItOut('DELETEtournaments--id-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-DELETEtournaments--id-"
-                    onclick="cancelTryOut('DELETEtournaments--id-');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-DELETEtournaments--id-" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-red">DELETE</small>
-            <b><code>tournaments/{id}</code></b>
-        </p>
-                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <p>
-                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
-                <input type="number"
-               name="id"
-               data-endpoint="DELETEtournaments--id-"
-               value="16"
-               data-component="url" hidden>
-    <br>
-<p>The ID of the tournament.</p>
-            </p>
-                    </form>
-
             <h2 id="tournament-management-GETtournaments--tournament--players">Get players of a tournament</h2>
 
 <p>
@@ -1846,14 +2330,14 @@ response.json()</code></pre></div>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/tournaments/4/players?page=1&amp;limit=10" \
+    --get "http://localhost:8000/tournaments/10/players?page=1&amp;limit=10" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/tournaments/4/players"
+    "http://localhost:8000/tournaments/10/players"
 );
 
 const params = {
@@ -1877,7 +2361,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;get(
-    'http://localhost:8000/tournaments/4/players',
+    'http://localhost:8000/tournaments/10/players',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
@@ -1897,7 +2381,7 @@ print_r(json_decode((string) $body));</code></pre></div>
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost:8000/tournaments/4/players'
+url = 'http://localhost:8000/tournaments/10/players'
 params = {
   'page': '1',
   'limit': '10',
@@ -1991,7 +2475,7 @@ response.json()</code></pre></div>
                 <input type="number"
                name="tournament"
                data-endpoint="GETtournaments--tournament--players"
-               value="4"
+               value="10"
                data-component="url" hidden>
     <br>
 
@@ -2089,7 +2573,7 @@ response.json()</code></pre></div>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/tournaments/18/players" \
+    "http://localhost:8000/tournaments/9/players" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -2100,7 +2584,7 @@ response.json()</code></pre></div>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/tournaments/18/players"
+    "http://localhost:8000/tournaments/9/players"
 );
 
 const headers = {
@@ -2122,7 +2606,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;post(
-    'http://localhost:8000/tournaments/18/players',
+    'http://localhost:8000/tournaments/9/players',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
@@ -2141,7 +2625,7 @@ print_r(json_decode((string) $body));</code></pre></div>
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://localhost:8000/tournaments/18/players'
+url = 'http://localhost:8000/tournaments/9/players'
 payload = {
     "name": "Adi"
 }
@@ -2242,7 +2726,7 @@ response.json()</code></pre></div>
                 <input type="number"
                name="tournament"
                data-endpoint="POSTtournaments--tournament--players"
-               value="18"
+               value="9"
                data-component="url" hidden>
     <br>
 
@@ -2259,6 +2743,674 @@ response.json()</code></pre></div>
 <p>Name of the player. Must be less than or equal to 100 characters. Must not be greater than 100 characters.</p>
         </p>
         </form>
+
+            <h2 id="tournament-management-GETtournaments--tournament-">Get a tournament</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETtournaments--tournament-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost:8000/tournaments/17" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/tournaments/17"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get(
+    'http://localhost:8000/tournaments/17',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://localhost:8000/tournaments/17'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('GET', url, headers=headers)
+response.json()</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETtournaments--tournament-">
+            <blockquote>
+            <p>Example response (200, Success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Tournament 1&quot;,
+    &quot;description&quot;: &quot;The mind is willing, but the body is spongy and bruised&quot;,
+    &quot;started&quot;: false,
+    &quot;created_at&quot;: &quot;1970-01-01 00:00:00&quot;,
+    &quot;updated_at&quot;: &quot;1970-01-01 00:00:00&quot;,
+    &quot;_url&quot;: &quot;/tournaments/1&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not Found):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Reason of error&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETtournaments--tournament-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETtournaments--tournament-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETtournaments--tournament-"></code></pre>
+</span>
+<span id="execution-error-GETtournaments--tournament-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETtournaments--tournament-"></code></pre>
+</span>
+<form id="form-GETtournaments--tournament-" data-method="GET"
+      data-path="tournaments/{tournament}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETtournaments--tournament-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETtournaments--tournament-"
+                    onclick="tryItOut('GETtournaments--tournament-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETtournaments--tournament-"
+                    onclick="cancelTryOut('GETtournaments--tournament-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETtournaments--tournament-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>tournaments/{tournament}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>tournament</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="tournament"
+               data-endpoint="GETtournaments--tournament-"
+               value="17"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                    </form>
+
+    <h3>Response</h3>
+    <h4 class="fancy-heading-panel"><b>Response Fields</b></h4>
+            <p>
+            <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<br>
+<p>Tournament ID.</p>
+        </p>
+            <p>
+            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>Tournament name.</p>
+        </p>
+            <p>
+            <b><code>description</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>Tournament description.</p>
+        </p>
+            <p>
+            <b><code>started</code></b>&nbsp;&nbsp;<small>boolean</small>  &nbsp;
+<br>
+<p>Tournament started.</p>
+        </p>
+            <p>
+            <b><code>_url</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>URL to tournament resource.</p>
+        </p>
+            <p>
+            <b><code>created_at</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>Tournament creation timestamp.</p>
+        </p>
+            <p>
+            <b><code>updated_at</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<br>
+<p>Last update timestamp.</p>
+        </p>
+                <h2 id="tournament-management-PUTtournaments--tournament-">Replace a tournament</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-PUTtournaments--tournament-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost:8000/tournaments/8" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"Tournament Awesome\",
+    \"description\": \"Lorem ipsum dolor sit...\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/tournaments/8"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Tournament Awesome",
+    "description": "Lorem ipsum dolor sit..."
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put(
+    'http://localhost:8000/tournaments/8',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'name' =&gt; 'Tournament Awesome',
+            'description' =&gt; 'Lorem ipsum dolor sit...',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://localhost:8000/tournaments/8'
+payload = {
+    "name": "Tournament Awesome",
+    "description": "Lorem ipsum dolor sit..."
+}
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('PUT', url, headers=headers, json=payload)
+response.json()</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTtournaments--tournament-">
+            <blockquote>
+            <p>Example response (200, Success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Tournament 1&quot;,
+    &quot;description&quot;: &quot;The mind is willing, but the body is spongy and bruised&quot;,
+    &quot;started&quot;: false,
+    &quot;created_at&quot;: &quot;1970-01-01 00:00:00&quot;,
+    &quot;updated_at&quot;: &quot;1970-01-01 00:00:00&quot;,
+    &quot;_url&quot;: &quot;/tournaments/1&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not Found):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Reason of error&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, Invalid Request Body):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Please give a name to the tournament (and 1 more error)&quot;,
+    &quot;errors&quot;: {
+        &quot;name&quot;: [
+            &quot;Please give a name to the tournament&quot;
+        ],
+        &quot;description&quot;: [
+            &quot;Description must be under 500 characters&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTtournaments--tournament-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTtournaments--tournament-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTtournaments--tournament-"></code></pre>
+</span>
+<span id="execution-error-PUTtournaments--tournament-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTtournaments--tournament-"></code></pre>
+</span>
+<form id="form-PUTtournaments--tournament-" data-method="PUT"
+      data-path="tournaments/{tournament}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTtournaments--tournament-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTtournaments--tournament-"
+                    onclick="tryItOut('PUTtournaments--tournament-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTtournaments--tournament-"
+                    onclick="cancelTryOut('PUTtournaments--tournament-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTtournaments--tournament-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>tournaments/{tournament}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>tournament</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="tournament"
+               data-endpoint="PUTtournaments--tournament-"
+               value="8"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="name"
+               data-endpoint="PUTtournaments--tournament-"
+               value="Tournament Awesome"
+               data-component="body" hidden>
+    <br>
+<p>Name of the tournament. Must be less than or equal to 100 characters. Must not be greater than 100 characters.</p>
+        </p>
+                <p>
+            <b><code>description</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="description"
+               data-endpoint="PUTtournaments--tournament-"
+               value="Lorem ipsum dolor sit..."
+               data-component="body" hidden>
+    <br>
+<p>Short description of the tournament. Must be less than or equal to 500 characters. Note: WYSIWYG tags and markdowns are considered too. Must not be greater than 500 characters.</p>
+        </p>
+        </form>
+
+            <h2 id="tournament-management-DELETEtournaments--tournament-">Delete a tournament</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-DELETEtournaments--tournament-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request DELETE \
+    "http://localhost:8000/tournaments/6" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/tournaments/6"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;delete(
+    'http://localhost:8000/tournaments/6',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://localhost:8000/tournaments/6'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('DELETE', url, headers=headers)
+response.json()</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEtournaments--tournament-">
+            <blockquote>
+            <p>Example response (200, Success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Tournament deleted&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not Found):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Reason of error&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-DELETEtournaments--tournament-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEtournaments--tournament-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEtournaments--tournament-"></code></pre>
+</span>
+<span id="execution-error-DELETEtournaments--tournament-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEtournaments--tournament-"></code></pre>
+</span>
+<form id="form-DELETEtournaments--tournament-" data-method="DELETE"
+      data-path="tournaments/{tournament}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEtournaments--tournament-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEtournaments--tournament-"
+                    onclick="tryItOut('DELETEtournaments--tournament-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEtournaments--tournament-"
+                    onclick="cancelTryOut('DELETEtournaments--tournament-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEtournaments--tournament-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>tournaments/{tournament}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>tournament</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="tournament"
+               data-endpoint="DELETEtournaments--tournament-"
+               value="6"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                    </form>
+
+            <h2 id="tournament-management-PUTtournaments--tournament--start">Start Tournament</h2>
+
+<p>
+</p>
+
+<p>Start a tournament. Tournament can only be started if all initial brackets are filled.</p>
+
+<span id="example-requests-PUTtournaments--tournament--start">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost:8000/tournaments/6/start" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/tournaments/6/start"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put(
+    'http://localhost:8000/tournaments/6/start',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://localhost:8000/tournaments/6/start'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('PUT', url, headers=headers)
+response.json()</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTtournaments--tournament--start">
+            <blockquote>
+            <p>Example response (200, Success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Tournament started&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400, Tournament started):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Tournament already started&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400, Brackets not full):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Please fill all initial brackets before starting tournament&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not Found):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Reason of error&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTtournaments--tournament--start" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTtournaments--tournament--start"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTtournaments--tournament--start"></code></pre>
+</span>
+<span id="execution-error-PUTtournaments--tournament--start" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTtournaments--tournament--start"></code></pre>
+</span>
+<form id="form-PUTtournaments--tournament--start" data-method="PUT"
+      data-path="tournaments/{tournament}/start"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTtournaments--tournament--start', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTtournaments--tournament--start"
+                    onclick="tryItOut('PUTtournaments--tournament--start');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTtournaments--tournament--start"
+                    onclick="cancelTryOut('PUTtournaments--tournament--start');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTtournaments--tournament--start" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>tournaments/{tournament}/start</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>tournament</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="tournament"
+               data-endpoint="PUTtournaments--tournament--start"
+               value="6"
+               data-component="url" hidden>
+    <br>
+
+            </p>
+                    </form>
 
     
 

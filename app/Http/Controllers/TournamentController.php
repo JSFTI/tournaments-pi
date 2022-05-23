@@ -15,6 +15,10 @@ use Illuminate\Http\Request;
  */
 class TournamentController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Get tournaments
      * 
@@ -154,6 +158,13 @@ class TournamentController extends Controller
 
     /**
      * Start Tournament
+     * 
+     * Start a tournament. Tournament can only be started if all initial brackets are filled.
+     * 
+     * @response 200 scenario="Success" {"message": "Tournament started"}
+     * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
+     * @response 400 scenario="Tournament started" {"message": "Tournament already started"}
+     * @response 400 scenario="Brackets not full" {"message": "Please fill all initial brackets before starting tournament"}
      */
     public function start(int $tournament_id){
         $tournament = Tournament::find($tournament_id);
@@ -163,6 +174,11 @@ class TournamentController extends Controller
 
         if($tournament->started){
             return response()->json(['message' => 'Tournament already started'], 400);
+        }
+
+        $bracket = Bracket::whereNull('match')->whereNull('player_id')->get();
+        if($bracket->count() > 0){
+            return response()->json(['message' => 'Please fill all initial brackets before starting tournament'], 400);
         }
 
         $tournament->started = true;

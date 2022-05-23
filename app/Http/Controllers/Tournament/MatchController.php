@@ -17,8 +17,21 @@ use Illuminate\Http\Request;
 class MatchController extends Controller
 {
     /**
-     * Get Match
+     * Get Match by Match Number
      * 
+     * @urlParam match_num int required
+     * @responseField id int Id of match bracket.
+     * @responseField created_at string Date bracket created.
+     * @responseField updated_at string Date bracket created.
+     * @responseField match int If a bracket has previous match, it will be filled by match number,
+     * @responseField player object Player in this bracket. If **null**, it means that the bracket has no player yet.
+     * @responseField _url string URL to bracket.
+     * @responseField prev_match object Previous match. Seperated to left and right side. If **null**, it means that the bracket has no previous match.
+     * @responseField prev_match.left object Prevous match on the left side.
+     * @responseField prev_match.right object Prevous match on the right side.
+     * 
+     * @responseFile 200 scenario="Success" responses/matches/get_match.json
+     * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
      */
     public function show(int $tournament_id, int $match_num){
         $tournament = Tournament::find($tournament_id);
@@ -58,6 +71,11 @@ class MatchController extends Controller
      * Assigns a winner to a match
      * 
      * @urlParam match_num Match number of a tournament.
+     * 
+     * @response 200 scenario="Success" {"message": "Winner declared"}
+     * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
+     * @response 400 scenario="Tournament has not started" {"message": "Tournament has not started"}
+     * @response 400 scenario="Player not candidate" {"message": "Player is not winner candidate"}
      */
     public function createWinner(WinnerRequest $request, int $tournament_id, int $match_num){
         $tournament = Tournament::find($tournament_id);
@@ -74,9 +92,14 @@ class MatchController extends Controller
         if(!$match){
             return response()->json(['message' => 'Match not found'], 404);
         }
+
+        if(!($match->children[0]->player_id !== $request->player_id || $match->children[1]->player_id !== $request->player_id)){
+            return response()->json(['message' => 'Player is not winner candidate'], 400);
+        }
+
         $match->player_id = $request->player_id;
         $match->save();
 
-        return response()->json(['message' => 'Winner declared.'], 200);
+        return response()->json(['message' => 'Winner declared'], 200);
     }
 }

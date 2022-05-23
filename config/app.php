@@ -194,4 +194,5 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    'jwt_secret' => env('JWT_SECRET', 'secret')
 ];

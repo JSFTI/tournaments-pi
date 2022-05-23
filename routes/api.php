@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\TournamentController;
 use App\Http\Controllers\Tournament\PlayerController as TournamentPlayerController;
@@ -7,7 +8,6 @@ use App\Http\Controllers\Tournament\BracketController as TournamentBracketContro
 use App\Http\Controllers\Bracket\PlayerController as BracketPlayerController;
 use App\Http\Controllers\Tournament\MatchController as TournamentMatchController;
 use App\Http\Controllers\BracketController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +25,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+
 Route::group(['prefix' => 'tournaments', 'controller' => TournamentController::class], function(){
     Route::get('/', 'index')->name('tournaments');
     Route::get('/{tournament}', 'show')->name('tournament');
@@ -32,7 +35,7 @@ Route::group(['prefix' => 'tournaments', 'controller' => TournamentController::c
     Route::put('/{tournament}', 'replace');
     Route::delete('/{tournament}', 'destroy');
 
-    Route::post('/{tournament}/started', 'start');
+    Route::put('/{tournament}/start', 'start');
 
     Route::group(['prefix' => '{tournament}/players', 'controller' => TournamentPlayerController::class], function(){
         /* GET      /tournaments/{tournament}/players */
@@ -50,7 +53,7 @@ Route::group(['prefix' => 'tournaments', 'controller' => TournamentController::c
 
     Route::group(['prefix' => '{tournament}/matches', 'controller' => TournamentMatchController::class], function(){
         Route::get('{match_num}', 'show');
-        Route::post('{match_num}/winner', 'createWinner');
+        Route::put('{match_num}/winner', 'createWinner');
     });
 });
 

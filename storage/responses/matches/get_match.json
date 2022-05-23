@@ -1,0 +1,53 @@
+{
+  "id": 398,
+  "match": 1,
+  "player_id": 15,
+  "tournament_id": 5,
+  "created_at": "2022-05-23T06:52:37.000000Z",
+  "updated_at": "2022-05-23T06:53:20.000000Z",
+  "prev_match": {
+      "left": {
+          "id": 399,
+          "match": null,
+          "player_id": 14,
+          "tournament_id": 5,
+          "created_at": "2022-05-23T06:52:37.000000Z",
+          "updated_at": "2022-05-23T06:52:37.000000Z",
+          "player": {
+              "id": 14,
+              "name": "JSON",
+              "tournament_id": 5,
+              "created_at": "2022-05-23T06:51:46.000000Z",
+              "updated_at": "2022-05-23T06:51:46.000000Z",
+              "_url": "/players/14",
+              "tournament_url": "/tournaments/5"
+          }
+      },
+      "right": {
+          "id": 400,
+          "match": null,
+          "player_id": 15,
+          "tournament_id": 5,
+          "created_at": "2022-05-23T06:52:37.000000Z",
+          "updated_at": "2022-05-23T06:52:37.000000Z",
+          "player": {
+              "id": 15,
+              "name": "XML",
+              "tournament_id": 5,
+              "created_at": "2022-05-23T06:51:49.000000Z",
+              "updated_at": "2022-05-23T06:51:49.000000Z",
+              "_url": "/players/15",
+              "tournament_url": "/tournaments/5"
+          }
+      }
+  },
+  "player": {
+      "id": 15,
+      "name": "XML",
+      "tournament_id": 5,
+      "created_at": "2022-05-23T06:51:49.000000Z",
+      "updated_at": "2022-05-23T06:51:49.000000Z",
+      "_url": "/players/15",
+      "tournament_url": "/tournaments/5"
+  }
+}

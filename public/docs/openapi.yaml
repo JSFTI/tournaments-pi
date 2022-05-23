@@ -8,20 +8,20 @@ servers:
     url: 'http://localhost:8000'
 paths:
   '/tournaments/{tournament}/brackets':
-    post:
-      summary: 'Create new brackets'
-      description: 'Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.'
+    get:
+      summary: 'Get brackets'
+      description: ''
       parameters:
         -
           in: query
-          name: 'enum(tree,list)'
-          description: 'Defaults to "tree". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match acting as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-          example: doloribus
+          name: dataStructure
+          description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
+          example: facere
           required: false
           schema:
             type: string
-            description: 'Defaults to "tree". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match acting as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-            example: doloribus
+            description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
+            example: facere
         -
           in: header
           name: Content-Type
@@ -37,7 +37,7 @@ paths:
           schema:
             type: string
       responses:
-        -
+        0:
           description: Created
           content:
             application/json:
@@ -47,33 +47,17 @@ paths:
                   brackets:
                     -
                       match: 1
-                      player:
-                        name: Adi
-                        _url: /players/1
-                        tournament_url: /tournaments/2
-                      prev_match: null
-                      _url: /tournaments/2/brackets/1
-                    -
-                      match: 2
-                      player:
-                        name: Budi
-                        _url: /players/2
-                        tournament_url: /tournaments/2
-                      prev_match: null
-                      _url: /tournaments/2/brackets/2
-                    -
-                      match: 3
                       player: null
                       prev_match:
                         left:
-                          match: 1
+                          match: null
                           player:
                             name: Adi
                             _url: /players/1
                             tournament_url: /tournaments/2
                           _url: /tournaments/2/brackets/1
                         right:
-                          match: 2
+                          match: null
                           player:
                             name: Budi
                             _url: /players/2
@@ -88,33 +72,132 @@ paths:
                     example:
                       -
                         match: 1
-                        player:
-                          name: Adi
-                          _url: /players/1
-                          tournament_url: /tournaments/2
-                        prev_match: null
-                        _url: /tournaments/2/brackets/1
-                      -
-                        match: 2
-                        player:
-                          name: Budi
-                          _url: /players/2
-                          tournament_url: /tournaments/2
-                        prev_match: null
-                        _url: /tournaments/2/brackets/2
-                      -
-                        match: 3
                         player: null
                         prev_match:
                           left:
-                            match: 1
+                            match: null
                             player:
                               name: Adi
                               _url: /players/1
                               tournament_url: /tournaments/2
                             _url: /tournaments/2/brackets/1
                           right:
-                            match: 2
+                            match: null
+                            player:
+                              name: Budi
+                              _url: /players/2
+                              tournament_url: /tournaments/2
+                            _url: /tournaments/2/brackets/2
+                        _url: /tournaments/2/brackets/3
+                    description: 'Array of bracket objects.'
+                    items:
+                      type: object
+                  _url:
+                    type: string
+                    example: /tournaments/2/brackets
+                  tournament_url:
+                    type: string
+                    example: /tournaments/2
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Tournament not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Tournament not found'
+      tags:
+        - 'Manage Brackets'
+      security: []
+    put:
+      summary: 'Create new brackets or replace old brackets.'
+      description: "Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.\nThis endpoint can be called again to randomly insert recently added players into the brackets.\n\n<aside class=\"danger\">Calling this endpoint replaces previously generated bracket.</aside>\n\n<aside class=\"info\">No body parameters are required for this end-point. Any body parameters will be ignored</aside>"
+      parameters:
+        -
+          in: query
+          name: dataStructure
+          description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
+          example: ut
+          required: false
+          schema:
+            type: string
+            description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
+            example: ut
+        -
+          in: query
+          name: empty
+          description: 'Defaults to "true". If ```empty``` is specified, players will not be added automatically. Refer to **Upsert Player in Bracket**.'
+          example: true
+          required: false
+          schema:
+            type: boolean
+            description: 'Defaults to "true". If ```empty``` is specified, players will not be added automatically. Refer to **Upsert Player in Bracket**.'
+            example: true
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        0:
+          description: 'Created (Brackets created)'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  brackets:
+                    -
+                      match: 1
+                      player: null
+                      prev_match:
+                        left:
+                          match: null
+                          player:
+                            name: Adi
+                            _url: /players/1
+                            tournament_url: /tournaments/2
+                          _url: /tournaments/2/brackets/1
+                        right:
+                          match: null
+                          player:
+                            name: Budi
+                            _url: /players/2
+                            tournament_url: /tournaments/2
+                          _url: /tournaments/2/brackets/2
+                      _url: /tournaments/2/brackets/3
+                  _url: /tournaments/2/brackets
+                  tournament_url: /tournaments/2
+                properties:
+                  brackets:
+                    type: array
+                    example:
+                      -
+                        match: 1
+                        player: null
+                        prev_match:
+                          left:
+                            match: null
+                            player:
+                              name: Adi
+                              _url: /players/1
+                              tournament_url: /tournaments/2
+                            _url: /tournaments/2/brackets/1
+                          right:
+                            match: null
                             player:
                               name: Budi
                               _url: /players/2
@@ -132,8 +215,227 @@ paths:
                     type: string
                     example: /tournaments/2
                     description: 'URL to the tournament.'
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
       tags:
         - 'Manage Brackets'
+      security: []
+    parameters:
+      -
+        in: path
+        name: tournament
+        description: ''
+        example: 15
+        required: true
+        schema:
+          type: integer
+  '/brackets/{bracket}/player':
+    put:
+      summary: 'Upsert Player in Bracket'
+      description: "Insert a player to a bracket or replace a player in a bracket. Upsert can only be done if tournament has not started yet.\n\n<aside class=\"info\">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.</aside>"
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Manage Brackets'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                player_id:
+                  type: integer
+                  description: 'Target player.'
+                  example: 16
+      security: []
+    parameters:
+      -
+        in: path
+        name: bracket
+        description: ''
+        example: 6
+        required: true
+        schema:
+          type: integer
+  '/tournaments/{tournament}/matches/{match_num}':
+    get:
+      summary: 'Get Match by Match Number'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 398
+                  match: 1
+                  player_id: 15
+                  tournament_id: 5
+                  created_at: '2022-05-23T06:52:37.000000Z'
+                  updated_at: '2022-05-23T06:53:20.000000Z'
+                  prev_match:
+                    left:
+                      id: 399
+                      match: null
+                      player_id: 14
+                      tournament_id: 5
+                      created_at: '2022-05-23T06:52:37.000000Z'
+                      updated_at: '2022-05-23T06:52:37.000000Z'
+                      player:
+                        id: 14
+                        name: JSON
+                        tournament_id: 5
+                        created_at: '2022-05-23T06:51:46.000000Z'
+                        updated_at: '2022-05-23T06:51:46.000000Z'
+                        _url: /players/14
+                        tournament_url: /tournaments/5
+                    right:
+                      id: 400
+                      match: null
+                      player_id: 15
+                      tournament_id: 5
+                      created_at: '2022-05-23T06:52:37.000000Z'
+                      updated_at: '2022-05-23T06:52:37.000000Z'
+                      player:
+                        id: 15
+                        name: XML
+                        tournament_id: 5
+                        created_at: '2022-05-23T06:51:49.000000Z'
+                        updated_at: '2022-05-23T06:51:49.000000Z'
+                        _url: /players/15
+                        tournament_url: /tournaments/5
+                  player:
+                    id: 15
+                    name: XML
+                    tournament_id: 5
+                    created_at: '2022-05-23T06:51:49.000000Z'
+                    updated_at: '2022-05-23T06:51:49.000000Z'
+                    _url: /players/15
+                    tournament_url: /tournaments/5
+                properties:
+                  id:
+                    type: integer
+                    example: 398
+                    description: 'Id of match bracket.'
+                  match:
+                    type: integer
+                    example: 1
+                    description: 'If a bracket has previous match, it will be filled by match number,'
+                  player_id:
+                    type: integer
+                    example: 15
+                  tournament_id:
+                    type: integer
+                    example: 5
+                  created_at:
+                    type: string
+                    example: '2022-05-23T06:52:37.000000Z'
+                    description: 'Date bracket created.'
+                  updated_at:
+                    type: string
+                    example: '2022-05-23T06:53:20.000000Z'
+                    description: 'Date bracket created.'
+                  prev_match:
+                    type: object
+                    example:
+                      left:
+                        id: 399
+                        match: null
+                        player_id: 14
+                        tournament_id: 5
+                        created_at: '2022-05-23T06:52:37.000000Z'
+                        updated_at: '2022-05-23T06:52:37.000000Z'
+                        player:
+                          id: 14
+                          name: JSON
+                          tournament_id: 5
+                          created_at: '2022-05-23T06:51:46.000000Z'
+                          updated_at: '2022-05-23T06:51:46.000000Z'
+                          _url: /players/14
+                          tournament_url: /tournaments/5
+                      right:
+                        id: 400
+                        match: null
+                        player_id: 15
+                        tournament_id: 5
+                        created_at: '2022-05-23T06:52:37.000000Z'
+                        updated_at: '2022-05-23T06:52:37.000000Z'
+                        player:
+                          id: 15
+                          name: XML
+                          tournament_id: 5
+                          created_at: '2022-05-23T06:51:49.000000Z'
+                          updated_at: '2022-05-23T06:51:49.000000Z'
+                          _url: /players/15
+                          tournament_url: /tournaments/5
+                    description: 'Previous match. Seperated to left and right side. If **null**, it means that the bracket has no previous match.'
+                  player:
+                    type: object
+                    example:
+                      id: 15
+                      name: XML
+                      tournament_id: 5
+                      created_at: '2022-05-23T06:51:49.000000Z'
+                      updated_at: '2022-05-23T06:51:49.000000Z'
+                      _url: /players/15
+                      tournament_url: /tournaments/5
+                    description: 'Player in this bracket. If **null**, it means that the bracket has no player yet.'
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
+      tags:
+        - 'Match Management'
       security: []
     parameters:
       -
@@ -144,7 +446,110 @@ paths:
         required: true
         schema:
           type: integer
-  '/players/{id}':
+      -
+        in: path
+        name: match_num
+        description: ''
+        example: 12
+        required: true
+        schema:
+          type: integer
+  '/tournaments/{tournament}/matches/{match_num}/winner':
+    put:
+      summary: 'Declare Match Winner'
+      description: 'Assigns a winner to a match'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Winner declared'
+                properties:
+                  message:
+                    type: string
+                    example: 'Winner declared'
+        400:
+          description: 'Player not candidate'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Player is not winner candidate'
+                properties:
+                  message:
+                    type: string
+                    example: 'Player is not winner candidate'
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
+      tags:
+        - 'Match Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                player_id:
+                  type: string
+                  description: 'The winner of the match.'
+                  example: quia
+              required:
+                - player_id
+      security: []
+    parameters:
+      -
+        in: path
+        name: tournament
+        description: ''
+        example: 16
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: match_num
+        description: 'Optional parameter. Match number of a tournament.'
+        required: true
+        schema:
+          type: integer
+        examples:
+          omitted:
+            summary: 'When the value is omitted'
+            value: ''
+          present:
+            summary: 'When the value is present'
+            value: 6
+  '/players/{player}':
     get:
       summary: 'Get a player'
       description: ''
@@ -369,9 +774,9 @@ paths:
     parameters:
       -
         in: path
-        name: id
-        description: 'The ID of the player.'
-        example: 10
+        name: player
+        description: ''
+        example: 1
         required: true
         schema:
           type: integer
@@ -442,6 +847,7 @@ paths:
                       id: 1
                       name: 'Tournament 1'
                       description: 'The mind is willing, but the body is spongy and bruised'
+                      started: false
                       created_at: '1970-01-01 00:00:00'
                       updated_at: '1970-01-01 00:00:00'
                       _url: /tournaments/1
@@ -472,6 +878,7 @@ paths:
                         id: 1
                         name: 'Tournament 1'
                         description: 'The mind is willing, but the body is spongy and bruised'
+                        started: false
                         created_at: '1970-01-01 00:00:00'
                         updated_at: '1970-01-01 00:00:00'
                         _url: /tournaments/1
@@ -522,6 +929,7 @@ paths:
                   id: 1
                   name: 'Tournament 1'
                   description: 'The mind is willing, but the body is spongy and bruised'
+                  started: false
                   created_at: '1970-01-01 00:00:00'
                   updated_at: '1970-01-01 00:00:00'
                   _url: /tournaments/1
@@ -535,6 +943,9 @@ paths:
                   description:
                     type: string
                     example: 'The mind is willing, but the body is spongy and bruised'
+                  started:
+                    type: boolean
+                    example: false
                   created_at:
                     type: string
                     example: '1970-01-01 00:00:00'
@@ -588,241 +999,6 @@ paths:
               required:
                 - name
       security: []
-  '/tournaments/{id}':
-    get:
-      summary: 'Get a tournament'
-      description: ''
-      parameters:
-        -
-          in: header
-          name: Content-Type
-          description: ''
-          example: application/json
-          schema:
-            type: string
-        -
-          in: header
-          name: Accept
-          description: ''
-          example: application/json
-          schema:
-            type: string
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  id: 1
-                  name: 'Tournament 1'
-                  description: 'The mind is willing, but the body is spongy and bruised'
-                  created_at: '1970-01-01 00:00:00'
-                  updated_at: '1970-01-01 00:00:00'
-                  _url: /tournaments/1
-                properties:
-                  id:
-                    type: integer
-                    example: 1
-                    description: 'Tournament ID.'
-                  name:
-                    type: string
-                    example: 'Tournament 1'
-                    description: 'Tournament name.'
-                  description:
-                    type: string
-                    example: 'The mind is willing, but the body is spongy and bruised'
-                    description: 'Tournament description.'
-                  created_at:
-                    type: string
-                    example: '1970-01-01 00:00:00'
-                    description: 'Tournament creation timestamp.'
-                  updated_at:
-                    type: string
-                    example: '1970-01-01 00:00:00'
-                    description: 'Last update timestamp.'
-                  _url:
-                    type: string
-                    example: /tournaments/1
-                    description: 'URL to tournament resource.'
-        404:
-          description: 'Not Found'
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Reason of error'
-                properties:
-                  message:
-                    type: string
-                    example: 'Reason of error'
-      tags:
-        - 'Tournament Management'
-      security: []
-    put:
-      summary: 'Replace a tournament'
-      description: ''
-      parameters:
-        -
-          in: header
-          name: Content-Type
-          description: ''
-          example: application/json
-          schema:
-            type: string
-        -
-          in: header
-          name: Accept
-          description: ''
-          example: application/json
-          schema:
-            type: string
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  id: 1
-                  name: 'Tournament 1'
-                  description: 'The mind is willing, but the body is spongy and bruised'
-                  created_at: '1970-01-01 00:00:00'
-                  updated_at: '1970-01-01 00:00:00'
-                  _url: /tournaments/1
-                properties:
-                  id:
-                    type: integer
-                    example: 1
-                  name:
-                    type: string
-                    example: 'Tournament 1'
-                  description:
-                    type: string
-                    example: 'The mind is willing, but the body is spongy and bruised'
-                  created_at:
-                    type: string
-                    example: '1970-01-01 00:00:00'
-                  updated_at:
-                    type: string
-                    example: '1970-01-01 00:00:00'
-                  _url:
-                    type: string
-                    example: /tournaments/1
-        404:
-          description: 'Not Found'
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Reason of error'
-                properties:
-                  message:
-                    type: string
-                    example: 'Reason of error'
-        422:
-          description: 'Invalid Request Body'
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Please give a name to the tournament (and 1 more error)'
-                  errors:
-                    name:
-                      - 'Please give a name to the tournament'
-                    description:
-                      - 'Description must be under 500 characters'
-                properties:
-                  message:
-                    type: string
-                    example: 'Please give a name to the tournament (and 1 more error)'
-                  errors:
-                    type: object
-                    example:
-                      name:
-                        - 'Please give a name to the tournament'
-                      description:
-                        - 'Description must be under 500 characters'
-      tags:
-        - 'Tournament Management'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: 'Name of the tournament. Must be less than or equal to 100 characters. Must not be greater than 100 characters.'
-                  example: 'Tournament Awesome'
-                description:
-                  type: string
-                  description: 'Short description of the tournament. Must be less than or equal to 500 characters. Note: WYSIWYG tags and markdowns are considered too. Must not be greater than 500 characters.'
-                  example: 'Lorem ipsum dolor sit...'
-              required:
-                - name
-      security: []
-    delete:
-      summary: 'Delete a tournament'
-      description: ''
-      parameters:
-        -
-          in: header
-          name: Content-Type
-          description: ''
-          example: application/json
-          schema:
-            type: string
-        -
-          in: header
-          name: Accept
-          description: ''
-          example: application/json
-          schema:
-            type: string
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Tournament deleted'
-                properties:
-                  message:
-                    type: string
-                    example: 'Tournament deleted'
-        404:
-          description: 'Not Found'
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Reason of error'
-                properties:
-                  message:
-                    type: string
-                    example: 'Reason of error'
-      tags:
-        - 'Tournament Management'
-      security: []
-    parameters:
-      -
-        in: path
-        name: id
-        description: 'The ID of the tournament.'
-        example: 3
-        required: true
-        schema:
-          type: integer
   '/tournaments/{tournament}/players':
     get:
       summary: 'Get players of a tournament'
@@ -1049,14 +1225,329 @@ paths:
         in: path
         name: tournament
         description: ''
-        example: 4
+        example: 10
+        required: true
+        schema:
+          type: integer
+  '/tournaments/{tournament}':
+    get:
+      summary: 'Get a tournament'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Tournament 1'
+                  description: 'The mind is willing, but the body is spongy and bruised'
+                  started: false
+                  created_at: '1970-01-01 00:00:00'
+                  updated_at: '1970-01-01 00:00:00'
+                  _url: /tournaments/1
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                    description: 'Tournament ID.'
+                  name:
+                    type: string
+                    example: 'Tournament 1'
+                    description: 'Tournament name.'
+                  description:
+                    type: string
+                    example: 'The mind is willing, but the body is spongy and bruised'
+                    description: 'Tournament description.'
+                  started:
+                    type: boolean
+                    example: false
+                    description: 'Tournament started.'
+                  created_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                    description: 'Tournament creation timestamp.'
+                  updated_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                    description: 'Last update timestamp.'
+                  _url:
+                    type: string
+                    example: /tournaments/1
+                    description: 'URL to tournament resource.'
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
+      tags:
+        - 'Tournament Management'
+      security: []
+    put:
+      summary: 'Replace a tournament'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Tournament 1'
+                  description: 'The mind is willing, but the body is spongy and bruised'
+                  started: false
+                  created_at: '1970-01-01 00:00:00'
+                  updated_at: '1970-01-01 00:00:00'
+                  _url: /tournaments/1
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'Tournament 1'
+                  description:
+                    type: string
+                    example: 'The mind is willing, but the body is spongy and bruised'
+                  started:
+                    type: boolean
+                    example: false
+                  created_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                  updated_at:
+                    type: string
+                    example: '1970-01-01 00:00:00'
+                  _url:
+                    type: string
+                    example: /tournaments/1
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
+        422:
+          description: 'Invalid Request Body'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Please give a name to the tournament (and 1 more error)'
+                  errors:
+                    name:
+                      - 'Please give a name to the tournament'
+                    description:
+                      - 'Description must be under 500 characters'
+                properties:
+                  message:
+                    type: string
+                    example: 'Please give a name to the tournament (and 1 more error)'
+                  errors:
+                    type: object
+                    example:
+                      name:
+                        - 'Please give a name to the tournament'
+                      description:
+                        - 'Description must be under 500 characters'
+      tags:
+        - 'Tournament Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the tournament. Must be less than or equal to 100 characters. Must not be greater than 100 characters.'
+                  example: 'Tournament Awesome'
+                description:
+                  type: string
+                  description: 'Short description of the tournament. Must be less than or equal to 500 characters. Note: WYSIWYG tags and markdowns are considered too. Must not be greater than 500 characters.'
+                  example: 'Lorem ipsum dolor sit...'
+              required:
+                - name
+      security: []
+    delete:
+      summary: 'Delete a tournament'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Tournament deleted'
+                properties:
+                  message:
+                    type: string
+                    example: 'Tournament deleted'
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
+      tags:
+        - 'Tournament Management'
+      security: []
+    parameters:
+      -
+        in: path
+        name: tournament
+        description: ''
+        example: 17
+        required: true
+        schema:
+          type: integer
+  '/tournaments/{tournament}/start':
+    put:
+      summary: 'Start Tournament'
+      description: 'Start a tournament. Tournament can only be started if all initial brackets are filled.'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Tournament started'
+                properties:
+                  message:
+                    type: string
+                    example: 'Tournament started'
+        400:
+          description: 'Brackets not full'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Please fill all initial brackets before starting tournament'
+                properties:
+                  message:
+                    type: string
+                    example: 'Please fill all initial brackets before starting tournament'
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
+      tags:
+        - 'Tournament Management'
+      security: []
+    parameters:
+      -
+        in: path
+        name: tournament
+        description: ''
+        example: 6
         required: true
         schema:
           type: integer
 tags:
   -
     name: 'Manage Brackets'
-    description: "\nAPI end-poitns to manage tournament brackets."
+    description: "\nAPI end-points to manage tournament brackets."
+  -
+    name: 'Match Management'
+    description: "\nAPIS for managing tournament matches."
   -
     name: 'Player Management'
     description: "\nAPIS for managing players"

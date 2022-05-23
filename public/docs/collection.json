@@ -10,40 +10,40 @@
     ],
     "info": {
         "name": "Tournaments API",
-        "_postman_id": "41fce98e-dc9b-4d3e-a381-87c4a4b8526c",
+        "_postman_id": "20ac0a5d-090f-4a24-a869-93b1a1c23fdc",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
         {
             "name": "Manage Brackets",
-            "description": "\nAPI end-poitns to manage tournament brackets.",
+            "description": "\nAPI end-points to manage tournament brackets.",
             "item": [
                 {
-                    "name": "Create new brackets",
+                    "name": "Get brackets",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
                             "path": "tournaments\/:tournament\/brackets",
                             "query": [
                                 {
-                                    "key": "enum%28tree%2Clist%29",
-                                    "value": "doloribus",
-                                    "description": "Defaults to \"tree\". Returns created brackets in tree or list.For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match acting as root.For **lists**, brackets will be structured in an **```array```**.",
+                                    "key": "dataStructure",
+                                    "value": "facere",
+                                    "description": "enum(tree,list) Defaults to \"list\". Returns created brackets in tree or list.For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.For **lists**, brackets will be structured in an **```array```**.",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/brackets?enum%28tree%2Clist%29=doloribus",
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/brackets?dataStructure=facere",
                             "variable": [
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "5",
+                                    "value": "15",
                                     "description": ""
                                 }
                             ]
                         },
-                        "method": "POST",
+                        "method": "GET",
                         "header": [
                             {
                                 "key": "Content-Type",
@@ -55,7 +55,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.",
+                        "description": "",
                         "auth": {
                             "type": "noauth"
                         }
@@ -64,8 +64,291 @@
                         {
                             "header": [],
                             "code": 0,
-                            "body": "{\n  \"brackets\": [\n    {\n      \"match\": 1,\n      \"player\": {\n        \"name\": \"Adi\",\n        \"_url\": \"\/players\/1\",\n        \"tournament_url\": \"\/tournaments\/2\"\n      },\n      \"prev_match\": null,\n      \"_url\": \"\/tournaments\/2\/brackets\/1\"\n    },{\n      \"match\": 2,\n      \"player\": {\n        \"name\": \"Budi\",\n        \"_url\": \"\/players\/2\",\n        \"tournament_url\": \"\/tournaments\/2\"\n      },\n      \"prev_match\": null,\n      \"_url\": \"\/tournaments\/2\/brackets\/2\"\n    },{\n      \"match\": 3,\n      \"player\": null,\n      \"prev_match\": {\n        \"left\": {\n          \"match\": 1,\n          \"player\": {\n            \"name\": \"Adi\",\n            \"_url\": \"\/players\/1\",\n            \"tournament_url\": \"\/tournaments\/2\"\n          },\n          \"_url\": \"\/tournaments\/2\/brackets\/1\"\n        },\n        \"right\": {\n          \"match\": 2,\n          \"player\": {\n            \"name\": \"Budi\",\n            \"_url\": \"\/players\/2\",\n            \"tournament_url\": \"\/tournaments\/2\"\n          },\n          \"_url\": \"\/tournaments\/2\/brackets\/2\"\n        }\n      },\n      \"_url\": \"\/tournaments\/2\/brackets\/3\"\n    }\n  ],\n  \"_url\": \"\/tournaments\/2\/brackets\",\n  \"tournament_url\": \"\/tournaments\/2\"\n}",
+                            "body": "",
+                            "name": "No Content (No bracket in tournament)"
+                        },
+                        {
+                            "header": [],
+                            "code": 0,
+                            "body": "{\n  \"brackets\": [\n    {\n      \"match\": 1,\n      \"player\": null,\n      \"prev_match\": {\n        \"left\": {\n          \"match\": null,\n          \"player\": {\n            \"name\": \"Adi\",\n            \"_url\": \"\/players\/1\",\n            \"tournament_url\": \"\/tournaments\/2\"\n          },\n          \"_url\": \"\/tournaments\/2\/brackets\/1\"\n        },\n        \"right\": {\n          \"match\": null,\n          \"player\": {\n            \"name\": \"Budi\",\n            \"_url\": \"\/players\/2\",\n            \"tournament_url\": \"\/tournaments\/2\"\n          },\n          \"_url\": \"\/tournaments\/2\/brackets\/2\"\n        }\n      },\n      \"_url\": \"\/tournaments\/2\/brackets\/3\"\n    }\n  ],\n  \"_url\": \"\/tournaments\/2\/brackets\",\n  \"tournament_url\": \"\/tournaments\/2\"\n}",
                             "name": "Created"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "58"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{\"message\":\"Tournament not found\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Create new brackets or replace old brackets.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:tournament\/brackets",
+                            "query": [
+                                {
+                                    "key": "dataStructure",
+                                    "value": "ut",
+                                    "description": "enum(tree,list) Defaults to \"list\". Returns created brackets in tree or list.For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.For **lists**, brackets will be structured in an **```array```**.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "empty",
+                                    "value": "1",
+                                    "description": "Defaults to \"true\". If ```empty``` is specified, players will not be added automatically. Refer to **Upsert Player in Bracket**.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/brackets?dataStructure=ut&empty=1",
+                            "variable": [
+                                {
+                                    "id": "tournament",
+                                    "key": "tournament",
+                                    "value": "11",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.\nThis endpoint can be called again to randomly insert recently added players into the brackets.\n\n<aside class=\"danger\">Calling this endpoint replaces previously generated bracket.<\/aside>\n\n<aside class=\"info\">No body parameters are required for this end-point. Any body parameters will be ignored<\/aside>",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 0,
+                            "body": "",
+                            "name": "No Content (No players in tournament)"
+                        },
+                        {
+                            "header": [],
+                            "code": 0,
+                            "body": "{\n  \"brackets\": [\n    {\n      \"match\": 1,\n      \"player\": null,\n      \"prev_match\": {\n        \"left\": {\n          \"match\": null,\n          \"player\": {\n            \"name\": \"Adi\",\n            \"_url\": \"\/players\/1\",\n            \"tournament_url\": \"\/tournaments\/2\"\n          },\n          \"_url\": \"\/tournaments\/2\/brackets\/1\"\n        },\n        \"right\": {\n          \"match\": null,\n          \"player\": {\n            \"name\": \"Budi\",\n            \"_url\": \"\/players\/2\",\n            \"tournament_url\": \"\/tournaments\/2\"\n          },\n          \"_url\": \"\/tournaments\/2\/brackets\/2\"\n        }\n      },\n      \"_url\": \"\/tournaments\/2\/brackets\/3\"\n    }\n  ],\n  \"_url\": \"\/tournaments\/2\/brackets\",\n  \"tournament_url\": \"\/tournaments\/2\"\n}",
+                            "name": "Success (Brackets replaced)"
+                        },
+                        {
+                            "header": [],
+                            "code": 0,
+                            "body": "{\n  \"brackets\": [\n    {\n      \"match\": 1,\n      \"player\": null,\n      \"prev_match\": {\n        \"left\": {\n          \"match\": null,\n          \"player\": {\n            \"name\": \"Adi\",\n            \"_url\": \"\/players\/1\",\n            \"tournament_url\": \"\/tournaments\/2\"\n          },\n          \"_url\": \"\/tournaments\/2\/brackets\/1\"\n        },\n        \"right\": {\n          \"match\": null,\n          \"player\": {\n            \"name\": \"Budi\",\n            \"_url\": \"\/players\/2\",\n            \"tournament_url\": \"\/tournaments\/2\"\n          },\n          \"_url\": \"\/tournaments\/2\/brackets\/2\"\n        }\n      },\n      \"_url\": \"\/tournaments\/2\/brackets\/3\"\n    }\n  ],\n  \"_url\": \"\/tournaments\/2\/brackets\",\n  \"tournament_url\": \"\/tournaments\/2\"\n}",
+                            "name": "Created (Brackets created)"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
+                        }
+                    ]
+                },
+                {
+                    "name": "Upsert Player in Bracket",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "brackets\/:bracket\/player",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/brackets\/:bracket\/player",
+                            "variable": [
+                                {
+                                    "id": "bracket",
+                                    "key": "bracket",
+                                    "value": "6",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"player_id\":16}"
+                        },
+                        "description": "Insert a player to a bracket or replace a player in a bracket. Upsert can only be done if tournament has not started yet.\n\n<aside class=\"info\">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.<\/aside>",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Match Management",
+            "description": "\nAPIS for managing tournament matches.",
+            "item": [
+                {
+                    "name": "Get Match by Match Number",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:tournament\/matches\/:match_num",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/matches\/:match_num",
+                            "variable": [
+                                {
+                                    "id": "tournament",
+                                    "key": "tournament",
+                                    "value": "5",
+                                    "description": ""
+                                },
+                                {
+                                    "id": "match_num",
+                                    "key": "match_num",
+                                    "value": "12",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 398,\n  \"match\": 1,\n  \"player_id\": 15,\n  \"tournament_id\": 5,\n  \"created_at\": \"2022-05-23T06:52:37.000000Z\",\n  \"updated_at\": \"2022-05-23T06:53:20.000000Z\",\n  \"prev_match\": {\n      \"left\": {\n          \"id\": 399,\n          \"match\": null,\n          \"player_id\": 14,\n          \"tournament_id\": 5,\n          \"created_at\": \"2022-05-23T06:52:37.000000Z\",\n          \"updated_at\": \"2022-05-23T06:52:37.000000Z\",\n          \"player\": {\n              \"id\": 14,\n              \"name\": \"JSON\",\n              \"tournament_id\": 5,\n              \"created_at\": \"2022-05-23T06:51:46.000000Z\",\n              \"updated_at\": \"2022-05-23T06:51:46.000000Z\",\n              \"_url\": \"\/players\/14\",\n              \"tournament_url\": \"\/tournaments\/5\"\n          }\n      },\n      \"right\": {\n          \"id\": 400,\n          \"match\": null,\n          \"player_id\": 15,\n          \"tournament_id\": 5,\n          \"created_at\": \"2022-05-23T06:52:37.000000Z\",\n          \"updated_at\": \"2022-05-23T06:52:37.000000Z\",\n          \"player\": {\n              \"id\": 15,\n              \"name\": \"XML\",\n              \"tournament_id\": 5,\n              \"created_at\": \"2022-05-23T06:51:49.000000Z\",\n              \"updated_at\": \"2022-05-23T06:51:49.000000Z\",\n              \"_url\": \"\/players\/15\",\n              \"tournament_url\": \"\/tournaments\/5\"\n          }\n      }\n  },\n  \"player\": {\n      \"id\": 15,\n      \"name\": \"XML\",\n      \"tournament_id\": 5,\n      \"created_at\": \"2022-05-23T06:51:49.000000Z\",\n      \"updated_at\": \"2022-05-23T06:51:49.000000Z\",\n      \"_url\": \"\/players\/15\",\n      \"tournament_url\": \"\/tournaments\/5\"\n  }\n}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
+                        }
+                    ]
+                },
+                {
+                    "name": "Declare Match Winner",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:tournament\/matches\/:match_num\/winner",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/matches\/:match_num\/winner",
+                            "variable": [
+                                {
+                                    "id": "tournament",
+                                    "key": "tournament",
+                                    "value": "16",
+                                    "description": ""
+                                },
+                                {
+                                    "id": "match_num",
+                                    "key": "match_num",
+                                    "value": "6",
+                                    "description": "Match number of a tournament."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"player_id\":\"quia\"}"
+                        },
+                        "description": "Assigns a winner to a match",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"message\": \"Winner declared\"}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\"message\": \"Tournament has not started\"}",
+                            "name": "Tournament has not started"
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\"message\": \"Player is not winner candidate\"}",
+                            "name": "Player not candidate"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
                         }
                     ]
                 }
@@ -80,15 +363,15 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "players\/:id",
+                            "path": "players\/:player",
                             "query": [],
-                            "raw": "{{baseUrl}}\/players\/:id",
+                            "raw": "{{baseUrl}}\/players\/:player",
                             "variable": [
                                 {
-                                    "id": "id",
-                                    "key": "id",
-                                    "value": "10",
-                                    "description": "The ID of the player."
+                                    "id": "player",
+                                    "key": "player",
+                                    "value": "1",
+                                    "description": ""
                                 }
                             ]
                         },
@@ -129,15 +412,15 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "players\/:id",
+                            "path": "players\/:player",
                             "query": [],
-                            "raw": "{{baseUrl}}\/players\/:id",
+                            "raw": "{{baseUrl}}\/players\/:player",
                             "variable": [
                                 {
-                                    "id": "id",
-                                    "key": "id",
-                                    "value": "5",
-                                    "description": "The ID of the player."
+                                    "id": "player",
+                                    "key": "player",
+                                    "value": "6",
+                                    "description": ""
                                 }
                             ]
                         },
@@ -187,15 +470,15 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "players\/:id",
+                            "path": "players\/:player",
                             "query": [],
-                            "raw": "{{baseUrl}}\/players\/:id",
+                            "raw": "{{baseUrl}}\/players\/:player",
                             "variable": [
                                 {
-                                    "id": "id",
-                                    "key": "id",
+                                    "id": "player",
+                                    "key": "player",
                                     "value": "10",
-                                    "description": "The ID of the player."
+                                    "description": ""
                                 }
                             ]
                         },
@@ -286,7 +569,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\n  \"count\": 100,\n  \"total_pages\": 10,\n  \"page\": 1,\n  \"next_page\": \"\/tournaments?page=2\",\n  \"prev_page\": null,\n  \"results\": [\n    {\n      \"id\": 1,\n      \"name\": \"Tournament 1\",\n      \"description\": \"The mind is willing, but the body is spongy and bruised\",\n      \"created_at\": \"1970-01-01 00:00:00\",\n      \"updated_at\": \"1970-01-01 00:00:00\",\n      \"_url\": \"\/tournaments\/1\"\n    }\n  ]\n}",
+                            "body": "{\n  \"count\": 100,\n  \"total_pages\": 10,\n  \"page\": 1,\n  \"next_page\": \"\/tournaments?page=2\",\n  \"prev_page\": null,\n  \"results\": [\n    {\n      \"id\": 1,\n      \"name\": \"Tournament 1\",\n      \"description\": \"The mind is willing, but the body is spongy and bruised\",\n      \"started\": false,\n      \"created_at\": \"1970-01-01 00:00:00\",\n      \"updated_at\": \"1970-01-01 00:00:00\",\n      \"_url\": \"\/tournaments\/1\"\n    }\n  ]\n}",
                             "name": "Success"
                         },
                         {
@@ -330,7 +613,7 @@
                         {
                             "header": [],
                             "code": 201,
-                            "body": "{\n  \"id\": 1,\n  \"name\": \"Tournament 1\",\n  \"description\": \"The mind is willing, but the body is spongy and bruised\",\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\",\n  \"_url\": \"\/tournaments\/1\"\n}",
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Tournament 1\",\n  \"description\": \"The mind is willing, but the body is spongy and bruised\",\n  \"started\": false,\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\",\n  \"_url\": \"\/tournaments\/1\"\n}",
                             "name": "Created"
                         },
                         {
@@ -338,162 +621,6 @@
                             "code": 422,
                             "body": "{\n  \"message\": \"Please give a name to the tournament (and 1 more error)\",\n  \"errors\": {\n      \"name\": [\n          \"Please give a name to the tournament\"\n      ],\n      \"description\": [\n          \"Description must be under 500 characters\"\n      ]\n  }\n}",
                             "name": "Invalid Request Body"
-                        }
-                    ]
-                },
-                {
-                    "name": "Get a tournament",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "tournaments\/:id",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/tournaments\/:id",
-                            "variable": [
-                                {
-                                    "id": "id",
-                                    "key": "id",
-                                    "value": "3",
-                                    "description": "The ID of the tournament."
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"id\": 1,\n  \"name\": \"Tournament 1\",\n  \"description\": \"The mind is willing, but the body is spongy and bruised\",\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\",\n  \"_url\": \"\/tournaments\/1\"\n}",
-                            "name": "Success"
-                        },
-                        {
-                            "header": [],
-                            "code": 404,
-                            "body": "{\n  \"message\": \"Reason of error\"\n}",
-                            "name": "Not Found"
-                        }
-                    ]
-                },
-                {
-                    "name": "Replace a tournament",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "tournaments\/:id",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/tournaments\/:id",
-                            "variable": [
-                                {
-                                    "id": "id",
-                                    "key": "id",
-                                    "value": "13",
-                                    "description": "The ID of the tournament."
-                                }
-                            ]
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"name\":\"Tournament Awesome\",\"description\":\"Lorem ipsum dolor sit...\"}"
-                        },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"id\": 1,\n  \"name\": \"Tournament 1\",\n  \"description\": \"The mind is willing, but the body is spongy and bruised\",\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\",\n  \"_url\": \"\/tournaments\/1\"\n}",
-                            "name": "Success"
-                        },
-                        {
-                            "header": [],
-                            "code": 404,
-                            "body": "{\n  \"message\": \"Reason of error\"\n}",
-                            "name": "Not Found"
-                        },
-                        {
-                            "header": [],
-                            "code": 422,
-                            "body": "{\n  \"message\": \"Please give a name to the tournament (and 1 more error)\",\n  \"errors\": {\n      \"name\": [\n          \"Please give a name to the tournament\"\n      ],\n      \"description\": [\n          \"Description must be under 500 characters\"\n      ]\n  }\n}",
-                            "name": "Invalid Request Body"
-                        }
-                    ]
-                },
-                {
-                    "name": "Delete a tournament",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "tournaments\/:id",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/tournaments\/:id",
-                            "variable": [
-                                {
-                                    "id": "id",
-                                    "key": "id",
-                                    "value": "16",
-                                    "description": "The ID of the tournament."
-                                }
-                            ]
-                        },
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\"message\": \"Tournament deleted\"}",
-                            "name": "Success"
-                        },
-                        {
-                            "header": [],
-                            "code": 404,
-                            "body": "{\n  \"message\": \"Reason of error\"\n}",
-                            "name": "Not Found"
                         }
                     ]
                 },
@@ -528,7 +655,7 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "4",
+                                    "value": "10",
                                     "description": ""
                                 }
                             ]
@@ -577,7 +704,7 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "18",
+                                    "value": "9",
                                     "description": ""
                                 }
                             ]
@@ -620,6 +747,223 @@
                             "code": 422,
                             "body": "{\n  \"message\": \"Please give a name to the tournament (and 1 more error)\",\n  \"errors\": {\n      \"name\": [\n          \"Please give a name to the tournament\"\n      ],\n      \"description\": [\n          \"Description must be under 500 characters\"\n      ]\n  }\n}",
                             "name": "Invalid Request Body"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get a tournament",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:tournament",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament",
+                            "variable": [
+                                {
+                                    "id": "tournament",
+                                    "key": "tournament",
+                                    "value": "17",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Tournament 1\",\n  \"description\": \"The mind is willing, but the body is spongy and bruised\",\n  \"started\": false,\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\",\n  \"_url\": \"\/tournaments\/1\"\n}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
+                        }
+                    ]
+                },
+                {
+                    "name": "Replace a tournament",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:tournament",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament",
+                            "variable": [
+                                {
+                                    "id": "tournament",
+                                    "key": "tournament",
+                                    "value": "8",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Tournament Awesome\",\"description\":\"Lorem ipsum dolor sit...\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Tournament 1\",\n  \"description\": \"The mind is willing, but the body is spongy and bruised\",\n  \"started\": false,\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\",\n  \"_url\": \"\/tournaments\/1\"\n}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Please give a name to the tournament (and 1 more error)\",\n  \"errors\": {\n      \"name\": [\n          \"Please give a name to the tournament\"\n      ],\n      \"description\": [\n          \"Description must be under 500 characters\"\n      ]\n  }\n}",
+                            "name": "Invalid Request Body"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete a tournament",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:tournament",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament",
+                            "variable": [
+                                {
+                                    "id": "tournament",
+                                    "key": "tournament",
+                                    "value": "6",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"message\": \"Tournament deleted\"}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
+                        }
+                    ]
+                },
+                {
+                    "name": "Start Tournament",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:tournament\/start",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/start",
+                            "variable": [
+                                {
+                                    "id": "tournament",
+                                    "key": "tournament",
+                                    "value": "6",
+                                    "description": ""
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Start a tournament. Tournament can only be started if all initial brackets are filled.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"message\": \"Tournament started\"}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\"message\": \"Tournament already started\"}",
+                            "name": "Tournament started"
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\"message\": \"Please fill all initial brackets before starting tournament\"}",
+                            "name": "Brackets not full"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
                         }
                     ]
                 }

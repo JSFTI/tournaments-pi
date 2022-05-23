@@ -106,7 +106,21 @@ class BracketController extends Controller
      * 
      * @queryParam dataStructure enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.
      * 
-     * @responseField foo int Bar.
+     * @responseField brackets object[] Array of bracket objects.
+     * @responseField bracket.id int Id of match bracket.
+     * @responseField bracket.created_at string Date bracket created.
+     * @responseField bracket.updated_at string Date bracket created.
+     * @responseField bracket.match int If a bracket has previous match, it will be filled by match number,
+     * @responseField bracket.player object Player in this bracket. If **null**, it means that the bracket has no player yet.
+     * @responseField bracket._url string URL to bracket.
+     * @responseField bracket.prev_match object Previous match. Seperated to left and right side. If **null**, it means that the bracket has no previous match.
+     * @responseField bracket.prev_match.left object Prevous match on the left side.
+     * @responseField bracket.prev_match.right object Prevous match on the right side.
+     * 
+     * @responseField added_players object[] Array of added players.
+     * @responseField remaining_players object[] Array of added players.
+     * @responseField total_players int Number of players in tournament.
+     * @responseField total_rounds int Number of rounds in tournament.
      * 
      * @responseFile 201 status="Created" responses/brackets/get_brackets_list.json
      * @response 204 status="No Content (No bracket in tournament)"
@@ -163,12 +177,21 @@ class BracketController extends Controller
      * @queryParam empty boolean Defaults to "true". If ```empty``` is specified, players will not be added automatically. Refer to **Upsert Player in Bracket**.
      * 
      * @responseField brackets object[] Array of bracket objects.
-     * @responseField brackets.match int If a bracket has previous match, it will be filled by match number,
-     * @responseField brackets.player object Player in this bracket. If **null**, it means that the bracket has no player yet.
-     * @responseField brackets._url string URL to bracket.
-     * @responseField brackets.prev_match object Previous match. Seperated to left and right side. If **null**, it means that the bracket has no previous match.
-     * @responseField brackets.prev_match.left object Prevous match on the left side.
-     * @responseField brackets.prev_match.right object Prevous match on the right side.
+     * @responseField bracket.id int Id of match bracket.
+     * @responseField bracket.created_at string Date bracket created.
+     * @responseField bracket.updated_at string Date bracket created.
+     * @responseField bracket.match int If a bracket has previous match, it will be filled by match number,
+     * @responseField bracket.player object Player in this bracket. If **null**, it means that the bracket has no player yet.
+     * @responseField bracket._url string URL to bracket.
+     * @responseField bracket.prev_match object Previous match. Seperated to left and right side. If **null**, it means that the bracket has no previous match.
+     * @responseField bracket.prev_match.left object Prevous match on the left side.
+     * @responseField bracket.prev_match.right object Prevous match on the right side.
+     * 
+     * @responseField added_players object[] Array of added players.
+     * @responseField remaining_players object[] Array of added players.
+     * @responseField total_players int Number of players in tournament.
+     * @responseField total_rounds int Number of rounds in tournament.
+     * 
      * @responseField _url string URL to bracket list of the tournament.
      * @responseField tournament_url string URL to the tournament.
      * 

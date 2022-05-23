@@ -25,7 +25,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Authentication failed'], 401);
         }
         return response()->json(['message' => 'Login Successful'])
-            ->withCookie(cookie('token', $token, 24 * 60, null, null, false, true));
+            ->withCookie(cookie('token', $token, 24 * 60, null, 'https://tournaments-pi.herokuapp.com/', false, true));
     }
     
     /**

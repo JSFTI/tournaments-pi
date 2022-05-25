@@ -19,11 +19,11 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3333', 'https://tournaments-pi.herokuapp.com'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['Set-Cookie', 'Content-Type', 'Accepts', 'With-Credentials', 'Authorization'],
+    'allowed_headers' => ['*'],
 
     'exposed_headers' => [],
 

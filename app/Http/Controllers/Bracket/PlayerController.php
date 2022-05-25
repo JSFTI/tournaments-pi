@@ -16,6 +16,11 @@ use Illuminate\Http\Request;
  */
 class PlayerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Upsert Player in Bracket
      * 
@@ -23,7 +28,12 @@ class PlayerController extends Controller
      * 
      * <aside class="info">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.</aside>
      * 
+     * @authenticated
      * @bodyParam player_id int Target player.
+     * 
+     * @response 200 scenario="Success" {"message": "Player upserted"}
+     * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
+     * @response 400 scenario="Bad Request" {"message": "Error message"}
      */
     public function edit(BracketPlayerRequest $request, $bracket_id){
         $bracket = Bracket::with('children')->find($bracket_id);

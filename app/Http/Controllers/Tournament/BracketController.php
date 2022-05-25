@@ -15,6 +15,11 @@ use Illuminate\Http\Request;
  */
 class BracketController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => 'index']);   
+    }
+
     /**
      * Restructure tree bracket to fit documentation.
      * 
@@ -167,7 +172,8 @@ class BracketController extends Controller
      * Create new brackets or replace old brackets.
      * 
      * Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.
-     * This endpoint can be called again to randomly insert recently added players into the brackets.
+     * This endpoint can be called again to randomly insert recently added players into the brackets.<br />
+     * Only tournament owner can create or replace brackets.
      * 
      * <aside class="danger">Calling this endpoint replaces previously generated bracket.</aside>
      * 
@@ -195,10 +201,13 @@ class BracketController extends Controller
      * @responseField _url string URL to bracket list of the tournament.
      * @responseField tournament_url string URL to the tournament.
      * 
+     * @authenticated
      * @responseFile 200 status="Success (Brackets replaced)" responses/brackets/get_brackets_list.json
      * @responseFile 201 status="Created (Brackets created)" responses/brackets/get_brackets_list.json
      * @response 204 status="No Content (No players in tournament)"
      * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
+     * @response 401 scenario="Unauthorized" {"message": "Unauthenticated"}
+     * 
      */
     public function create(Request $request, int $tournament_id){
         $tournament = Tournament::with('players')->where('id', $tournament_id)->first();

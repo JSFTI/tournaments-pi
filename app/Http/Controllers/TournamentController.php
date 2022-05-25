@@ -27,6 +27,7 @@ class TournamentController extends Controller
      * @queryParam page int  Defaults to ```1```. Values less than 1 will default to 1. Example: 1
      * @queryParam name string Search for tournament that contains ```name``` keyword. No-example
      * @queryParam limit int Defaults to ```10```. Values less than 1 will default to 1. Example: 10
+     * @queryParam user int Get tournaments owned by specified user with id.
      * 
      * @responseField count int
      * @responseField total_pages int
@@ -59,6 +60,10 @@ class TournamentController extends Controller
         $sql = Tournament::orderBy('created_at', 'DESC');
         if($request->name){
             $sql->where('name', 'LIKE', "%$request->name%");
+        }
+
+        if($request->user){
+            $sql->where('user_id', $request->user);
         }
 
         $results = $sql->limit($limit)->offset($offset)->get();
@@ -103,13 +108,16 @@ class TournamentController extends Controller
     /**
      * Create a tournament
      * 
+     * @authenticated
      * @responseFile 201 scenario="Created" responses/tournaments/get_tournament.json
      * @responseFile 422 scenario="Invalid Request Body" responses/tournaments/post_tournament.error.json
+     * @response 401 scenario="Unauthorized" {"message": "Unauthenticated"}
      */
     public function create(TournamentRequest $request){
         $tournament = new Tournament();
         $tournament->name = $request->name;
         $tournament->description = $request->description;
+        $tournament->user_id = auth()->user()->id;
         $tournament->save();
 
         $tournament->refresh();
@@ -120,6 +128,8 @@ class TournamentController extends Controller
     /**
      * Replace a tournament
      * 
+     * Tournament can only be replaces/edited by tournament owner.
+     * 
      * @responseFile 200 scenario="Success" responses/tournaments/get_tournament.json
      * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
      * @responseFile 422 scenario="Invalid Request Body" responses/tournaments/post_tournament.error.json
@@ -129,6 +139,10 @@ class TournamentController extends Controller
         
         if(!$tournament){
             return response()->json(['message' => 'Tournament not found'], 404);
+        }
+
+        if($tournament->user_id !== auth()->user()->id){
+            return response()->json(['message' => 'Unauthorized: Not tournament owner'], 401);
         }
 
         $tournament->name = $request->name;
@@ -142,14 +156,23 @@ class TournamentController extends Controller
     /**
      * Delete a tournament
      * 
+     * Tournament can only be deleted by tournament owner.
+     * 
+     * @authenticated
      * @response 200 scenario="Success" {"message": "Tournament deleted"}
      * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
+     * @authenticated
+     * @response 401 scenario="Unauthorized" {"message": "Unauthenticated"}
      */
     public function destroy(int $id){
         $tournament = Tournament::find($id);
         
         if(!$tournament){
             return response()->json(['message' => 'Tournament not found'], 404);
+        }
+
+        if($tournament->user_id !== auth()->user()->id){
+            return response()->json(['message' => 'Unauthorized: Not tournament owner'], 401);
         }
 
         $tournament->delete();
@@ -159,17 +182,24 @@ class TournamentController extends Controller
     /**
      * Start Tournament
      * 
-     * Start a tournament. Tournament can only be started if all initial brackets are filled.
+     * Start a tournament. Tournament can only be started if all initial brackets are filled and can only be started by tournamnet owner.
      * 
+     * @authenticated
      * @response 200 scenario="Success" {"message": "Tournament started"}
      * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
-     * @response 400 scenario="Tournament started" {"message": "Tournament already started"}
-     * @response 400 scenario="Brackets not full" {"message": "Please fill all initial brackets before starting tournament"}
+     * @response 400 scenario="Bad Request" {"message": "Error message"}
+     * @response 401 scenario="Unauthorized" {"message": "Unauthenticated"}
+     * 
      */
     public function start(int $tournament_id){
         $tournament = Tournament::find($tournament_id);
+        
         if(!$tournament){
             return response()->json(['message' => 'Tournament not found'], 404);
+        }
+        
+        if($tournament->user_id !== auth()->user()->id){
+            return response()->json(['message' => 'Unauthorized: Not tournament owner'], 401);
         }
 
         if($tournament->started){

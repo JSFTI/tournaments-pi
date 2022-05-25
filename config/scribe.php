@@ -62,7 +62,7 @@ return [
              * The route can be referenced by name or path here. Wildcards are supported.
              */
             'exclude' => [
-                '_ignition/*', 'sanctum/*', 'not_found'
+                '_ignition/*', 'sanctum/*', 'not_found', 'login', 'auth.login', 'auth.register', 'me.edit', 'me.changepassword'
                 // '/health', 'admin.*'
             ],
 

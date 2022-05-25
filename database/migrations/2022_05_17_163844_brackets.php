@@ -22,9 +22,9 @@ return new class extends Migration
             $table->nestedSet();
 
             $table->foreign('player_id')->on('players')->references('id')
-                ->restrictOnDelete()->restrictOnUpdate();
+                ->nullOnDelete()->restrictOnUpdate();
             $table->foreign('tournament_id')->on('tournaments')->references('id')
-                ->restrictOnDelete()->restrictOnUpdate();
+                ->cascadeOnDelete()->restrictOnUpdate();
         });
 
         Schema::table('tournaments', function(Blueprint $table){

@@ -7,16 +7,12 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-/**
- * Authentication
- * 
- * APIs to authenticate or register a new user.
- */
 class AuthController extends Controller
 {
-    /**
-     * Login
-     */
+    public function __construct(){
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+    
     public function login(LoginRequest $request){
         if(auth()->user()){
             return response()->json(['message' => 'Already authenticated'], 401);
@@ -24,13 +20,19 @@ class AuthController extends Controller
         if(!$token = auth()->attempt(['name' => $request->username, 'password' => $request->password])){
             return response()->json(['message' => 'Authentication failed'], 401);
         }
-        return response()->json(['message' => 'Login Successful'])
-            ->withCookie(cookie('token', $token, 24 * 60, null, null, false, true, false, 'none'));
+
+        $user = auth()->user();
+
+        return response()->json([
+            'message' => 'Login Successful',
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name
+            ]
+        ]);
     }
     
-    /**
-     * Register
-     */
     public function register(RegisterRequest $request){
         if(auth()->user()){
             return response()->json(['message' => 'Already authenticated'], 401);
@@ -44,7 +46,13 @@ class AuthController extends Controller
 
         $token = auth()->login($user);
 
-        return response()->json(['message' => 'Registration successful'], 200)
-            ->withCookie(cookie('token', $token, 24 * 60, null, null, false, true));
+        return response()->json([
+            'message' => 'Registration successful',
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name
+            ]
+        ]);
     }
 }

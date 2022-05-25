@@ -16,6 +16,10 @@ use Illuminate\Http\Request;
  */
 class MatchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['show']]);
+    }
     /**
      * Get Match by Match Number
      * 
@@ -68,14 +72,15 @@ class MatchController extends Controller
     /**
      * Declare Match Winner
      * 
-     * Assigns a winner to a match
+     * Assigns a winner to a match. Winner can only be declared if tournament is started and player comes from previous match/bracket.
      * 
      * @urlParam match_num Match number of a tournament.
      * 
+     * @authenticated
      * @response 200 scenario="Success" {"message": "Winner declared"}
      * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
-     * @response 400 scenario="Tournament has not started" {"message": "Tournament has not started"}
-     * @response 400 scenario="Player not candidate" {"message": "Player is not winner candidate"}
+     * @response 400 scenario="Bad Request" {"message": "Error message"}
+     * @response 401 scenario="Unauthorized" {"message": "Unauthenticated"}
      */
     public function createWinner(WinnerRequest $request, int $tournament_id, int $match_num){
         $tournament = Tournament::find($tournament_id);

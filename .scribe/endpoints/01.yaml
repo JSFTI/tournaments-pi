@@ -1,14 +1,14 @@
-name: 'Match Management'
+name: 'Manage Brackets'
 description: |-
 
-  APIS for managing tournament matches.
+  API end-points to manage tournament brackets.
 endpoints:
   -
     httpMethods:
       - GET
-    uri: 'tournaments/{tournament}/matches/{match_num}'
+    uri: 'tournaments/{tournament}/brackets'
     metadata:
-      title: 'Get Match by Match Number'
+      title: 'Get brackets'
       description: ''
       authenticated: false
       custom: []
@@ -20,77 +20,60 @@ endpoints:
         name: tournament
         description: ''
         required: true
-        example: 5
+        example: 4
         type: integer
         custom: []
-      match_num:
-        name: match_num
-        description: ''
-        required: true
-        example: 12
-        type: integer
+    queryParameters:
+      dataStructure:
+        name: dataStructure
+        description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
+        required: false
+        example: rerum
+        type: string
         custom: []
-    queryParameters: []
     bodyParameters: []
     responses:
       -
-        status: 200
+        status: 0
+        content: ''
+        headers: []
+        description: 'No Content (No bracket in tournament)'
+      -
+        status: 0
         content: |-
           {
-            "id": 398,
-            "match": 1,
-            "player_id": 15,
-            "tournament_id": 5,
-            "created_at": "2022-05-23T06:52:37.000000Z",
-            "updated_at": "2022-05-23T06:53:20.000000Z",
-            "prev_match": {
-                "left": {
-                    "id": 399,
+            "brackets": [
+              {
+                "match": 1,
+                "player": null,
+                "prev_match": {
+                  "left": {
                     "match": null,
-                    "player_id": 14,
-                    "tournament_id": 5,
-                    "created_at": "2022-05-23T06:52:37.000000Z",
-                    "updated_at": "2022-05-23T06:52:37.000000Z",
                     "player": {
-                        "id": 14,
-                        "name": "JSON",
-                        "tournament_id": 5,
-                        "created_at": "2022-05-23T06:51:46.000000Z",
-                        "updated_at": "2022-05-23T06:51:46.000000Z",
-                        "_url": "/players/14",
-                        "tournament_url": "/tournaments/5"
-                    }
+                      "name": "Adi",
+                      "_url": "/players/1",
+                      "tournament_url": "/tournaments/2"
+                    },
+                    "_url": "/tournaments/2/brackets/1"
+                  },
+                  "right": {
+                    "match": null,
+                    "player": {
+                      "name": "Budi",
+                      "_url": "/players/2",
+                      "tournament_url": "/tournaments/2"
+                    },
+                    "_url": "/tournaments/2/brackets/2"
+                  }
                 },
-                "right": {
-                    "id": 400,
-                    "match": null,
-                    "player_id": 15,
-                    "tournament_id": 5,
-                    "created_at": "2022-05-23T06:52:37.000000Z",
-                    "updated_at": "2022-05-23T06:52:37.000000Z",
-                    "player": {
-                        "id": 15,
-                        "name": "XML",
-                        "tournament_id": 5,
-                        "created_at": "2022-05-23T06:51:49.000000Z",
-                        "updated_at": "2022-05-23T06:51:49.000000Z",
-                        "_url": "/players/15",
-                        "tournament_url": "/tournaments/5"
-                    }
-                }
-            },
-            "player": {
-                "id": 15,
-                "name": "XML",
-                "tournament_id": 5,
-                "created_at": "2022-05-23T06:51:49.000000Z",
-                "updated_at": "2022-05-23T06:51:49.000000Z",
-                "_url": "/players/15",
-                "tournament_url": "/tournaments/5"
-            }
+                "_url": "/tournaments/2/brackets/3"
+              }
+            ],
+            "_url": "/tournaments/2/brackets",
+            "tournament_url": "/tournaments/2"
           }
         headers: []
-        description: '200, Success'
+        description: Created
       -
         status: 404
         content: |-
@@ -99,51 +82,88 @@ endpoints:
           }
         headers: []
         description: '404, Not Found'
+      -
+        status: 404
+        content: '{"message":"Tournament not found"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '58'
+          vary: Origin
+        description: null
     responseFields:
-      id:
-        name: id
+      brackets:
+        name: brackets
+        description: 'Array of bracket objects.'
+        type: 'object[]'
+      bracket.id:
+        name: bracket.id
         description: 'Id of match bracket.'
         type: integer
-      created_at:
-        name: created_at
+      bracket.created_at:
+        name: bracket.created_at
         description: 'Date bracket created.'
         type: string
-      updated_at:
-        name: updated_at
+      bracket.updated_at:
+        name: bracket.updated_at
         description: 'Date bracket created.'
         type: string
-      match:
-        name: match
+      bracket.match:
+        name: bracket.match
         description: 'If a bracket has previous match, it will be filled by match number,'
         type: integer
-      player:
-        name: player
+      bracket.player:
+        name: bracket.player
         description: 'Player in this bracket. If **null**, it means that the bracket has no player yet.'
         type: object
-      _url:
-        name: _url
+      bracket._url:
+        name: bracket._url
         description: 'URL to bracket.'
         type: string
-      prev_match:
-        name: prev_match
+      bracket.prev_match:
+        name: bracket.prev_match
         description: 'Previous match. Seperated to left and right side. If **null**, it means that the bracket has no previous match.'
         type: object
-      prev_match.left:
-        name: prev_match.left
+      bracket.prev_match.left:
+        name: bracket.prev_match.left
         description: 'Prevous match on the left side.'
         type: object
-      prev_match.right:
-        name: prev_match.right
+      bracket.prev_match.right:
+        name: bracket.prev_match.right
         description: 'Prevous match on the right side.'
         type: object
+      added_players:
+        name: added_players
+        description: 'Array of added players.'
+        type: 'object[]'
+      remaining_players:
+        name: remaining_players
+        description: 'Array of added players.'
+        type: 'object[]'
+      total_players:
+        name: total_players
+        description: 'Number of players in tournament.'
+        type: integer
+      total_rounds:
+        name: total_rounds
+        description: 'Number of rounds in tournament.'
+        type: integer
   -
     httpMethods:
       - PUT
-    uri: 'tournaments/{tournament}/matches/{match_num}/winner'
+    uri: 'tournaments/{tournament}/brackets'
     metadata:
-      title: 'Declare Match Winner'
-      description: 'Assigns a winner to a match'
-      authenticated: false
+      title: 'Create new brackets or replace old brackets.'
+      description: |-
+        Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.
+        This endpoint can be called again to randomly insert recently added players into the brackets.<br />
+        Only tournament owner can create or replace brackets.
+
+        <aside class="danger">Calling this endpoint replaces previously generated bracket.</aside>
+
+        <aside class="info">No body parameters are required for this end-point. Any body parameters will be ignored</aside>
+      authenticated: true
       custom: []
     headers:
       Content-Type: application/json
@@ -153,41 +173,224 @@ endpoints:
         name: tournament
         description: ''
         required: true
-        example: 16
+        example: 13
         type: integer
         custom: []
-      match_num:
-        name: match_num
-        description: 'Match number of a tournament.'
+    queryParameters:
+      dataStructure:
+        name: dataStructure
+        description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
         required: false
-        example: 6
+        example: dolor
+        type: string
+        custom: []
+      empty:
+        name: empty
+        description: 'Defaults to "true". If ```empty``` is specified, players will not be added automatically. Refer to **Upsert Player in Bracket**.'
+        required: false
+        example: true
+        type: boolean
+        custom: []
+    bodyParameters: []
+    responses:
+      -
+        status: 0
+        content: ''
+        headers: []
+        description: 'No Content (No players in tournament)'
+      -
+        status: 401
+        content: '{"message": "Unauthenticated"}'
+        headers: []
+        description: '401, Unauthorized'
+      -
+        status: 0
+        content: |-
+          {
+            "brackets": [
+              {
+                "match": 1,
+                "player": null,
+                "prev_match": {
+                  "left": {
+                    "match": null,
+                    "player": {
+                      "name": "Adi",
+                      "_url": "/players/1",
+                      "tournament_url": "/tournaments/2"
+                    },
+                    "_url": "/tournaments/2/brackets/1"
+                  },
+                  "right": {
+                    "match": null,
+                    "player": {
+                      "name": "Budi",
+                      "_url": "/players/2",
+                      "tournament_url": "/tournaments/2"
+                    },
+                    "_url": "/tournaments/2/brackets/2"
+                  }
+                },
+                "_url": "/tournaments/2/brackets/3"
+              }
+            ],
+            "_url": "/tournaments/2/brackets",
+            "tournament_url": "/tournaments/2"
+          }
+        headers: []
+        description: 'Success (Brackets replaced)'
+      -
+        status: 0
+        content: |-
+          {
+            "brackets": [
+              {
+                "match": 1,
+                "player": null,
+                "prev_match": {
+                  "left": {
+                    "match": null,
+                    "player": {
+                      "name": "Adi",
+                      "_url": "/players/1",
+                      "tournament_url": "/tournaments/2"
+                    },
+                    "_url": "/tournaments/2/brackets/1"
+                  },
+                  "right": {
+                    "match": null,
+                    "player": {
+                      "name": "Budi",
+                      "_url": "/players/2",
+                      "tournament_url": "/tournaments/2"
+                    },
+                    "_url": "/tournaments/2/brackets/2"
+                  }
+                },
+                "_url": "/tournaments/2/brackets/3"
+              }
+            ],
+            "_url": "/tournaments/2/brackets",
+            "tournament_url": "/tournaments/2"
+          }
+        headers: []
+        description: 'Created (Brackets created)'
+      -
+        status: 404
+        content: |-
+          {
+            "message": "Reason of error"
+          }
+        headers: []
+        description: '404, Not Found'
+    responseFields:
+      brackets:
+        name: brackets
+        description: 'Array of bracket objects.'
+        type: 'object[]'
+      bracket.id:
+        name: bracket.id
+        description: 'Id of match bracket.'
+        type: integer
+      bracket.created_at:
+        name: bracket.created_at
+        description: 'Date bracket created.'
+        type: string
+      bracket.updated_at:
+        name: bracket.updated_at
+        description: 'Date bracket created.'
+        type: string
+      bracket.match:
+        name: bracket.match
+        description: 'If a bracket has previous match, it will be filled by match number,'
+        type: integer
+      bracket.player:
+        name: bracket.player
+        description: 'Player in this bracket. If **null**, it means that the bracket has no player yet.'
+        type: object
+      bracket._url:
+        name: bracket._url
+        description: 'URL to bracket.'
+        type: string
+      bracket.prev_match:
+        name: bracket.prev_match
+        description: 'Previous match. Seperated to left and right side. If **null**, it means that the bracket has no previous match.'
+        type: object
+      bracket.prev_match.left:
+        name: bracket.prev_match.left
+        description: 'Prevous match on the left side.'
+        type: object
+      bracket.prev_match.right:
+        name: bracket.prev_match.right
+        description: 'Prevous match on the right side.'
+        type: object
+      added_players:
+        name: added_players
+        description: 'Array of added players.'
+        type: 'object[]'
+      remaining_players:
+        name: remaining_players
+        description: 'Array of added players.'
+        type: 'object[]'
+      total_players:
+        name: total_players
+        description: 'Number of players in tournament.'
+        type: integer
+      total_rounds:
+        name: total_rounds
+        description: 'Number of rounds in tournament.'
+        type: integer
+      _url:
+        name: _url
+        description: 'URL to bracket list of the tournament.'
+        type: string
+      tournament_url:
+        name: tournament_url
+        description: 'URL to the tournament.'
+        type: string
+  -
+    httpMethods:
+      - PUT
+    uri: 'brackets/{bracket}/player'
+    metadata:
+      title: 'Upsert Player in Bracket'
+      description: |-
+        Insert a player to a bracket or replace a player in a bracket. Upsert can only be done if tournament has not started yet.
+
+        <aside class="info">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.</aside>
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      bracket:
+        name: bracket
+        description: ''
+        required: true
+        example: 5
         type: integer
         custom: []
     queryParameters: []
     bodyParameters:
       player_id:
         name: player_id
-        description: 'The winner of the match.'
-        required: true
-        example: quia
-        type: string
+        description: 'Target player.'
+        required: false
+        example: 20
+        type: integer
         custom: []
     responses:
       -
         status: 200
-        content: '{"message": "Winner declared"}'
+        content: '{"message": "Player upserted"}'
         headers: []
         description: '200, Success'
       -
         status: 400
-        content: '{"message": "Tournament has not started"}'
+        content: '{"message": "Error message"}'
         headers: []
-        description: '400, Tournament has not started'
-      -
-        status: 400
-        content: '{"message": "Player is not winner candidate"}'
-        headers: []
-        description: '400, Player not candidate'
+        description: '400, Bad Request'
       -
         status: 404
         content: |-

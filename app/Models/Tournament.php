@@ -19,6 +19,10 @@ class Tournament extends Model
         return $this->hasMany(Bracket::class);
     }
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
     public function getUrlAttribute(){
         if($this->id && $this->id !== null){
             return route('tournament', ['tournament' => $this->id], false);

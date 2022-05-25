@@ -8,6 +8,7 @@ use App\Http\Controllers\Tournament\BracketController as TournamentBracketContro
 use App\Http\Controllers\Bracket\PlayerController as BracketPlayerController;
 use App\Http\Controllers\Tournament\MatchController as TournamentMatchController;
 use App\Http\Controllers\BracketController;
+use App\Http\Controllers\MeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +26,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
+Route::get('/me', [MeController::class, 'index']);
+Route::put('/me', [MeController::class, 'edit'])->name('me.edit');
+Route::put('/me/password', [MeController::class, 'editPassword'])->name('me.changepassword');
 
 Route::group(['prefix' => 'tournaments', 'controller' => TournamentController::class], function(){
     Route::get('/', 'index')->name('tournaments');

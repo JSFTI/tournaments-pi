@@ -10,11 +10,55 @@
     ],
     "info": {
         "name": "Tournaments API",
-        "_postman_id": "20ac0a5d-090f-4a24-a869-93b1a1c23fdc",
+        "_postman_id": "e6d1e202-7054-461f-a392-438a8e34d2f2",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "Get Current User",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "me",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/me"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Get current authenticated user."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"id\": 1, \"name\": \"username\", \"email\": \"name@example.com\"}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "name": "Unauthorized"
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "name": "Manage Brackets",
             "description": "\nAPI end-points to manage tournament brackets.",
@@ -28,17 +72,17 @@
                             "query": [
                                 {
                                     "key": "dataStructure",
-                                    "value": "facere",
+                                    "value": "rerum",
                                     "description": "enum(tree,list) Defaults to \"list\". Returns created brackets in tree or list.For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.For **lists**, brackets will be structured in an **```array```**.",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/brackets?dataStructure=facere",
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/brackets?dataStructure=rerum",
                             "variable": [
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "15",
+                                    "value": "4",
                                     "description": ""
                                 }
                             ]
@@ -98,8 +142,8 @@
                                     "value": "58"
                                 },
                                 {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
+                                    "key": "vary",
+                                    "value": "Origin"
                                 }
                             ],
                             "code": 404,
@@ -117,7 +161,7 @@
                             "query": [
                                 {
                                     "key": "dataStructure",
-                                    "value": "ut",
+                                    "value": "dolor",
                                     "description": "enum(tree,list) Defaults to \"list\". Returns created brackets in tree or list.For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.For **lists**, brackets will be structured in an **```array```**.",
                                     "disabled": false
                                 },
@@ -128,12 +172,12 @@
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/brackets?dataStructure=ut&empty=1",
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/brackets?dataStructure=dolor&empty=1",
                             "variable": [
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "11",
+                                    "value": "13",
                                     "description": ""
                                 }
                             ]
@@ -150,10 +194,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.\nThis endpoint can be called again to randomly insert recently added players into the brackets.\n\n<aside class=\"danger\">Calling this endpoint replaces previously generated bracket.<\/aside>\n\n<aside class=\"info\">No body parameters are required for this end-point. Any body parameters will be ignored<\/aside>",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.\nThis endpoint can be called again to randomly insert recently added players into the brackets.<br \/>\nOnly tournament owner can create or replace brackets.\n\n<aside class=\"danger\">Calling this endpoint replaces previously generated bracket.<\/aside>\n\n<aside class=\"info\">No body parameters are required for this end-point. Any body parameters will be ignored<\/aside>"
                     },
                     "response": [
                         {
@@ -161,6 +202,12 @@
                             "code": 0,
                             "body": "",
                             "name": "No Content (No players in tournament)"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "name": "Unauthorized"
                         },
                         {
                             "header": [],
@@ -194,7 +241,7 @@
                                 {
                                     "id": "bracket",
                                     "key": "bracket",
-                                    "value": "6",
+                                    "value": "5",
                                     "description": ""
                                 }
                             ]
@@ -212,14 +259,30 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"player_id\":16}"
+                            "raw": "{\"player_id\":20}"
                         },
-                        "description": "Insert a player to a bracket or replace a player in a bracket. Upsert can only be done if tournament has not started yet.\n\n<aside class=\"info\">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.<\/aside>",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Insert a player to a bracket or replace a player in a bracket. Upsert can only be done if tournament has not started yet.\n\n<aside class=\"info\">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.<\/aside>"
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"message\": \"Player upserted\"}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\"message\": \"Error message\"}",
+                            "name": "Bad Request"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
+                        }
+                    ]
                 }
             ]
         },
@@ -239,13 +302,13 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "5",
+                                    "value": "18",
                                     "description": ""
                                 },
                                 {
                                     "id": "match_num",
                                     "key": "match_num",
-                                    "value": "12",
+                                    "value": "6",
                                     "description": ""
                                 }
                             ]
@@ -294,13 +357,13 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "16",
+                                    "value": "17",
                                     "description": ""
                                 },
                                 {
                                     "id": "match_num",
                                     "key": "match_num",
-                                    "value": "6",
+                                    "value": "1",
                                     "description": "Match number of a tournament."
                                 }
                             ]
@@ -318,12 +381,9 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"player_id\":\"quia\"}"
+                            "raw": "{\"player_id\":\"quos\"}"
                         },
-                        "description": "Assigns a winner to a match",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Assigns a winner to a match. Winner can only be declared if tournament is started and player comes from previous match\/bracket."
                     },
                     "response": [
                         {
@@ -335,14 +395,14 @@
                         {
                             "header": [],
                             "code": 400,
-                            "body": "{\"message\": \"Tournament has not started\"}",
-                            "name": "Tournament has not started"
+                            "body": "{\"message\": \"Error message\"}",
+                            "name": "Bad Request"
                         },
                         {
                             "header": [],
-                            "code": 400,
-                            "body": "{\"message\": \"Player is not winner candidate\"}",
-                            "name": "Player not candidate"
+                            "code": 401,
+                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "name": "Unauthorized"
                         },
                         {
                             "header": [],
@@ -370,7 +430,7 @@
                                 {
                                     "id": "player",
                                     "key": "player",
-                                    "value": "1",
+                                    "value": "15",
                                     "description": ""
                                 }
                             ]
@@ -419,7 +479,7 @@
                                 {
                                     "id": "player",
                                     "key": "player",
-                                    "value": "6",
+                                    "value": "18",
                                     "description": ""
                                 }
                             ]
@@ -477,7 +537,7 @@
                                 {
                                     "id": "player",
                                     "key": "player",
-                                    "value": "10",
+                                    "value": "20",
                                     "description": ""
                                 }
                             ]
@@ -544,9 +604,15 @@
                                     "value": "10",
                                     "description": "Defaults to ```10```. Values less than 1 will default to 1.",
                                     "disabled": false
+                                },
+                                {
+                                    "key": "user",
+                                    "value": "14",
+                                    "description": "Get tournaments owned by specified user with id.",
+                                    "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/tournaments?page=1&name=&limit=10"
+                            "raw": "{{baseUrl}}\/tournaments?page=1&name=&limit=10&user=14"
                         },
                         "method": "GET",
                         "header": [
@@ -604,12 +670,15 @@
                             "mode": "raw",
                             "raw": "{\"name\":\"Tournament Awesome\",\"description\":\"Lorem ipsum dolor sit...\"}"
                         },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": [
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "name": "Unauthorized"
+                        },
                         {
                             "header": [],
                             "code": 201,
@@ -655,7 +724,7 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "10",
+                                    "value": "19",
                                     "description": ""
                                 }
                             ]
@@ -704,7 +773,7 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "9",
+                                    "value": "1",
                                     "description": ""
                                 }
                             ]
@@ -724,12 +793,15 @@
                             "mode": "raw",
                             "raw": "{\"name\":\"Adi\"}"
                         },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Only tournament owner can create a player in a tournament."
                     },
                     "response": [
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "name": "Unauthorized"
+                        },
                         {
                             "header": [],
                             "code": 201,
@@ -762,7 +834,7 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "17",
+                                    "value": "10",
                                     "description": ""
                                 }
                             ]
@@ -811,7 +883,7 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "8",
+                                    "value": "16",
                                     "description": ""
                                 }
                             ]
@@ -831,7 +903,7 @@
                             "mode": "raw",
                             "raw": "{\"name\":\"Tournament Awesome\",\"description\":\"Lorem ipsum dolor sit...\"}"
                         },
-                        "description": "",
+                        "description": "Tournament can only be replaces\/edited by tournament owner.",
                         "auth": {
                             "type": "noauth"
                         }
@@ -869,7 +941,7 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "6",
+                                    "value": "12",
                                     "description": ""
                                 }
                             ]
@@ -886,10 +958,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Tournament can only be deleted by tournament owner."
                     },
                     "response": [
                         {
@@ -897,6 +966,12 @@
                             "code": 200,
                             "body": "{\"message\": \"Tournament deleted\"}",
                             "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "name": "Unauthorized"
                         },
                         {
                             "header": [],
@@ -918,7 +993,7 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "6",
+                                    "value": "1",
                                     "description": ""
                                 }
                             ]
@@ -935,10 +1010,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "Start a tournament. Tournament can only be started if all initial brackets are filled.",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Start a tournament. Tournament can only be started if all initial brackets are filled and can only be started by tournamnet owner."
                     },
                     "response": [
                         {
@@ -950,14 +1022,14 @@
                         {
                             "header": [],
                             "code": 400,
-                            "body": "{\"message\": \"Tournament already started\"}",
-                            "name": "Tournament started"
+                            "body": "{\"message\": \"Error message\"}",
+                            "name": "Bad Request"
                         },
                         {
                             "header": [],
-                            "code": 400,
-                            "body": "{\"message\": \"Please fill all initial brackets before starting tournament\"}",
-                            "name": "Brackets not full"
+                            "code": 401,
+                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "name": "Unauthorized"
                         },
                         {
                             "header": [],

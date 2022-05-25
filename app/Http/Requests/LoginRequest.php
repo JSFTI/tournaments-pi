@@ -43,7 +43,7 @@ class LoginRequest extends FormRequest
                 $username = request()->username;
                 if($username){
                     $user = User::where('name', $username)->select('password')->first();
-                    if(!password_verify($value, $user->password)){
+                    if($user?->password && !password_verify($value, $user->password)){
                         $fail('Wrong password');
                     }
                 }

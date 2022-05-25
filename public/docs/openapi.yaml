@@ -7,6 +7,63 @@ servers:
   -
     url: 'http://localhost:8000'
 paths:
+  /me:
+    get:
+      summary: 'Get Current User'
+      description: 'Get current authenticated user.'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: username
+                  email: name@example.com
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                    description: 'Current authenticated user ID.'
+                  name:
+                    type: string
+                    example: username
+                    description: 'Current authenticated user username.'
+                  email:
+                    type: string
+                    example: name@example.com
+                    description: 'Current authenticated user email.'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated
+      tags:
+        - Endpoints
   '/tournaments/{tournament}/brackets':
     get:
       summary: 'Get brackets'
@@ -16,12 +73,12 @@ paths:
           in: query
           name: dataStructure
           description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-          example: facere
+          example: rerum
           required: false
           schema:
             type: string
             description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-            example: facere
+            example: rerum
         -
           in: header
           name: Content-Type
@@ -115,18 +172,18 @@ paths:
       security: []
     put:
       summary: 'Create new brackets or replace old brackets.'
-      description: "Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.\nThis endpoint can be called again to randomly insert recently added players into the brackets.\n\n<aside class=\"danger\">Calling this endpoint replaces previously generated bracket.</aside>\n\n<aside class=\"info\">No body parameters are required for this end-point. Any body parameters will be ignored</aside>"
+      description: "Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.\nThis endpoint can be called again to randomly insert recently added players into the brackets.<br />\nOnly tournament owner can create or replace brackets.\n\n<aside class=\"danger\">Calling this endpoint replaces previously generated bracket.</aside>\n\n<aside class=\"info\">No body parameters are required for this end-point. Any body parameters will be ignored</aside>"
       parameters:
         -
           in: query
           name: dataStructure
           description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-          example: ut
+          example: dolor
           required: false
           schema:
             type: string
             description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-            example: ut
+            example: dolor
         -
           in: query
           name: empty
@@ -215,6 +272,18 @@ paths:
                     type: string
                     example: /tournaments/2
                     description: 'URL to the tournament.'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated
         404:
           description: 'Not Found'
           content:
@@ -229,13 +298,12 @@ paths:
                     example: 'Reason of error'
       tags:
         - 'Manage Brackets'
-      security: []
     parameters:
       -
         in: path
         name: tournament
         description: ''
-        example: 15
+        example: 4
         required: true
         schema:
           type: integer
@@ -258,7 +326,43 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Player upserted'
+                properties:
+                  message:
+                    type: string
+                    example: 'Player upserted'
+        400:
+          description: 'Bad Request'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Error message'
+                properties:
+                  message:
+                    type: string
+                    example: 'Error message'
+        404:
+          description: 'Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Reason of error'
+                properties:
+                  message:
+                    type: string
+                    example: 'Reason of error'
       tags:
         - 'Manage Brackets'
       requestBody:
@@ -271,14 +375,13 @@ paths:
                 player_id:
                   type: integer
                   description: 'Target player.'
-                  example: 16
-      security: []
+                  example: 20
     parameters:
       -
         in: path
         name: bracket
         description: ''
-        example: 6
+        example: 5
         required: true
         schema:
           type: integer
@@ -442,7 +545,7 @@ paths:
         in: path
         name: tournament
         description: ''
-        example: 5
+        example: 18
         required: true
         schema:
           type: integer
@@ -450,14 +553,14 @@ paths:
         in: path
         name: match_num
         description: ''
-        example: 12
+        example: 6
         required: true
         schema:
           type: integer
   '/tournaments/{tournament}/matches/{match_num}/winner':
     put:
       summary: 'Declare Match Winner'
-      description: 'Assigns a winner to a match'
+      description: 'Assigns a winner to a match. Winner can only be declared if tournament is started and player comes from previous match/bracket.'
       parameters:
         -
           in: header
@@ -487,17 +590,29 @@ paths:
                     type: string
                     example: 'Winner declared'
         400:
-          description: 'Player not candidate'
+          description: 'Bad Request'
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: 'Player is not winner candidate'
+                  message: 'Error message'
                 properties:
                   message:
                     type: string
-                    example: 'Player is not winner candidate'
+                    example: 'Error message'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated
         404:
           description: 'Not Found'
           content:
@@ -522,16 +637,15 @@ paths:
                 player_id:
                   type: string
                   description: 'The winner of the match.'
-                  example: quia
+                  example: quos
               required:
                 - player_id
-      security: []
     parameters:
       -
         in: path
         name: tournament
         description: ''
-        example: 16
+        example: 17
         required: true
         schema:
           type: integer
@@ -548,7 +662,7 @@ paths:
             value: ''
           present:
             summary: 'When the value is present'
-            value: 6
+            value: 1
   '/players/{player}':
     get:
       summary: 'Get a player'
@@ -776,7 +890,7 @@ paths:
         in: path
         name: player
         description: ''
-        example: 1
+        example: 15
         required: true
         schema:
           type: integer
@@ -815,6 +929,16 @@ paths:
             type: integer
             description: 'Defaults to ```10```. Values less than 1 will default to 1.'
             example: 10
+        -
+          in: query
+          name: user
+          description: 'Get tournaments owned by specified user with id.'
+          example: 14
+          required: false
+          schema:
+            type: integer
+            description: 'Get tournaments owned by specified user with id.'
+            example: 14
         -
           in: header
           name: Content-Type
@@ -919,6 +1043,18 @@ paths:
           schema:
             type: string
       responses:
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated
         201:
           description: Created
           content:
@@ -998,7 +1134,6 @@ paths:
                   example: 'Lorem ipsum dolor sit...'
               required:
                 - name
-      security: []
   '/tournaments/{tournament}/players':
     get:
       summary: 'Get players of a tournament'
@@ -1119,7 +1254,7 @@ paths:
       security: []
     post:
       summary: 'Create a player in a tournament'
-      description: ''
+      description: 'Only tournament owner can create a player in a tournament.'
       parameters:
         -
           in: header
@@ -1136,6 +1271,18 @@ paths:
           schema:
             type: string
       responses:
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated
         201:
           description: Created
           content:
@@ -1219,13 +1366,12 @@ paths:
                   example: Adi
               required:
                 - name
-      security: []
     parameters:
       -
         in: path
         name: tournament
         description: ''
-        example: 10
+        example: 19
         required: true
         schema:
           type: integer
@@ -1309,7 +1455,7 @@ paths:
       security: []
     put:
       summary: 'Replace a tournament'
-      description: ''
+      description: 'Tournament can only be replaces/edited by tournament owner.'
       parameters:
         -
           in: header
@@ -1420,7 +1566,7 @@ paths:
       security: []
     delete:
       summary: 'Delete a tournament'
-      description: ''
+      description: 'Tournament can only be deleted by tournament owner.'
       parameters:
         -
           in: header
@@ -1449,6 +1595,18 @@ paths:
                   message:
                     type: string
                     example: 'Tournament deleted'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated
         404:
           description: 'Not Found'
           content:
@@ -1463,20 +1621,19 @@ paths:
                     example: 'Reason of error'
       tags:
         - 'Tournament Management'
-      security: []
     parameters:
       -
         in: path
         name: tournament
         description: ''
-        example: 17
+        example: 10
         required: true
         schema:
           type: integer
   '/tournaments/{tournament}/start':
     put:
       summary: 'Start Tournament'
-      description: 'Start a tournament. Tournament can only be started if all initial brackets are filled.'
+      description: 'Start a tournament. Tournament can only be started if all initial brackets are filled and can only be started by tournamnet owner.'
       parameters:
         -
           in: header
@@ -1506,17 +1663,29 @@ paths:
                     type: string
                     example: 'Tournament started'
         400:
-          description: 'Brackets not full'
+          description: 'Bad Request'
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: 'Please fill all initial brackets before starting tournament'
+                  message: 'Error message'
                 properties:
                   message:
                     type: string
-                    example: 'Please fill all initial brackets before starting tournament'
+                    example: 'Error message'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated
         404:
           description: 'Not Found'
           content:
@@ -1531,17 +1700,19 @@ paths:
                     example: 'Reason of error'
       tags:
         - 'Tournament Management'
-      security: []
     parameters:
       -
         in: path
         name: tournament
         description: ''
-        example: 6
+        example: 1
         required: true
         schema:
           type: integer
 tags:
+  -
+    name: Endpoints
+    description: ''
   -
     name: 'Manage Brackets'
     description: "\nAPI end-points to manage tournament brackets."

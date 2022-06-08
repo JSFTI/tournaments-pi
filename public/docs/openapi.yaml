@@ -14,6 +14,13 @@ paths:
       parameters:
         -
           in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
           name: Content-Type
           description: ''
           example: application/json
@@ -73,12 +80,12 @@ paths:
           in: query
           name: dataStructure
           description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-          example: rerum
+          example: ut
           required: false
           schema:
             type: string
             description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-            example: rerum
+            example: ut
         -
           in: header
           name: Content-Type
@@ -178,12 +185,12 @@ paths:
           in: query
           name: dataStructure
           description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-          example: dolor
+          example: aut
           required: false
           schema:
             type: string
             description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-            example: dolor
+            example: aut
         -
           in: query
           name: empty
@@ -194,6 +201,13 @@ paths:
             type: boolean
             description: 'Defaults to "true". If ```empty``` is specified, players will not be added automatically. Refer to **Upsert Player in Bracket**.'
             example: true
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
         -
           in: header
           name: Content-Type
@@ -303,7 +317,7 @@ paths:
         in: path
         name: tournament
         description: ''
-        example: 4
+        example: 7
         required: true
         schema:
           type: integer
@@ -312,6 +326,13 @@ paths:
       summary: 'Upsert Player in Bracket'
       description: "Insert a player to a bracket or replace a player in a bracket. Upsert can only be done if tournament has not started yet.\n\n<aside class=\"info\">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.</aside>"
       parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
         -
           in: header
           name: Content-Type
@@ -375,13 +396,13 @@ paths:
                 player_id:
                   type: integer
                   description: 'Target player.'
-                  example: 20
+                  example: 4
     parameters:
       -
         in: path
         name: bracket
         description: ''
-        example: 5
+        example: 3
         required: true
         schema:
           type: integer
@@ -545,7 +566,7 @@ paths:
         in: path
         name: tournament
         description: ''
-        example: 18
+        example: 17
         required: true
         schema:
           type: integer
@@ -553,7 +574,7 @@ paths:
         in: path
         name: match_num
         description: ''
-        example: 6
+        example: 18
         required: true
         schema:
           type: integer
@@ -562,6 +583,13 @@ paths:
       summary: 'Declare Match Winner'
       description: 'Assigns a winner to a match. Winner can only be declared if tournament is started and player comes from previous match/bracket.'
       parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
         -
           in: header
           name: Content-Type
@@ -637,7 +665,7 @@ paths:
                 player_id:
                   type: string
                   description: 'The winner of the match.'
-                  example: quos
+                  example: nam
               required:
                 - player_id
     parameters:
@@ -645,7 +673,7 @@ paths:
         in: path
         name: tournament
         description: ''
-        example: 17
+        example: 15
         required: true
         schema:
           type: integer
@@ -662,7 +690,7 @@ paths:
             value: ''
           present:
             summary: 'When the value is present'
-            value: 1
+            value: 16
   '/players/{player}':
     get:
       summary: 'Get a player'
@@ -890,7 +918,7 @@ paths:
         in: path
         name: player
         description: ''
-        example: 15
+        example: 13
         required: true
         schema:
           type: integer
@@ -933,12 +961,12 @@ paths:
           in: query
           name: user
           description: 'Get tournaments owned by specified user with id.'
-          example: 14
+          example: 15
           required: false
           schema:
             type: integer
             description: 'Get tournaments owned by specified user with id.'
-            example: 14
+            example: 15
         -
           in: header
           name: Content-Type
@@ -1028,6 +1056,13 @@ paths:
       summary: 'Create a tournament'
       description: ''
       parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
         -
           in: header
           name: Content-Type
@@ -1258,6 +1293,13 @@ paths:
       parameters:
         -
           in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
           name: Content-Type
           description: ''
           example: application/json
@@ -1371,7 +1413,7 @@ paths:
         in: path
         name: tournament
         description: ''
-        example: 19
+        example: 2
         required: true
         schema:
           type: integer
@@ -1570,6 +1612,13 @@ paths:
       parameters:
         -
           in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+        -
+          in: header
           name: Content-Type
           description: ''
           example: application/json
@@ -1626,7 +1675,7 @@ paths:
         in: path
         name: tournament
         description: ''
-        example: 10
+        example: 16
         required: true
         schema:
           type: integer
@@ -1635,6 +1684,13 @@ paths:
       summary: 'Start Tournament'
       description: 'Start a tournament. Tournament can only be started if all initial brackets are filled and can only be started by tournamnet owner.'
       parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
         -
           in: header
           name: Content-Type
@@ -1725,3 +1781,12 @@ tags:
   -
     name: 'Tournament Management'
     description: "\nAPIS for managing tournaments"
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: ''
+security:
+  -
+    default: []

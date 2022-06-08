@@ -20,14 +20,14 @@ endpoints:
         name: tournament
         description: ''
         required: true
-        example: 18
+        example: 17
         type: integer
         custom: []
       match_num:
         name: match_num
         description: ''
         required: true
-        example: 6
+        example: 18
         type: integer
         custom: []
     queryParameters: []
@@ -146,6 +146,7 @@ endpoints:
       authenticated: true
       custom: []
     headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -153,14 +154,14 @@ endpoints:
         name: tournament
         description: ''
         required: true
-        example: 17
+        example: 15
         type: integer
         custom: []
       match_num:
         name: match_num
         description: 'Match number of a tournament.'
         required: false
-        example: 1
+        example: 16
         type: integer
         custom: []
     queryParameters: []
@@ -169,7 +170,7 @@ endpoints:
         name: player_id
         description: 'The winner of the match.'
         required: true
-        example: quos
+        example: nam
         type: string
         custom: []
     responses:

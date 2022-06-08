@@ -44,7 +44,7 @@ endpoints:
         name: user
         description: 'Get tournaments owned by specified user with id.'
         required: false
-        example: 14
+        example: 15
         type: integer
         custom: []
     bodyParameters: []
@@ -139,6 +139,7 @@ endpoints:
       authenticated: true
       custom: []
     headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -212,7 +213,7 @@ endpoints:
         name: tournament
         description: ''
         required: true
-        example: 19
+        example: 2
         type: integer
         custom: []
     queryParameters:
@@ -316,6 +317,7 @@ endpoints:
       authenticated: true
       custom: []
     headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -323,7 +325,7 @@ endpoints:
         name: tournament
         description: ''
         required: true
-        example: 1
+        example: 2
         type: integer
         custom: []
     queryParameters: []
@@ -396,7 +398,7 @@ endpoints:
         name: tournament
         description: ''
         required: true
-        example: 10
+        example: 16
         type: integer
         custom: []
     queryParameters: []
@@ -470,7 +472,7 @@ endpoints:
         name: tournament
         description: ''
         required: true
-        example: 16
+        example: 12
         type: integer
         custom: []
     queryParameters: []
@@ -539,6 +541,7 @@ endpoints:
       authenticated: true
       custom: []
     headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters:
@@ -546,7 +549,7 @@ endpoints:
         name: tournament
         description: ''
         required: true
-        example: 12
+        example: 9
         type: integer
         custom: []
     queryParameters: []
@@ -581,6 +584,7 @@ endpoints:
       authenticated: true
       custom: []
     headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters:

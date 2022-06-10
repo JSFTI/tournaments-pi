@@ -18,7 +18,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Already authenticated'], 401);
         }
         if(!$token = auth()->attempt(['name' => $request->username, 'password' => $request->password])){
-            return response()->json(['message' => 'Authentication failed'], 401);
+            return response()->json(['message' => 'Authentication failed'], 422);
         }
 
         $user = auth()->user();

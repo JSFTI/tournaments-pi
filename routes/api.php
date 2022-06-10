@@ -42,16 +42,12 @@ Route::group(['prefix' => 'tournaments', 'controller' => TournamentController::c
     Route::put('/{tournament}/start', 'start');
 
     Route::group(['prefix' => '{tournament}/players', 'controller' => TournamentPlayerController::class], function(){
-        /* GET      /tournaments/{tournament}/players */
         Route::get('/', 'index')->name('tournaments.players');
-        /* POST     /tournaments/{tournament}/players */
         Route::post('/', 'create');
     });
 
     Route::group(['prefix' => '{tournament}/brackets', 'controller' => TournamentBracketController::class], function(){
-        /* GET      /tournaments/{tournament}/brackets */
         Route::get('/', 'index')->name('tournaments.brackets');
-        /* PUT      /tournaments/{tournament}/brackets */
         Route::put('/', 'create');
     });
 

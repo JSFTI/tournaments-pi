@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 /**
- * Misc
+ * @group Misc
  */
 class MeController extends Controller
 {
@@ -39,6 +39,18 @@ class MeController extends Controller
         ]);
     }
 
+    /**
+     * Edit Current User
+     * 
+     * Edit current authenticated user.
+     * 
+     * @responseField token string Return a new JWT token.
+     * 
+     * @authenticated
+     * @response 200 scenario="Success" {"id": "JWT Token"}
+     * @response 401 scenario="Unauthorized" {"message": "Unauthenticated"}
+     * @responseFile 422 scenario="Unprocessable Entity" ./responses/auth/editme.error.json
+     */
     public function edit(EditProfileRequest $request){
         $user = User::find(auth()->user()->id);
         $user->name = $request->username;
@@ -50,6 +62,18 @@ class MeController extends Controller
         return response()->json(['token' => $token]);
     }
 
+    /**
+     * Edit Current Password
+     * 
+     * Change current authenticated user's password.
+     * 
+     * @responseField message string Status message.
+     * 
+     * @authenticated
+     * @response 200 scenario="Success" {"message": "Password changed"}
+     * @response 401 scenario="Unauthorized" {"message": "Unauthenticated"}
+     * @responseFile 422 scenario="Unprocessable Entity" ./responses/auth/editpassword.error.json
+     */
     public function editPassword(ChangeProfilePasswordRequest $request){
         $user = User::find(auth()->user()->id);
         $user->password = password_hash($request->password, PASSWORD_ARGON2ID);

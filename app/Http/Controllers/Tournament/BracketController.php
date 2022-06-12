@@ -110,6 +110,7 @@ class BracketController extends Controller
      * Get brackets
      * 
      * @queryParam dataStructure enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.
+     * @urlParam tournament int required Tournament ID
      * 
      * @responseField brackets object[] Array of bracket objects.
      * @responseField bracket.id int Id of match bracket.
@@ -181,6 +182,8 @@ class BracketController extends Controller
      * 
      * @queryParam dataStructure enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.
      * @queryParam empty boolean Defaults to "true". If ```empty``` is specified, players will not be added automatically. Refer to **Upsert Player in Bracket**.
+     * 
+     * @urlParam tournament int required Tournament ID
      * 
      * @responseField brackets object[] Array of bracket objects.
      * @responseField bracket.id int Id of match bracket.

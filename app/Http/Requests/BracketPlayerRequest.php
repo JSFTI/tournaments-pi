@@ -35,7 +35,7 @@ class BracketPlayerRequest extends FormRequest
     public function rules()
     {
         return [
-            'player_id' => ['required', Rule::exists('players', 'id')->where(function($q){
+            'player_id' => ['required', 'integer', Rule::exists('players', 'id')->where(function($q){
                 $bracket = Bracket::select('tournament_id')->where('id', request()->bracket)->first();
                 return $q->where('tournament_id', $bracket->tournament_id);
             })]
@@ -46,6 +46,7 @@ class BracketPlayerRequest extends FormRequest
     {
         return [
             'player_id.required' => 'Player ID is required',
+            'player_id.integer' => 'Player ID must be an integer',
             'player_id.exists' => 'Player is not part of this tournament'
         ];
     }

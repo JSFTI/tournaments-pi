@@ -1,0 +1,11 @@
+{
+  "message": "Please provide a registered username (and 1 more error)",
+  "errors": {
+      "username": [
+          "Please provide a registered username"
+      ],
+      "password": [
+          "Plese provide the password"
+      ]
+  }
+}

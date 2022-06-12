@@ -34,7 +34,7 @@ class WinnerRequest extends FormRequest
     {
         return [
             'player_id' => [
-                'required',
+                'required', 'integer',
                 function($attr, $value, $fail){
                     $req = request();
                     $match = Bracket::where('tournament_id', $req->tournament)
@@ -50,7 +50,8 @@ class WinnerRequest extends FormRequest
     public function messages()
     {
         return [
-            'player_id.required' => 'Please provide winner\'s player ID'
+            'player_id.required' => 'Please provide winner\'s player ID',            
+            'player_id.integer' => 'Player ID must be an integer'
         ];
     }
 }

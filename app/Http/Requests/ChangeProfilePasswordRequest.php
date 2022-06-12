@@ -48,7 +48,8 @@ class ChangeProfilePasswordRequest extends FormRequest
                     $fail('Wrong password');
                 }
             }],
-            'password' => ['required', 'confirmed']
+            'password' => ['required', 'confirmed'],
+            'password_confirmation' => []
         ];
     }
 

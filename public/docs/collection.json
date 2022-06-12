@@ -10,25 +10,25 @@
     ],
     "info": {
         "name": "Tournaments API",
-        "_postman_id": "9255e320-286b-4b5d-8627-5ff73a00cdd5",
+        "_postman_id": "509847c5-d383-4ec2-a9de-8dcc0ffc89d1",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
         {
-            "name": "Endpoints",
+            "name": "Authentication Endpoints",
             "description": "",
             "item": [
                 {
-                    "name": "Get Current User",
+                    "name": "Login",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "me",
+                            "path": "login",
                             "query": [],
-                            "raw": "{{baseUrl}}\/me"
+                            "raw": "{{baseUrl}}\/login"
                         },
-                        "method": "GET",
+                        "method": "POST",
                         "header": [
                             {
                                 "key": "Content-Type",
@@ -39,21 +39,83 @@
                                 "value": "application\/json"
                             }
                         ],
-                        "body": null,
-                        "description": "Get current authenticated user."
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"username\":\"username\",\"password\":\"password\"}"
+                        },
+                        "description": "Returns JWT, user ID, and username if credentials match.",
+                        "auth": {
+                            "type": "noauth"
+                        }
                     },
                     "response": [
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"id\": 1, \"name\": \"username\", \"email\": \"name@example.com\"}",
-                            "name": "Success"
+                            "body": "{\"message\": \"Login successful\", \"token\": \"JWT TOKEN\", \"user\": {\"id\": 1, \"name\": \"userame\"}}",
+                            "name": "OK"
                         },
                         {
                             "header": [],
                             "code": 401,
-                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "body": "{\"message\": \"Already authenticated\"}",
                             "name": "Unauthorized"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Please provide a registered username (and 1 more error)\",\n  \"errors\": {\n      \"username\": [\n          \"Please provide a registered username\"\n      ],\n      \"password\": [\n          \"Plese provide the password\"\n      ]\n  }\n}",
+                            "name": "Unprocessable Entity"
+                        }
+                    ]
+                },
+                {
+                    "name": "Register",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"username\":\"username\",\"email\":\"email@example.com\",\"password\":\"password\",\"password_confirmation\":\"password\"}"
+                        },
+                        "description": "Registers a new user. Returns JWT, user ID, and username.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"message\": \"Registration successful\", \"token\": \"JWT TOKEN\", \"user\": {\"id\": 1, \"name\": \"userame\"}}",
+                            "name": "OK"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\": \"Already authenticated\"}",
+                            "name": "Unauthorized"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Please provide a new username (and 2 more errors)\",\n  \"errors\": {\n      \"username\": [\n          \"Please provide a new username\"\n      ],\n      \"email\": [\n          \"Please provide an email\"\n      ],\n      \"password\": [\n          \"Please provide a password\"\n      ]\n  }\n}",
+                            "name": "Unprocessable Entity"
                         }
                     ]
                 }
@@ -72,18 +134,18 @@
                             "query": [
                                 {
                                     "key": "dataStructure",
-                                    "value": "ut",
+                                    "value": "omnis",
                                     "description": "enum(tree,list) Defaults to \"list\". Returns created brackets in tree or list.For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.For **lists**, brackets will be structured in an **```array```**.",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/brackets?dataStructure=ut",
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/brackets?dataStructure=omnis",
                             "variable": [
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "7",
-                                    "description": ""
+                                    "value": "14",
+                                    "description": "Tournament ID"
                                 }
                             ]
                         },
@@ -161,24 +223,24 @@
                             "query": [
                                 {
                                     "key": "dataStructure",
-                                    "value": "aut",
+                                    "value": "beatae",
                                     "description": "enum(tree,list) Defaults to \"list\". Returns created brackets in tree or list.For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.For **lists**, brackets will be structured in an **```array```**.",
                                     "disabled": false
                                 },
                                 {
                                     "key": "empty",
-                                    "value": "1",
+                                    "value": "",
                                     "description": "Defaults to \"true\". If ```empty``` is specified, players will not be added automatically. Refer to **Upsert Player in Bracket**.",
-                                    "disabled": false
+                                    "disabled": true
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/brackets?dataStructure=aut&empty=1",
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/brackets?dataStructure=beatae&empty=",
                             "variable": [
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "8",
-                                    "description": ""
+                                    "value": "1",
+                                    "description": "Tournament ID"
                                 }
                             ]
                         },
@@ -241,8 +303,8 @@
                                 {
                                     "id": "bracket",
                                     "key": "bracket",
-                                    "value": "3",
-                                    "description": ""
+                                    "value": "14",
+                                    "description": "Bracket ID"
                                 }
                             ]
                         },
@@ -259,7 +321,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"player_id\":4}"
+                            "raw": "{\"player_id\":13}"
                         },
                         "description": "Insert a player to a bracket or replace a player in a bracket. Upsert can only be done if tournament has not started yet.\n\n<aside class=\"info\">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.<\/aside>"
                     },
@@ -302,14 +364,14 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "17",
+                                    "value": "9",
                                     "description": ""
                                 },
                                 {
                                     "id": "match_num",
                                     "key": "match_num",
-                                    "value": "18",
-                                    "description": ""
+                                    "value": "12",
+                                    "description": "Match number of a tournament"
                                 }
                             ]
                         },
@@ -357,13 +419,13 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "15",
-                                    "description": ""
+                                    "value": "8",
+                                    "description": "Tournament ID"
                                 },
                                 {
                                     "id": "match_num",
                                     "key": "match_num",
-                                    "value": "16",
+                                    "value": "10",
                                     "description": "Match number of a tournament."
                                 }
                             ]
@@ -381,7 +443,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"player_id\":\"nam\"}"
+                            "raw": "{\"player_id\":16}"
                         },
                         "description": "Assigns a winner to a match. Winner can only be declared if tournament is started and player comes from previous match\/bracket."
                     },
@@ -415,9 +477,276 @@
             ]
         },
         {
+            "name": "Misc",
+            "description": "",
+            "item": [
+                {
+                    "name": "Get Current User",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "me",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/me"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Get current authenticated user."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"id\": 1, \"name\": \"username\", \"email\": \"name@example.com\"}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "name": "Unauthorized"
+                        }
+                    ]
+                },
+                {
+                    "name": "Edit Current User",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "me",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/me"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"username\":\"username\",\"email\":\"email@example.com\"}"
+                        },
+                        "description": "Edit current authenticated user."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"id\": \"JWT Token\"}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "name": "Unauthorized"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Please provide a new username (and 1 more error)\",\n  \"errors\": {\n      \"username\": [\n          \"Please provide a new username\"\n      ],\n      \"email\": [\n          \"Please provide an email\"\n      ]\n  }\n}",
+                            "name": "Unprocessable Entity"
+                        }
+                    ]
+                },
+                {
+                    "name": "Edit Current Password",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "me\/password",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/me\/password"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"oldPassword\":\"password\",\"password\":\"newPassword\",\"password_confirmation\":\"newPassword\"}"
+                        },
+                        "description": "Change current authenticated user's password."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"message\": \"Password changed\"}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "name": "Unauthorized"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Please give the old password (and 1 more error)\",\n  \"errors\": {\n      \"oldPassword\": [\n          \"Please give the old password\"\n      ],\n      \"password\": [\n          \"Please provide a password\"\n      ]\n  }\n}",
+                            "name": "Unprocessable Entity"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "Player Management",
             "description": "\nAPIS for managing players",
             "item": [
+                {
+                    "name": "Get players of a tournament",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:tournament\/players",
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1",
+                                    "description": "Defaults to ```1```. Values less than 1 will default to 1.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "name",
+                                    "value": "",
+                                    "description": "Search for player that contains ```name``` keyword.",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10",
+                                    "description": "Defaults to ```10```. Values less than 1 will default to 1.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/players?page=1&name=&limit=10",
+                            "variable": [
+                                {
+                                    "id": "tournament",
+                                    "key": "tournament",
+                                    "value": "12",
+                                    "description": "Tournament ID"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Players list is ordered in descending order by creation time.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"count\": 100,\n  \"total_pages\": 10,\n  \"page\": 1,\n  \"next_page\": \"\/tournaments\/1\/players?page=2\",\n  \"prev_page\": null,\n  \"results\": [\n    {\n      \"id\": 1,\n      \"name\": \"Adi\",\n      \"_url\": \"\/players\/1\",\n      \"tournament_url\": \"\/tournaments\/1\",\n      \"created_at\": \"1970-01-01 00:00:00\",\n      \"updated_at\": \"1970-01-01 00:00:00\"\n    }\n  ]\n}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
+                        }
+                    ]
+                },
+                {
+                    "name": "Create a player in a tournament",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:tournament\/players",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/players",
+                            "variable": [
+                                {
+                                    "id": "tournament",
+                                    "key": "tournament",
+                                    "value": "2",
+                                    "description": "Tournament ID"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Adi\"}"
+                        },
+                        "description": "Only tournament owner can create a player in a tournament."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\": \"Unauthenticated\"}",
+                            "name": "Unauthorized"
+                        },
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Adi\",\n  \"_url\": \"\/players\/1\",\n  \"tournament_url\": \"\/tournaments\/1\",\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\"\n}",
+                            "name": "Created"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"message\": \"Please give a name to the tournament (and 1 more error)\",\n  \"errors\": {\n      \"name\": [\n          \"Please give a name to the tournament\"\n      ],\n      \"description\": [\n          \"Description must be under 500 characters\"\n      ]\n  }\n}",
+                            "name": "Invalid Request Body"
+                        }
+                    ]
+                },
                 {
                     "name": "Get a player",
                     "request": {
@@ -430,8 +759,8 @@
                                 {
                                     "id": "player",
                                     "key": "player",
-                                    "value": "13",
-                                    "description": ""
+                                    "value": "2",
+                                    "description": "Player ID"
                                 }
                             ]
                         },
@@ -479,8 +808,8 @@
                                 {
                                     "id": "player",
                                     "key": "player",
-                                    "value": "4",
-                                    "description": ""
+                                    "value": "14",
+                                    "description": "Player ID"
                                 }
                             ]
                         },
@@ -499,10 +828,7 @@
                             "mode": "raw",
                             "raw": "{\"name\":\"Adi\"}"
                         },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": [
                         {
@@ -537,8 +863,8 @@
                                 {
                                     "id": "player",
                                     "key": "player",
-                                    "value": "3",
-                                    "description": ""
+                                    "value": "5",
+                                    "description": "Player ID"
                                 }
                             ]
                         },
@@ -554,10 +880,7 @@
                             }
                         ],
                         "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": ""
                     },
                     "response": [
                         {
@@ -607,12 +930,12 @@
                                 },
                                 {
                                     "key": "user",
-                                    "value": "15",
+                                    "value": "20",
                                     "description": "Get tournaments owned by specified user with id.",
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/tournaments?page=1&name=&limit=10&user=15"
+                            "raw": "{{baseUrl}}\/tournaments?page=1&name=&limit=10&user=20"
                         },
                         "method": "GET",
                         "header": [
@@ -636,6 +959,55 @@
                             "header": [],
                             "code": 200,
                             "body": "{\n  \"count\": 100,\n  \"total_pages\": 10,\n  \"page\": 1,\n  \"next_page\": \"\/tournaments?page=2\",\n  \"prev_page\": null,\n  \"results\": [\n    {\n      \"id\": 1,\n      \"name\": \"Tournament 1\",\n      \"description\": \"The mind is willing, but the body is spongy and bruised\",\n      \"started\": false,\n      \"created_at\": \"1970-01-01 00:00:00\",\n      \"updated_at\": \"1970-01-01 00:00:00\",\n      \"_url\": \"\/tournaments\/1\"\n    }\n  ]\n}",
+                            "name": "Success"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"Reason of error\"\n}",
+                            "name": "Not Found"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get a tournament",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "tournaments\/:tournament",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/tournaments\/:tournament",
+                            "variable": [
+                                {
+                                    "id": "tournament",
+                                    "key": "tournament",
+                                    "value": "16",
+                                    "description": "Tournament ID"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"Tournament 1\",\n  \"description\": \"The mind is willing, but the body is spongy and bruised\",\n  \"started\": false,\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\",\n  \"_url\": \"\/tournaments\/1\"\n}",
                             "name": "Success"
                         },
                         {
@@ -694,184 +1066,6 @@
                     ]
                 },
                 {
-                    "name": "Get players of a tournament",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "tournaments\/:tournament\/players",
-                            "query": [
-                                {
-                                    "key": "page",
-                                    "value": "1",
-                                    "description": "Defaults to ```1```. Values less than 1 will default to 1.",
-                                    "disabled": false
-                                },
-                                {
-                                    "key": "name",
-                                    "value": "",
-                                    "description": "Search for player that contains ```name``` keyword.",
-                                    "disabled": true
-                                },
-                                {
-                                    "key": "limit",
-                                    "value": "10",
-                                    "description": "Defaults to ```10```. Values less than 1 will default to 1.",
-                                    "disabled": false
-                                }
-                            ],
-                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/players?page=1&name=&limit=10",
-                            "variable": [
-                                {
-                                    "id": "tournament",
-                                    "key": "tournament",
-                                    "value": "2",
-                                    "description": ""
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "Players list is ordered in descending order by creation time.",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"count\": 100,\n  \"total_pages\": 10,\n  \"page\": 1,\n  \"next_page\": \"\/tournaments\/1\/players?page=2\",\n  \"prev_page\": null,\n  \"results\": [\n    {\n      \"id\": 1,\n      \"name\": \"Adi\",\n      \"_url\": \"\/players\/1\",\n      \"tournament_url\": \"\/tournaments\/1\",\n      \"created_at\": \"1970-01-01 00:00:00\",\n      \"updated_at\": \"1970-01-01 00:00:00\"\n    }\n  ]\n}",
-                            "name": "Success"
-                        },
-                        {
-                            "header": [],
-                            "code": 404,
-                            "body": "{\n  \"message\": \"Reason of error\"\n}",
-                            "name": "Not Found"
-                        }
-                    ]
-                },
-                {
-                    "name": "Create a player in a tournament",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "tournaments\/:tournament\/players",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/tournaments\/:tournament\/players",
-                            "variable": [
-                                {
-                                    "id": "tournament",
-                                    "key": "tournament",
-                                    "value": "2",
-                                    "description": ""
-                                }
-                            ]
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"name\":\"Adi\"}"
-                        },
-                        "description": "Only tournament owner can create a player in a tournament."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 401,
-                            "body": "{\"message\": \"Unauthenticated\"}",
-                            "name": "Unauthorized"
-                        },
-                        {
-                            "header": [],
-                            "code": 201,
-                            "body": "{\n  \"id\": 1,\n  \"name\": \"Adi\",\n  \"_url\": \"\/players\/1\",\n  \"tournament_url\": \"\/tournaments\/1\",\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\"\n}",
-                            "name": "Created"
-                        },
-                        {
-                            "header": [],
-                            "code": 404,
-                            "body": "{\n  \"message\": \"Reason of error\"\n}",
-                            "name": "Not Found"
-                        },
-                        {
-                            "header": [],
-                            "code": 422,
-                            "body": "{\n  \"message\": \"Please give a name to the tournament (and 1 more error)\",\n  \"errors\": {\n      \"name\": [\n          \"Please give a name to the tournament\"\n      ],\n      \"description\": [\n          \"Description must be under 500 characters\"\n      ]\n  }\n}",
-                            "name": "Invalid Request Body"
-                        }
-                    ]
-                },
-                {
-                    "name": "Get a tournament",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "tournaments\/:tournament",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/tournaments\/:tournament",
-                            "variable": [
-                                {
-                                    "id": "tournament",
-                                    "key": "tournament",
-                                    "value": "16",
-                                    "description": ""
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"id\": 1,\n  \"name\": \"Tournament 1\",\n  \"description\": \"The mind is willing, but the body is spongy and bruised\",\n  \"started\": false,\n  \"created_at\": \"1970-01-01 00:00:00\",\n  \"updated_at\": \"1970-01-01 00:00:00\",\n  \"_url\": \"\/tournaments\/1\"\n}",
-                            "name": "Success"
-                        },
-                        {
-                            "header": [],
-                            "code": 404,
-                            "body": "{\n  \"message\": \"Reason of error\"\n}",
-                            "name": "Not Found"
-                        }
-                    ]
-                },
-                {
                     "name": "Replace a tournament",
                     "request": {
                         "url": {
@@ -883,8 +1077,8 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "12",
-                                    "description": ""
+                                    "value": "17",
+                                    "description": "Tournament ID"
                                 }
                             ]
                         },
@@ -903,10 +1097,7 @@
                             "mode": "raw",
                             "raw": "{\"name\":\"Tournament Awesome\",\"description\":\"Lorem ipsum dolor sit...\"}"
                         },
-                        "description": "Tournament can only be replaces\/edited by tournament owner.",
-                        "auth": {
-                            "type": "noauth"
-                        }
+                        "description": "Tournament can only be replaces\/edited by tournament owner."
                     },
                     "response": [
                         {
@@ -941,8 +1132,8 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "9",
-                                    "description": ""
+                                    "value": "10",
+                                    "description": "Tournament ID"
                                 }
                             ]
                         },
@@ -993,8 +1184,8 @@
                                 {
                                     "id": "tournament",
                                     "key": "tournament",
-                                    "value": "1",
-                                    "description": ""
+                                    "value": "6",
+                                    "description": "Tournament ID"
                                 }
                             ]
                         },

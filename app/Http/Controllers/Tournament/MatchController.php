@@ -23,7 +23,8 @@ class MatchController extends Controller
     /**
      * Get Match by Match Number
      * 
-     * @urlParam match_num int required
+     * @urlParam match_num int required Match number of a tournament
+     * 
      * @responseField id int Id of match bracket.
      * @responseField created_at string Date bracket created.
      * @responseField updated_at string Date bracket created.
@@ -74,7 +75,8 @@ class MatchController extends Controller
      * 
      * Assigns a winner to a match. Winner can only be declared if tournament is started and player comes from previous match/bracket.
      * 
-     * @urlParam match_num Match number of a tournament.
+     * @urlParam tournament int required Tournament ID
+     * @urlParam match_num int required Match number of a tournament.
      * 
      * @authenticated
      * @response 200 scenario="Success" {"message": "Winner declared"}
@@ -105,6 +107,6 @@ class MatchController extends Controller
         $match->player_id = $request->player_id;
         $match->save();
 
-        return response()->json(['message' => 'Winner declared'], 200);
+        return response()->json(['message' => 'Winner successfully declared'], 200);
     }
 }

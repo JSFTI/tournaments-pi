@@ -1,0 +1,11 @@
+{
+  "message": "Please provide a new username (and 1 more error)",
+  "errors": {
+      "username": [
+          "Please provide a new username"
+      ],
+      "email": [
+          "Please provide an email"
+      ]
+  }
+}

@@ -28,6 +28,8 @@ class PlayerController extends Controller
      * 
      * <aside class="info">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.</aside>
      * 
+     * @urlParam bracket int required Bracket ID
+     * 
      * @authenticated
      * @bodyParam player_id int Target player.
      * 

@@ -1,7 +1,12 @@
 openapi: 3.0.3
 info:
   title: 'Tournaments API'
-  description: ''
+  description: |
+    # Overview
+    This API is created to manage simple tournament brackets.
+
+    # Authentication
+    Currently, this API can only be authenticated by using JWT. JWT can be procured by providing correct credentials from the [login](#tag/Authentication-Endpoints/paths/~1login/post) endpoint.
   version: 1.0.0
 servers:
   -
@@ -223,10 +228,6 @@ paths:
                   type: string
                   description: 'Your password.'
                   example: password
-                password_confirmation:
-                  type: string
-                  description: 'Same value as ```password```.'
-                  example: password
               required:
                 - username
                 - email
@@ -241,12 +242,12 @@ paths:
           in: query
           name: dataStructure
           description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-          example: omnis
+          example: sed
           required: false
           schema:
             type: string
             description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-            example: omnis
+            example: sed
         -
           in: header
           name: Content-Type
@@ -262,7 +263,7 @@ paths:
           schema:
             type: string
       responses:
-        0:
+        201:
           description: Created
           content:
             application/json:
@@ -341,17 +342,19 @@ paths:
     put:
       summary: 'Create new brackets or replace old brackets.'
       description: "Brackets will be filled randomly with players associated with the tournament. Brackets will be build until the final bracket.\nThis endpoint can be called again to randomly insert recently added players into the brackets.<br />\nOnly tournament owner can create or replace brackets.\n\n<aside class=\"danger\">Calling this endpoint replaces previously generated bracket.</aside>\n\n<aside class=\"info\">No body parameters are required for this end-point. Any body parameters will be ignored</aside>"
+      security:
+        - bearerAuth: []
       parameters:
         -
           in: query
           name: dataStructure
           description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-          example: beatae
+          example: veritatis
           required: false
           schema:
             type: string
             description: 'enum(tree,list) Defaults to "list". Returns created brackets in tree or list.<br/>For **trees**, brackets will be structured recursively in a **```binary tree```**, under the ```prev_match``` attribute with the last match as root.<br/>For **lists**, brackets will be structured in an **```array```**.'
-            example: beatae
+            example: veritatis
         -
           in: query
           name: empty
@@ -362,13 +365,6 @@ paths:
             type: boolean
             description: 'Defaults to "true". If ```empty``` is specified, players will not be added automatically. Refer to **Upsert Player in Bracket**.'
             example: false
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -384,7 +380,7 @@ paths:
           schema:
             type: string
       responses:
-        0:
+        201:
           description: 'Created (Brackets created)'
           content:
             application/json:
@@ -477,8 +473,8 @@ paths:
       -
         in: path
         name: tournament
-        description: 'Tournament ID'
-        example: 14
+        description: ''
+        example: 7
         required: true
         schema:
           type: integer
@@ -486,14 +482,9 @@ paths:
     put:
       summary: 'Upsert Player in Bracket'
       description: "Insert a player to a bracket or replace a player in a bracket. Upsert can only be done if tournament has not started yet.\n\n<aside class=\"info\">If upserted player is already in the tournament brackets and the bracket is already assigned to a player, then both players' position in the bracket will be swapped.</aside>"
+      security:
+        - bearerAuth: []
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -557,13 +548,13 @@ paths:
                 player_id:
                   type: integer
                   description: 'Target player.'
-                  example: 13
+                  example: 15
     parameters:
       -
         in: path
         name: bracket
-        description: 'Bracket ID'
-        example: 14
+        description: ''
+        example: 16
         required: true
         schema:
           type: integer
@@ -727,15 +718,15 @@ paths:
         in: path
         name: tournament
         description: ''
-        example: 9
+        example: 8
         required: true
         schema:
           type: integer
       -
         in: path
         name: match_num
-        description: 'Match number of a tournament'
-        example: 12
+        description: ''
+        example: 4
         required: true
         schema:
           type: integer
@@ -743,14 +734,9 @@ paths:
     put:
       summary: 'Declare Match Winner'
       description: 'Assigns a winner to a match. Winner can only be declared if tournament is started and player comes from previous match/bracket.'
+      security:
+        - bearerAuth: []
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -824,40 +810,41 @@ paths:
               type: object
               properties:
                 player_id:
-                  type: integer
+                  type: string
                   description: 'The winner of the match.'
-                  example: 16
+                  example: expedita
               required:
                 - player_id
     parameters:
       -
         in: path
         name: tournament
-        description: 'Tournament ID'
-        example: 8
+        description: ''
+        example: 18
         required: true
         schema:
           type: integer
       -
         in: path
         name: match_num
-        description: 'Match number of a tournament.'
-        example: 10
+        description: 'Optional parameter. Match number of a tournament.'
         required: true
         schema:
           type: integer
+        examples:
+          omitted:
+            summary: 'When the value is omitted'
+            value: ''
+          present:
+            summary: 'When the value is present'
+            value: 13
   /me:
     get:
       summary: 'Get Current User'
       description: 'Get current authenticated user.'
+      security:
+        - bearerAuth: []
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -914,13 +901,6 @@ paths:
       summary: 'Edit Current User'
       description: 'Edit current authenticated user.'
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -1006,16 +986,11 @@ paths:
                 - email
   /me/password:
     put:
-      summary: 'Edit Current Password'
+      summary: "Edit Current User's Password"
       description: 'Change current authenticated user''s password.'
+      security:
+        - bearerAuth: []
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -1098,10 +1073,6 @@ paths:
                 password:
                   type: string
                   description: 'New password.'
-                  example: newPassword
-                password_confirmation:
-                  type: string
-                  description: 'Confirm new password.'
                   example: newPassword
               required:
                 - oldPassword
@@ -1227,14 +1198,9 @@ paths:
     post:
       summary: 'Create a player in a tournament'
       description: 'Only tournament owner can create a player in a tournament.'
+      security:
+        - bearerAuth: []
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -1349,8 +1315,8 @@ paths:
       -
         in: path
         name: tournament
-        description: 'Tournament ID'
-        example: 12
+        description: ''
+        example: 15
         required: true
         schema:
           type: integer
@@ -1430,14 +1396,9 @@ paths:
     put:
       summary: 'Update a player'
       description: ''
+      security:
+        - bearerAuth: []
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -1539,14 +1500,9 @@ paths:
     delete:
       summary: 'Delete a player'
       description: ''
+      security:
+        - bearerAuth: []
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -1592,8 +1548,8 @@ paths:
       -
         in: path
         name: player
-        description: 'Player ID'
-        example: 2
+        description: ''
+        example: 8
         required: true
         schema:
           type: integer
@@ -1636,12 +1592,12 @@ paths:
           in: query
           name: user
           description: 'Get tournaments owned by specified user with id.'
-          example: 20
+          example: 4
           required: false
           schema:
             type: integer
             description: 'Get tournaments owned by specified user with id.'
-            example: 20
+            example: 4
         -
           in: header
           name: Content-Type
@@ -1730,14 +1686,9 @@ paths:
     post:
       summary: 'Create a tournament'
       description: ''
+      security:
+        - bearerAuth: []
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -1925,14 +1876,9 @@ paths:
     put:
       summary: 'Replace a tournament'
       description: 'Tournament can only be replaces/edited by tournament owner.'
+      security:
+        - bearerAuth: []
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -2042,14 +1988,9 @@ paths:
     delete:
       summary: 'Delete a tournament'
       description: 'Tournament can only be deleted by tournament owner.'
+      security:
+        - bearerAuth: []
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -2107,8 +2048,8 @@ paths:
       -
         in: path
         name: tournament
-        description: 'Tournament ID'
-        example: 16
+        description: ''
+        example: 19
         required: true
         schema:
           type: integer
@@ -2116,14 +2057,9 @@ paths:
     put:
       summary: 'Start Tournament'
       description: 'Start a tournament. Tournament can only be started if all initial brackets are filled and can only be started by tournamnet owner.'
+      security:
+        - bearerAuth: []
       parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
         -
           in: header
           name: Content-Type
@@ -2193,15 +2129,15 @@ paths:
       -
         in: path
         name: tournament
-        description: 'Tournament ID'
-        example: 6
+        description: ''
+        example: 11
         required: true
         schema:
           type: integer
 tags:
   -
     name: 'Authentication Endpoints'
-    description: ''
+    description: 'These endpoints can only be accessed if request **is not authenticated**'
   -
     name: 'Manage Brackets'
     description: "\nAPI end-points to manage tournament brackets."
@@ -2219,10 +2155,10 @@ tags:
     description: "\nAPIS for managing tournaments"
 components:
   securitySchemes:
-    default:
+    bearerAuth:
+      description: >
+        An autenticated request header contains an Authorization header filled with a Bearer JWT as value.<br />Example: ```Authorization: Bearer {JWT here}```
       type: http
       scheme: bearer
-      description: ''
-security:
-  -
-    default: []
+      bearerFormat: JWT
+

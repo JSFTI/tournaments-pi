@@ -14,8 +14,15 @@ use Illuminate\Http\Request;
  */
 class PlayerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => 'show']);
+    }
+
     /**
      * Get a player
+     * 
+     * @urlParam player int required Player ID
      * 
      * @responseField id integer Tournament ID.
      * @responseField name string Tournament name.
@@ -40,6 +47,9 @@ class PlayerController extends Controller
     /**
      * Update a player
      * 
+     * @urlParam player int required Player ID
+     * 
+     * @authenticated
      * @responseFile 200 scenario="Success" responses/players/get_player.json
      * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
      * @responseFile 422 scenario="Invalid Request Body" responses/players/post_player.error.json
@@ -60,6 +70,9 @@ class PlayerController extends Controller
     /**
      * Delete a player
      * 
+     * @urlParam player int required Player ID
+     * 
+     * @authenticated
      * @response 200 scenario="Success" {"status": "Success"}
      * @responseFile 404 scenario="Not Found" responses/errors/model.not_found.json
      */
